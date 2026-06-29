@@ -1,2 +1,2 @@
 # portfolio
-artist portfolio
+artist portfolio of Casey Marie

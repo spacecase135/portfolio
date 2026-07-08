@@ -3,10 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casey Marie | Portfolio</title>
+    <title>Casey Marie Studio</title>
+    <style>
+        /* BASIC FRAMEWORK STYLES */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212; /* Dark background */
+            color: #ffffff; /* White text */
+        }
+        nav {
+            background-color: #1a1a1a;
+            padding: 15px;
+            text-align: center;
+        }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        nav a:hover {
+            color: #00ffcc; /* Accent color placeholder */
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .page {
+            display: none; /* Hides all pages by default */
+        }
+        .active {
+            display: block; /* Only shows the active page */
+        }
+    </style>
 </head>
 <body>
-    <h1>Casey Marie</h1>
-    <p>Website coming soon!</p>
+
+    <!-- NAVIGATION BAR -->
+    <nav>
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="showPage('visual-art')">Visual Art</a>
+        <a onclick="showPage('music')">Music</a>
+        <a onclick="showPage('mixed-media')">Mixed Media</a>
+        <a onclick="showPage('tattoos')">Tattoos</a>
+        <a onclick="showPage('intentional-spaces')">Intentional Spaces</a>
+    </nav>
+
+    <div class="container">
+        <!-- HOME PAGE -->
+        <section id="home" class="page active">
+            <h1>Casey Marie Studio</h1>
+            <p>Welcome. This is the home page/bio placeholder. We will write your story here soon!</p>
+        </section>
+
+        <!-- VISUAL ART PAGE -->
+        <section id="visual-art" class="page">
+            <h1>Visual Art</h1>
+            <p>Visual art gallery placeholder. Images will go here later.</p>
+        </section>
+
+        <!-- MUSIC PAGE -->
+        <section id="music" class="page">
+            <h1>Music</h1>
+            <p>Music player and visualizer placeholder.</p>
+        </section>
+
+        <!-- MIXED MEDIA PAGE -->
+        <section id="mixed-media" class="page">
+            <h1>Mixed Media</h1>
+            <p>Mixed media gallery placeholder.</p>
+        </section>
+
+        <!-- TATTOOS PAGE -->
+        <section id="tattoos" class="page">
+            <h1>Tattoos</h1>
+            <p>Tattoo work gallery placeholder.</p>
+        </section>
+
+        <!-- INTENTIONAL SPACES PAGE -->
+        <section id="intentional-spaces" class="page">
+            <h1>Intentional Spaces</h1>
+            <p>Intentional spaces showcase placeholder.</p>
+        </section>
+    </div>
+
+    <!-- CODE THAT MAKES THE PAGES CLICKABLE -->
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            var pages = document.querySelectorAll('.page');
+            for (var i = 0; i < pages.length; i++) {
+                pages[i].classList.remove('active');
+            }
+            // Show the clicked page
+            document.getElementById(pageId).classList.add('active');
+        }
+    </script>
 </body>
 </html>

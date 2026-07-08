@@ -7,29 +7,31 @@
     <style>
         /* BASIC FRAMEWORK STYLES */
         body {
-            font-family: sans-serif;
+            font-family: 'Courier New', Courier, monospace; /* Tech aesthetic */
             margin: 0;
             padding: 0;
-            background-color: #121212; /* Dark background */
+            background-color: #0a0a0c; /* Deep cyber dark background */
             color: #ffffff; /* White text */
         }
         nav {
-            background-color: #1a1a1a;
-            padding: 15px;
+            background-color: #121216;
+            padding: 20px;
             text-align: center;
+            border-bottom: 1px solid #222;
         }
         nav a {
-            color: #ffffff;
+            color: #88888c;
             text-decoration: none;
             margin: 0 15px;
             font-weight: bold;
             cursor: pointer;
+            transition: color 0.3s ease;
         }
         nav a:hover {
-            color: #00ffcc; /* Accent color placeholder */
+            color: #00ffcc; /* Neon cyan hover effect */
         }
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 40px auto;
             padding: 0 20px;
         }
@@ -39,6 +41,57 @@
         .active {
             display: block; /* Only shows the active page */
         }
+
+        /* TECHSPRESSIONISM GALLERY STYLES */
+        .tech-intro {
+            border-left: 3px solid #00ffcc;
+            padding-left: 15px;
+            margin-bottom: 40px;
+            color: #a0a0a5;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .art-card {
+            background-color: #121216;
+            border: 1px solid #222;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .art-card:hover {
+            transform: translateY(-5px);
+            border-color: #00ffcc;
+        }
+        .art-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            background-color: #1a1a22; /* Placeholder background color */
+        }
+        .art-info {
+            padding: 15px;
+        }
+        .art-title {
+            font-size: 1.1rem;
+            margin: 0 0 5px 0;
+            color: #ffffff;
+        }
+        .art-meta {
+            font-size: 0.85rem;
+            color: #00ffcc;
+            margin-bottom: 10px;
+        }
+        .art-desc {
+            font-size: 0.9rem;
+            color: #a0a0a5;
+            margin: 0;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
@@ -46,9 +99,9 @@
     <!-- NAVIGATION BAR -->
     <nav>
         <a onclick="showPage('home')">Home</a>
-        <a onclick="showPage('visual-art')">Visual Art</a>
+        <a onclick="showPage('studio-work')">Studio Work</a>
         <a onclick="showPage('music')">Music</a>
-        <a onclick="showPage('mixed-media')">Mixed Media</a>
+        <a onclick="showPage('techspressionism')">Techspressionism</a>
         <a onclick="showPage('tattoos')">Tattoos</a>
         <a onclick="showPage('intentional-spaces')">Intentional Spaces</a>
     </nav>
@@ -60,10 +113,10 @@
             <p>Welcome. This is the home page/bio placeholder. We will write your story here soon!</p>
         </section>
 
-        <!-- VISUAL ART PAGE -->
-        <section id="visual-art" class="page">
-            <h1>Visual Art</h1>
-            <p>Visual art gallery placeholder. Images will go here later.</p>
+        <!-- STUDIO WORK PAGE -->
+        <section id="studio-work" class="page">
+            <h1>Studio Work</h1>
+            <p>A collection of physical and tactile creations from the sanctuary of the studio—spanning paintings, drawings, ceramics, shadow boxes, and handmade jewelry.</p>
         </section>
 
         <!-- MUSIC PAGE -->
@@ -72,10 +125,48 @@
             <p>Music player and visualizer placeholder.</p>
         </section>
 
-        <!-- MIXED MEDIA PAGE -->
-        <section id="mixed-media" class="page">
-            <h1>Mixed Media</h1>
-            <p>Mixed media gallery placeholder.</p>
+        <!-- TECHSPRESSIONISM PAGE -->
+        <section id="techspressionism" class="page">
+            <h1>Techspressionism</h1>
+            <div class="tech-intro">
+                <p><em>An artistic movement utilizing technology to express intense emotional experience. The digital realm and generative AI collaborations live here, serving as direct extensions of the human soul.</em></p>
+            </div>
+
+            <!-- THE GALLERY GRID -->
+            <div class="gallery-grid">
+                
+                <!-- ART PIECE 1 -->
+                <div class="art-card">
+                    <!-- Right now this image is a blank placeholder until you upload your files -->
+                    <img src="https://via.placeholder.com/400x300/1a1a22/ffffff?text=Techspressionism+01" alt="Techspressionism Piece 1">
+                    <div class="art-info">
+                        <h3 class="art-title">Piece Title One</h3>
+                        <div class="art-meta">Digital Paint & AI Collaboration</div>
+                        <p class="art-desc">A brief sentence or two explaining the emotional prompt or digital process behind this specific piece.</p>
+                    </div>
+                </div>
+
+                <!-- ART PIECE 2 -->
+                <div class="art-card">
+                    <img src="https://via.placeholder.com/400x300/1a1a22/ffffff?text=Techspressionism+02" alt="Techspressionism Piece 2">
+                    <div class="art-info">
+                        <h3 class="art-title">Piece Title Two</h3>
+                        <div class="art-meta">Digital Media / Procreate</div>
+                        <p class="art-desc">A brief sentence or two explaining the emotional prompt or digital process behind this specific piece.</p>
+                    </div>
+                </div>
+
+                <!-- ART PIECE 3 -->
+                <div class="art-card">
+                    <img src="https://via.placeholder.com/400x300/1a1a22/ffffff?text=Techspressionism+03" alt="Techspressionism Piece 3">
+                    <div class="art-info">
+                        <h3 class="art-title">Piece Title Three</h3>
+                        <div class="art-meta">AI Generative Iteration</div>
+                        <p class="art-desc">A brief sentence or two explaining the emotional prompt or digital process behind this specific piece.</p>
+                    </div>
+                </div>
+
+            </div>
         </section>
 
         <!-- TATTOOS PAGE -->
@@ -94,12 +185,10 @@
     <!-- CODE THAT MAKES THE PAGES CLICKABLE -->
     <script>
         function showPage(pageId) {
-            // Hide all pages
             var pages = document.querySelectorAll('.page');
             for (var i = 0; i < pages.length; i++) {
                 pages[i].classList.remove('active');
             }
-            // Show the clicked page
             document.getElementById(pageId).classList.add('active');
         }
     </script>

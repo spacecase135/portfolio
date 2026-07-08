@@ -42,8 +42,8 @@
             display: block; /* Only shows the active page */
         }
 
-        /* TECHSPRESSIONISM GALLERY STYLES */
-        .tech-intro {
+        /* TECHSPRESSIONISM & GALLERY GRID STYLES */
+        .page-intro {
             border-left: 3px solid #00ffcc;
             padding-left: 15px;
             margin-bottom: 40px;
@@ -71,7 +71,7 @@
             height: 300px;
             object-fit: cover;
             display: block;
-            background-color: #1a1a22; /* Placeholder background color */
+            background-color: #1a1a22;
         }
         .art-info {
             padding: 15px;
@@ -99,45 +99,42 @@
     <!-- NAVIGATION BAR -->
     <nav>
         <a onclick="showPage('home')">Home</a>
-        <a onclick="showPage('studio-work')">Studio Work</a>
-        <a onclick="showPage('music')">Music</a>
+        <a onclick="showPage('resonance-sound')">Resonance & Sound</a>
         <a onclick="showPage('techspressionism')">Techspressionism</a>
-        <a onclick="showPage('tattoos')">Tattoos</a>
+        <a onclick="showPage('studio-tattoo')">Studio & Tattoo</a>
+        <a onclick="showPage('dimensional-art')">Dimensional Art</a>
         <a onclick="showPage('intentional-spaces')">Intentional Spaces</a>
     </nav>
 
     <div class="container">
+        
         <!-- HOME PAGE -->
         <section id="home" class="page active">
             <h1>Casey Marie Studio</h1>
-            <p>Welcome. This is the home page/bio placeholder. We will write your story here soon!</p>
+            <div class="page-intro">
+                <p>Welcome. This is the official digital ecosystem and visual archive of Casey Marie. We will write your comprehensive narrative here soon.</p>
+            </div>
         </section>
 
-        <!-- STUDIO WORK PAGE -->
-        <section id="studio-work" class="page">
-            <h1>Studio Work</h1>
-            <p>A collection of physical and tactile creations from the sanctuary of the studio—spanning paintings, drawings, ceramics, shadow boxes, and handmade jewelry.</p>
+        <!-- 1. RESONANCE & SOUND -->
+        <section id="resonance-sound" class="page">
+            <h1>Resonance & Sound</h1>
+            <div class="page-intro">
+                <p><em>The primary fuel for the entire creative spectrum. Audio soundscapes, tracks, and sonic explorations that direct the movement of physical and digital mediums.</em></p>
+            </div>
+            <p>[Music player / embed modules will be placed here]</p>
         </section>
 
-        <!-- MUSIC PAGE -->
-        <section id="music" class="page">
-            <h1>Music</h1>
-            <p>Music player and visualizer placeholder.</p>
-        </section>
-
-        <!-- TECHSPRESSIONISM PAGE -->
+        <!-- 2. TECHSPRESSIONISM -->
         <section id="techspressionism" class="page">
             <h1>Techspressionism</h1>
-            <div class="tech-intro">
-                <p><em>An artistic movement utilizing technology to express intense emotional experience. The digital realm and generative AI collaborations live here, serving as direct extensions of the human soul.</em></p>
+            <div class="page-intro">
+                <p><em>An exploration of the digital realm as a raw extension of human emotion. Intersecting digital paintings via Procreate and collaborative expressions with generative AI.</em></p>
             </div>
 
-            <!-- THE GALLERY GRID -->
             <div class="gallery-grid">
-                
-                <!-- ART PIECE 1 -->
+                <!-- ART PIECE PLACEHOLDER 1 -->
                 <div class="art-card">
-                    <!-- Right now this image is a blank placeholder until you upload your files -->
                     <img src="https://via.placeholder.com/400x300/1a1a22/ffffff?text=Techspressionism+01" alt="Techspressionism Piece 1">
                     <div class="art-info">
                         <h3 class="art-title">Piece Title One</h3>
@@ -145,8 +142,7 @@
                         <p class="art-desc">A brief sentence or two explaining the emotional prompt or digital process behind this specific piece.</p>
                     </div>
                 </div>
-
-                <!-- ART PIECE 2 -->
+                <!-- ART PIECE PLACEHOLDER 2 -->
                 <div class="art-card">
                     <img src="https://via.placeholder.com/400x300/1a1a22/ffffff?text=Techspressionism+02" alt="Techspressionism Piece 2">
                     <div class="art-info">
@@ -155,41 +151,49 @@
                         <p class="art-desc">A brief sentence or two explaining the emotional prompt or digital process behind this specific piece.</p>
                     </div>
                 </div>
-
-                <!-- ART PIECE 3 -->
-                <div class="art-card">
-                    <img src="https://via.placeholder.com/400x300/1a1a22/ffffff?text=Techspressionism+03" alt="Techspressionism Piece 3">
-                    <div class="art-info">
-                        <h3 class="art-title">Piece Title Three</h3>
-                        <div class="art-meta">AI Generative Iteration</div>
-                        <p class="art-desc">A brief sentence or two explaining the emotional prompt or digital process behind this specific piece.</p>
-                    </div>
-                </div>
-
             </div>
         </section>
 
-        <!-- TATTOOS PAGE -->
-        <section id="tattoos" class="page">
-            <h1>Tattoos</h1>
-            <p>Tattoo work gallery placeholder.</p>
+        <!-- 3. STUDIO & TATTOO -->
+        <section id="studio-tattoo" class="page">
+            <h1>Studio & Tattoo</h1>
+            <div class="page-intro">
+                <p><em>Traditional applications on canvas, paper, and skin. Showcasing fine-art paintings, foundational drawings, and custom, intentional tattoo artistry.</em></p>
+            </div>
+            <p>[Traditional and skin art media gallery placeholders]</p>
         </section>
 
-        <!-- INTENTIONAL SPACES PAGE -->
+        <!-- 4. DIMENSIONAL ART -->
+        <section id="dimensional-art" class="page">
+            <h1>Dimensional Art</h1>
+            <div class="page-intro">
+                <p><em>Tactile, multi-dimensional physical manifestations. Housing ceramics, hand-sculpted runes, concept-driven shadow boxes, and precise miniatures like the Cemetarium.</em></p>
+            </div>
+            <p>[3D object and sculptural gallery placeholders]</p>
+        </section>
+
+        <!-- 5. INTENTIONAL SPACES -->
         <section id="intentional-spaces" class="page">
             <h1>Intentional Spaces</h1>
-            <p>Intentional spaces showcase placeholder.</p>
+            <div class="page-intro">
+                <p><em>Applied arts and environmental curation. Master craftsmanship including wood-burned custom furnishings, custom musical instruments, and the realization of mindful interior atmospheres.</em></p>
+            </div>
+            <p>[Furniture, design, and interior architecture gallery placeholders]</p>
         </section>
+
     </div>
 
-    <!-- CODE THAT MAKES THE PAGES CLICKABLE -->
+    <!-- JAVASCRIPT FUNCTION FOR SINGLE-PAGE RUNNING -->
     <script>
         function showPage(pageId) {
             var pages = document.querySelectorAll('.page');
             for (var i = 0; i < pages.length; i++) {
                 pages[i].classList.remove('active');
             }
-            document.getElementById(pageId).classList.add('active');
+            var activePage = document.getElementById(pageId);
+            if (activePage) {
+                activePage.classList.add('active');
+            }
         }
     </script>
 </body>

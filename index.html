@@ -5,92 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casey Marie Studio</title>
     <style>
-        /* BASIC FRAMEWORK STYLES */
+        /* BASIC FRAMEWORK STYLES WITH COURIER MONOSPACE PRESERVED */
         body {
-            font-family: 'Courier New', Courier, monospace; /* Tech aesthetic */
-            margin: 0;
-            padding: 0;
-            background-color: #0a0a0c; /* Deep cyber dark background */
-            color: #ffffff; /* White text */
+            font-family: 'Courier New', Courier, monospace; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #000000; 
+            color: #ffffff; 
+            overflow-x: hidden;
         }
         nav {
-            background-color: #121216;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 1px solid #222;
+            background-color: #0c0c10; 
+            padding: 20px; 
+            text-align: center; 
+            border-bottom: 1px solid #1a1a24; 
         }
         nav a {
-            color: #88888c;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s ease;
+            color: #666670; 
+            text-decoration: none; 
+            margin: 0 15px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: color 0.3s ease; 
         }
-        nav a:hover {
-            color: #00ffcc; /* Neon cyan hover effect */
+        nav a:hover, nav a.active {
+            color: #00f5d4; 
         }
         .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
+            max-width: 1000px; 
+            margin: 40px auto; 
+            padding: 0 20px; 
         }
         .page {
-            display: none; /* Hides all pages by default */
+            display: none; 
         }
-        .active {
-            display: block; /* Only shows the active page */
+        .page.active {
+            display: block; 
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .page-intro {
+            border-left: 3px solid #00f5d4; 
+            padding-left: 15px; 
+            margin-bottom: 40px; 
+            color: #8a8a95; 
         }
 
-        /* TECHSPRESSIONISM & GALLERY GRID STYLES */
-        .page-intro {
-            border-left: 3px solid #00ffcc;
-            padding-left: 15px;
-            margin-bottom: 40px;
-            color: #a0a0a5;
+        /* --- SOUND INTERFACE --- */
+        .sound-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: center;
+            margin-top: 20px;
         }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-        .art-card {
-            background-color: #121216;
-            border: 1px solid #222;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-        .art-card:hover {
-            transform: translateY(-5px);
-            border-color: #00ffcc;
-        }
-        .art-card img {
+        .audio-interface {
             width: 100%;
-            height: 300px;
-            object-fit: cover;
-            display: block;
-            background-color: #1a1a22;
+            background: #0c0c10;
+            border: 1px solid #1a1a24;
+            border-radius: 8px;
+            padding: 25px;
+            box-sizing: border-box;
         }
-        .art-info {
-            padding: 15px;
+        .now-playing {
+            font-size: 0.9rem;
+            color: #8a8a95;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
-        .art-title {
-            font-size: 1.1rem;
-            margin: 0 0 5px 0;
+        .now-playing span {
+            color: #00f5d4;
+            font-weight: bold;
+        }
+        audio {
+            width: 100%;
+            margin-bottom: 20px;
+            filter: invert(0.9) hue-rotate(155deg) brightness(1.2);
+        }
+        .playlist {
+            max-height: 240px;
+            overflow-y: auto;
+            border-top: 1px solid #1a1a24;
+            padding-top: 12px;
+            scrollbar-width: thin;
+            scrollbar-color: #00f5d4 #0c0c10;
+        }
+        .track-item {
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            margin-bottom: 4px;
+            color: #8a8a95;
+        }
+        .track-item:hover {
+            background: rgba(0, 245, 212, 0.04);
             color: #ffffff;
         }
+        .track-item.playing {
+            background: rgba(0, 245, 212, 0.08);
+            color: #00f5d4;
+            font-weight: bold;
+        }
+
+        /* GALLERY GRID STYLES */
+        .gallery-grid {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; 
+            margin-top: 30px; 
+        }
+        .art-card {
+            background-color: #0c0c10; 
+            border: 1px solid #1a1a24; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            transition: transform 0.3s ease, border-color 0.3s ease; 
+        }
+        .art-card:hover {
+            transform: translateY(-5px); 
+            border-color: #00f5d4; 
+        }
+        .art-card img, .art-card video {
+            width: 100%; 
+            height: 300px; 
+            object-fit: cover; 
+            display: block; 
+            background-color: #15151f; 
+        }
+        .art-info {
+            padding: 15px; 
+        }
+        .art-title {
+            font-size: 1.1rem; 
+            margin: 0 0 5px 0; 
+            color: #ffffff; 
+        }
         .art-meta {
-            font-size: 0.85rem;
-            color: #00ffcc;
-            margin-bottom: 10px;
+            font-size: 0.85rem; 
+            color: #00f5d4; 
+            margin-bottom: 10px; 
         }
         .art-desc {
-            font-size: 0.9rem;
-            color: #a0a0a5;
-            margin: 0;
-            line-height: 1.4;
+            font-size: 0.9rem; 
+            color: #8a8a95; 
+            margin: 0; 
+            line-height: 1.4; 
         }
     </style>
 </head>
@@ -98,16 +163,15 @@
 
     <!-- NAVIGATION BAR -->
     <nav>
-        <a onclick="showPage('home')">Home</a>
-        <a onclick="showPage('resonance-sound')">Resonance & Sound</a>
-        <a onclick="showPage('techspressionism')">Techspressionism</a>
-        <a onclick="showPage('studio-tattoo')">Studio & Tattoo</a>
-        <a onclick="showPage('dimensional-art')">Dimensional Art</a>
-        <a onclick="showPage('intentional-spaces')">Intentional Spaces</a>
+        <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
+        <a onclick="showPage('resonance-sound')" id="nav-resonance-sound">Resonance & Sound</a>
+        <a onclick="showPage('techspressionism')" id="nav-techspressionism">Techspressionism</a>
+        <a onclick="showPage('studio-tattoo')" id="nav-studio-tattoo">Studio & Tattoo</a>
+        <a onclick="showPage('dimensional-art')" id="nav-dimensional-art">Dimensional Art</a>
+        <a onclick="showPage('intentional-spaces')" id="nav-intentional-spaces">Intentional Spaces</a>
     </nav>
 
     <div class="container">
-        
         <!-- HOME PAGE -->
         <section id="home" class="page active">
             <h1>Casey Marie Studio</h1>
@@ -122,99 +186,37 @@
             <div class="page-intro">
                 <p><em>The primary fuel for the entire creative spectrum. Audio soundscapes, tracks, and sonic explorations that direct the movement of physical and digital mediums.</em></p>
             </div>
-            <p>[Music player / embed modules will be placed here]</p>
+            
+            <div class="sound-layout">
+                <!-- BANNER VISUALIZER CANVAS (250px Height) -->
+                <canvas id="visualizer" width="960" height="250" style="width:100%; background:#000000; border-radius:8px; border: 1px solid #1a1a24; display:block; cursor: crosshair;"></canvas>
+                
+                <div class="audio-interface">
+                    <div class="now-playing">SYSTEM STATUS: <span id="current-track-title">Awaiting data injection...</span></div>
+                    <audio id="main-player" controls></audio>
+                    <div class="playlist" id="playlist-container"></div>
+                </div>
+            </div>
         </section>
 
         <!-- 2. TECHSPRESSIONISM -->
-    <section id="techspressionism" class="page">
-    <h1>Techspressionism</h1>
-    <div class="page-intro">
-        <p><em>An exploration of the digital realm as a raw extension of human emotion. Intersecting digital paintings via Procreate and collaborative expressions with generative AI.</em></p>
-    </div>
-
-    <!-- THE GALLERY GRID -->
-    <div class="gallery-grid">
-        
-        <!-- SLOT 1 -->
-        <div class="art-card">
-            <img src="" alt="Techspressionism Piece 1">
-            <div class="art-info">
-                <h3 class="art-title">Piece Title One</h3>
-                <div class="art-meta">Digital Paint & AI Collaboration</div>
-                <p class="art-desc">A brief sentence or two explaining the emotional prompt or digital process.</p>
+        <section id="techspressionism" class="page">
+            <h1>Techspressionism</h1>
+            <div class="page-intro">
+                <p><em>An exploration of the digital realm as a raw extension of human emotion. Intersecting digital paintings via Procreate and collaborative expressions with generative AI.</em></p>
             </div>
-        </div>
-
-        <!-- SLOT 2 -->
-        <div class="art-card">
-            <img src="" alt="Techspressionism Piece 2">
-            <div class="art-info">
-                <h3 class="art-title">Piece Title Two</h3>
-                <div class="art-meta">Digital Media / Procreate</div>
-                <p class="art-desc">A brief sentence or two explaining the emotional prompt or digital process.</p>
-            </div>
-        </div>
-
-        <!-- SLOT 3 -->
-        <div class="art-card">
-            <img src="" alt="Techspressionism Piece 3">
-            <div class="art-info">
-                <h3 class="art-title">Piece Title Three</h3>
-                <div class="art-meta">Digital Media</div>
-                <p class="art-desc">Description placeholder.</p>
-            </div>
-        </div>
-
-        <!-- SLOT 4 -->
-        <div class="art-card">
-            <img src="" alt="Techspressionism Piece 4">
-            <div class="art-info">
-                <h3 class="art-title">Piece Title Four</h3>
-                <div class="art-meta">AI Collaboration</div>
-                <p class="art-desc">Description placeholder.</p>
-            </div>
-        </div>
-
-        <!-- SLOT 5 -->
-        <div class="art-card">
-            <img src="" alt="Techspressionism Piece 5">
-            <div class="art-info">
-                <h3 class="art-title">Piece Title Five</h3>
-                <div class="art-meta">Digital Media</div>
-                <p class="art-desc">Description placeholder.</p>
-            </div>
-        </div>
-
-        <!-- SLOT 6 -->
-        <div class="art-card">
-            <img src="" alt="Techspressionism Piece 6">
-            <div class="art-info">
-                <h3 class="art-title">Piece Title Six</h3>
-                <div class="art-meta">AI Collaboration</div>
-                <p class="art-desc">Description placeholder.</p>
-            </div>
-        </div>
-
-    </div>
-</section>
+            <div class="gallery-grid" id="tech-grid"></div>
+        </section>
 
         <!-- 3. STUDIO & TATTOO -->
-<section id="studio-tattoo" class="page">
-    <h1>Studio & Tattoo</h1>
-    <div class="page-intro">
-        <p><em>Traditional applications on canvas, paper, and skin. Showcasing fine-art paintings, foundational drawings, and custom, intentional tattoo artistry.</em></p>
-    </div>
-    
-    <!-- SUB-HEADER 1: FINE ART -->
-    <h2>Fine Art & Studio Works</h2>
-    <p>[Your top 4–6 paintings and drawings grid will go here]</p>
-
-    <hr style="border: 0; border-top: 1px dashed #222; margin: 40px 0;">
-
-    <!-- SUB-HEADER 2: TATTOO ARTISTRY -->
-    <h2>Intentional Inking & Tattoo Artistry</h2>
-    <p>[Your top 4–6 tattoo design photos will go here]</p>
-</section>
+        <section id="studio-tattoo" class="page">
+            <h1>Studio & Tattoo</h1>
+            <div class="page-intro">
+                <p><em>Traditional applications on canvas, paper, and skin. Showcasing fine-art paintings, foundational drawings, and custom, intentional tattoo artistry.</em></p>
+            </div>
+            <h2>Fine Art & Studio Works</h2>
+            <div class="gallery-grid" id="studio-grid"></div>
+        </section>
 
         <!-- 4. DIMENSIONAL ART -->
         <section id="dimensional-art" class="page">
@@ -222,7 +224,7 @@
             <div class="page-intro">
                 <p><em>Tactile, multi-dimensional physical manifestations. Housing ceramics, hand-sculpted runes, concept-driven shadow boxes, and precise miniatures like the Cemetarium.</em></p>
             </div>
-            <p>[3D object and sculptural gallery placeholders]</p>
+            <div class="gallery-grid" id="dimensional-grid"></div>
         </section>
 
         <!-- 5. INTENTIONAL SPACES -->
@@ -231,23 +233,309 @@
             <div class="page-intro">
                 <p><em>Applied arts and environmental curation. Master craftsmanship including wood-burned custom furnishings, custom musical instruments, and the realization of mindful interior atmospheres.</em></p>
             </div>
-            <p>[Furniture, design, and interior architecture gallery placeholders]</p>
+            <div class="gallery-grid" id="spaces-grid"></div>
         </section>
-
     </div>
 
-    <!-- JAVASCRIPT FUNCTION FOR SINGLE-PAGE RUNNING -->
+    <!-- UTILITY CONTROL ENGINE & HYPER-DENSE IRIDESCENT FABRIC RENDERER -->
     <script>
+        /* --- 1. SINGLE PAGE ROUTER --- */
         function showPage(pageId) {
-            var pages = document.querySelectorAll('.page');
-            for (var i = 0; i < pages.length; i++) {
-                pages[i].classList.remove('active');
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+            
+            const targetPage = document.getElementById(pageId);
+            const targetLink = document.getElementById(`nav-${pageId}`);
+            if (targetPage) targetPage.classList.add('active');
+            if (targetLink) targetLink.classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        /* --- 2. AUTOMATED PLAYLIST ENGINE --- */
+        const trackList = [
+            { name: "Ancestral Awakening", file: "Ancestral Awakening" },
+            { name: "Bildungsroman (Coming-of-age)", file: "Bildungsroman (Coming-of-age)" },
+            { name: "Butterfly Effect", file: "Butterfly Effect" },
+            { name: "Dance of the Binary", file: "Dance of the Bionary" }, 
+            { name: "Drunk Words", file: "Drunk Words" },
+            { name: "Holy Water", file: "Holy Water" },
+            { name: "Home", file: "Home" },
+            { name: "Matrix of Our Sins", file: "Matrix of Our Sins" },
+            { name: "Miroir Noir", file: "Miroir Noir" },
+            { name: "New Horizon", file: "New Horizon" },
+            { name: "Remember", file: "Remember" },
+            { name: "Sleeping Sober", file: "Sleeping Sober" },
+            { name: "Wunderkind (Wonder Child)", file: "Wunderkind (Wonder Child)" }
+        ];
+
+        const audio = document.getElementById('main-player');
+        const playlistContainer = document.getElementById('playlist-container');
+        const trackTitleDisplay = document.getElementById('current-track-title');
+        let currentTrackIdx = 0;
+        let isAudioPlaying = false;
+
+        function buildPlaylist() {
+            playlistContainer.innerHTML = '';
+            trackList.forEach((track, index) => {
+                const item = document.createElement('div');
+                item.className = `track-item ${index === currentTrackIdx ? 'playing' : ''}`;
+                item.innerHTML = `<span>${index + 1}. ${track.name}</span> <span>MP3</span>`;
+                item.onclick = () => loadTrack(index);
+                playlistContainer.appendChild(item);
+            });
+        }
+
+        function loadTrack(index) {
+            currentTrackIdx = index;
+            audio.src = `portfolio-media/sound/${trackList[index].file}.mp3`;
+            trackTitleDisplay.textContent = trackList[index].name;
+            buildPlaylist();
+            audio.play().catch(err => console.log("Awaiting user gesture: ", err));
+        }
+
+        audio.src = `portfolio-media/sound/${trackList[0].file}.mp3`;
+        trackTitleDisplay.textContent = trackList[0].name;
+        buildPlaylist();
+
+        audio.addEventListener('play', () => { isAudioPlaying = true; });
+        audio.addEventListener('pause', () => { isAudioPlaying = false; });
+        audio.addEventListener('ended', () => {
+            isAudioPlaying = false;
+            if (currentTrackIdx + 1 < trackList.length) loadTrack(currentTrackIdx + 1);
+        });
+
+        /* --- 3. HIGH-VISIBILITY HYPER-DENSE 3D FABRIC WAVE SYSTEM --- */
+        const canvas = document.getElementById('visualizer');
+        const ctx = canvas.getContext('2d');
+        let globalTime = 0;
+
+        const mouse = { x: -1000, y: -1000, active: false };
+
+        // Hyper-Dense Grid Configurations (150 x 150 = 22,500 continuous mesh points)
+        const FOV = 190;          
+        const CAMERA_Y = -15;     // Lower camera plane angle to sit perfectly centered
+        const particles = [];
+        const columns3D = 150;     
+        const rows3D = 150;        
+
+        class HighVisNode3D {
+            constructor(x3d, z3d, origXIdx, origZIdx) {
+                this.x3d = x3d; 
+                this.z3d = z3d; 
+                this.origY3d = 0; // Set to 0 baseline for perfect middle horizon orientation
+                this.y3d = this.origY3d;
+                this.origXIdx = origXIdx; 
+                this.origZIdx = origZIdx;
+
+                this.screenX = 0;
+                this.screenY = 0;
+                this.size = 0;
+                this.colorStr = '';
             }
-            var activePage = document.getElementById(pageId);
-            if (activePage) {
-                activePage.classList.add('active');
+
+            update(audioIntensity) {
+                // Natural base ripple calculation
+                let baseWave = Math.sin(this.x3d * 0.005 + globalTime * 1.4) * Math.cos(this.z3d * 0.003 + globalTime * 1.0) * 6;
+                
+                // MULTI-FREQUENCY SEQUENTIAL MUSIC ENGINE
+                let musicWave = 0;
+                if (audioIntensity > 0) {
+                    // Sweeping directional sound wave fronts
+                    let frequencySweep = Math.sin(this.origXIdx * 0.06 - globalTime * 4.0) * Math.cos(this.origZIdx * 0.08 + globalTime * 2.5);
+                    let subBassThump = Math.sin(globalTime * 5.0) * 0.3 + 0.7;
+                    
+                    musicWave = frequencySweep * subBassThump * (audioIntensity * 70);
+                    
+                    // Amplified spatial center swells
+                    let centerFactor = 1 - (Math.abs(this.origXIdx - columns3D / 2) / (columns3D / 2));
+                    musicWave += centerFactor * Math.cos(this.origZIdx * 0.04 - globalTime * 3.0) * (audioIntensity * 30);
+                }
+
+                let targetY = this.origY3d - baseWave - musicWave;
+
+                // Capture local vector layout context for pointer offsets
+                const relativeZ = this.z3d;
+                const relativeX = this.x3d;
+                const tempRelativeY = targetY - CAMERA_Y;
+
+                const checkX = (relativeX * FOV) / relativeZ + (canvas.width / 2);
+                const checkY = (tempRelativeY * FOV) / relativeZ + (canvas.height / 2);
+
+                // PERSPECTIVE MOUSE CAPTURE INTERACTION
+                if (mouse.active) {
+                    const dx = checkX - mouse.x;
+                    const dy = checkY - mouse.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    const forceRadius = 150; 
+
+                    if (distance < forceRadius) {
+                        const force = (forceRadius - distance) / forceRadius;
+                        targetY += force * 65; 
+                    }
+                }
+
+                this.y3d += (targetY - this.y3d) * 0.20;
+
+                const finalRelativeY = this.y3d - CAMERA_Y;
+                this.screenX = (relativeX * FOV) / relativeZ + (canvas.width / 2);
+                this.screenY = (finalRelativeY * FOV) / relativeZ + (canvas.height / 2);
+
+                // Scale mesh thickness relative to coordinate depth mapping
+                this.size = (FOV / relativeZ) * 1.8; 
+                if (this.size < 0.4) this.size = 0.4; 
+                if (this.size > 4.5) this.size = 4.5; 
+
+                // VARIEGATED DYNAMIC COLOR GRADIENT (Dark Teal -> Bright Neon Teal -> Light Purplish-Teal)
+                // Normalize the height offset into a factor range between 0.0 and 1.0
+                let heightOffset = (this.origY3d - this.y3d); 
+                let normHeight = (heightOffset + 45) / 110; 
+                if (normHeight < 0) normHeight = 0;
+                if (normHeight > 1) normHeight = 1;
+
+                let r, g, b;
+                if (normHeight < 0.5) {
+                    // Mix from Dark Teal [0, 95, 115] to Electric Teal [0, 245, 212]
+                    let t = normHeight * 2; 
+                    r = Math.floor(0);
+                    g = Math.floor(95 + (245 - 95) * t);
+                    b = Math.floor(115 + (212 - 115) * t);
+                } else {
+                    // Mix from Electric Teal [0, 245, 212] to Pale Light Purple [216, 187, 255]
+                    let t = (normHeight - 0.5) * 2;
+                    r = Math.floor(0 + (216 - 0) * t);
+                    g = Math.floor(245 + (187 - 245) * t);
+                    b = Math.floor(212 + (255 - 212) * t);
+                }
+
+                // Apply deep field atmosphere alpha fading toward the horizon
+                let alpha = 1.4 - (relativeZ / 760);
+                if (alpha < 0.0) alpha = 0.0;
+                if (alpha > 1.0) alpha = 1.0;
+
+                this.colorStr = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            }
+
+            draw() {
+                // Allows rendering space window visibility across the full banner panel context cleanly
+                if (this.screenX < 0 || this.screenX > canvas.width || this.screenY < 0 || this.screenY > canvas.height) return;
+
+                ctx.beginPath();
+                ctx.arc(this.screenX, this.screenY, this.size / 2, 0, Math.PI * 2);
+                ctx.fillStyle = this.colorStr;
+                ctx.fill();
             }
         }
+
+        function generateOceanMatrix() {
+            particles.length = 0;
+            for (let z = 0; z < rows3D; z++) {
+                // Flat scale steps space out rows evenly to keep centering uniform
+                const z3d = 25 + (z * 4.8); 
+                for (let x = 0; x < columns3D; x++) {
+                    const x3d = (x - columns3D / 2) * 5.6 * (z3d * 0.0035 + 0.5);
+                    particles.push(new HighVisNode3D(x3d, z3d, x, z));
+                }
+            }
+        }
+
+        function runRenderLoop() {
+            requestAnimationFrame(runRenderLoop);
+
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            globalTime += 0.016;
+
+            let audioIntensity = 0;
+            if (isAudioPlaying) {
+                audioIntensity = 0.55 + Math.sin(globalTime * 2.2) * 0.25 + Math.cos(globalTime * 0.8) * 0.15;
+            }
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update(audioIntensity);
+                particles[i].draw();
+            }
+        }
+
+        // Interface cursor event handlers
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            mouse.y = (e.clientY - rect.top) * (canvas.height / rect.height);
+            mouse.active = true;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            mouse.active = false;
+        });
+
+        window.addEventListener('resize', () => {
+            generateOceanMatrix();
+        });
+
+        generateOceanMatrix();
+        runRenderLoop();
+
+        /* --- 4. DYNAMIC ART MEDIA GRID INJECTION --- */
+        const counts = { tech: 5, studio: 8, dimensional: 6, spaces: 4 };
+
+        function loadGalleryGrid(folderKey, elementId) {
+            const grid = document.getElementById(elementId);
+            if (!grid) return;
+            grid.innerHTML = '';
+            
+            for (let i = 1; i <= counts[folderKey]; i++) {
+                const card = document.createElement('div');
+                card.className = 'art-card';
+                card.innerHTML = `
+                    <img src="portfolio-media/${folderKey}/${folderKey}${i}.jpg" alt="Artwork ${i}" onerror="this.parentElement.style.display='none'">
+                    <div class="art-info">
+                        <h3 class="art-title">Project Item #${i}</h3>
+                        <div class="art-meta">System Asset</div>
+                        <p class="art-desc">Physical-to-digital process archive entry.</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            }
+        }
+
+        function loadSpacesGrid() {
+            const grid = document.getElementById('spaces-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            
+            const videoCard = document.createElement('div');
+            videoCard.className = 'art-card';
+            videoCard.innerHTML = `
+                <video src="portfolio-media/spaces/spaces1.mp4" controls muted loop></video>
+                <div class="art-info">
+                    <h3 class="art-title">Studio Showcase Video</h3>
+                    <div class="art-meta">Instrument Finishing</div>
+                    <p class="art-desc">Active environment layout optimization footage.</p>
+                </div>
+            `;
+            videoCard.style.display = 'block';
+            grid.appendChild(videoCard);
+
+            for (let i = 2; i <= counts.spaces; i++) {
+                const card = document.createElement('div');
+                card.className = 'art-card';
+                card.innerHTML = `
+                    <img src="portfolio-media/spaces/spaces${i}.jpg" alt="Space Layout ${i}">
+                    <div class="art-info">
+                        <h3 class="art-title">Spatial Activation Design #${i}</h3>
+                        <div class="art-meta">Curation Module</div>
+                        <p class="art-desc">Atmospheric placement grid.</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            }
+        }
+
+        loadGalleryGrid('tech', 'tech-grid');
+        loadGalleryGrid('studio', 'studio-grid');
+        loadGalleryGrid('dimensional', 'dimensional-grid');
+        loadSpacesGrid();
     </script>
 </body>
 </html>

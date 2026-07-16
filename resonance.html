@@ -1,0 +1,3006 @@
+<!DOCTYPE html>
+
+<!--
+═══════════════════════════════════════════════════════════════════════
+
+CASEY MARIE STUDIO PORTFOLIO
+Resonance & Sound
+A Digital Landscape That Listens
+
+Designed & Developed by
+CASEY MARIE ROY
+
+Original music by
+CASEY MARIE ROY
+
+© & ℗ 2026 CASEY MARIE ROY
+All Rights Reserved.
+
+A sincere shoutout to the team at Suno.ai
+for helping this introverted songwriter
+finally hear her words brought to life through music.
+
+God Bless.
+
+@spacecase135
+
+═══════════════════════════════════════════════════════════════════════
+-->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover"
+    >
+
+    <title>Resonance & Sound | Casey Marie Studio Portfolio</title>
+
+    <meta
+        name="description"
+        content="An immersive digital landscape where original music shapes a living audiovisual world. Featuring the original works of Casey Marie Roy."
+    >
+
+    <meta name="author" content="CASEY MARIE ROY">
+    <meta name="creator" content="CASEY MARIE ROY">
+    <meta name="designer" content="CASEY MARIE ROY">
+    <meta name="artist" content="CASEY MARIE ROY">
+    <meta name="copyright" content="© & ℗ 2026 CASEY MARIE ROY">
+    <meta name="theme-color" content="#01040a">
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://caseymarie.studio/resonance.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Casey Marie Studio Portfolio">
+    <meta property="og:title" content="Resonance & Sound | Casey Marie Studio">
+    <meta
+        property="og:description"
+        content="An immersive digital landscape where original music shapes a living audiovisual world. Featuring the original works of Casey Marie Roy."
+    >
+    <meta property="og:url" content="https://caseymarie.studio/resonance.html">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Resonance & Sound | Casey Marie Studio">
+    <meta
+        name="twitter:description"
+        content="An immersive digital landscape where original music shapes a living audiovisual world."
+    >
+    <meta name="twitter:creator" content="@spacecase135">
+
+    <style>
+        :root {
+            --void: #01040a;
+            --void-blue: #020918;
+            --cyan: #00f5e1;
+            --teal: #00bfcf;
+            --electric-blue: #2676ff;
+            --violet: #8f4dff;
+            --magenta: #ef3dff;
+            --hot-pink: #ff1987;
+
+            --text: #f2f8ff;
+            --muted: #8395a5;
+
+            --glass: rgba(5, 13, 26, 0.58);
+            --glass-strong: rgba(4, 10, 22, 0.92);
+            --glass-border: rgba(100, 230, 255, 0.2);
+
+            --player-width: 920px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            background: var(--void);
+            color: var(--text);
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .room {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 100svh;
+            overflow: hidden;
+            isolation: isolate;
+
+            background:
+                radial-gradient(
+                    ellipse at 50% 28%,
+                    rgba(0, 209, 224, 0.07),
+                    transparent 44%
+                ),
+                radial-gradient(
+                    ellipse at 75% 52%,
+                    rgba(91, 61, 255, 0.05),
+                    transparent 38%
+                ),
+                linear-gradient(
+                    180deg,
+                    #010208 0%,
+                    #02091a 45%,
+                    #01040a 100%
+                );
+        }
+
+        .room::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    transparent 30%,
+                    rgba(0, 0, 0, 0.22) 68%,
+                    rgba(0, 0, 0, 0.76) 100%
+                );
+        }
+
+        .room::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0.065;
+
+            background-image:
+                linear-gradient(
+                    rgba(255, 255, 255, 0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.018) 1px,
+                    transparent 1px
+                );
+
+            background-size: 4px 4px;
+            mix-blend-mode: soft-light;
+        }
+
+        #visualizer {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ============================================================
+           PAGE IDENTITY
+        ============================================================ */
+
+        .room-identity {
+            position: fixed;
+            left: clamp(16px, 2.5vw, 40px);
+            bottom: 140px;
+            z-index: 20;
+
+            display: flex;
+            align-items: flex-end;
+            gap: 14px;
+
+            max-width: min(560px, calc(100vw - 32px));
+        }
+
+        .identity-copy {
+            min-width: 0;
+            padding-bottom: 2px;
+            pointer-events: none;
+        }
+
+        .room-title {
+            margin: 0;
+
+            color: rgba(231, 243, 252, 0.32);
+
+            font-size: clamp(1.25rem, 3vw, 2.55rem);
+            font-weight: 400;
+            line-height: 0.98;
+            letter-spacing: 0.035em;
+            text-transform: uppercase;
+
+            text-shadow:
+                0 0 22px rgba(0, 245, 225, 0.08),
+                0 0 36px rgba(143, 77, 255, 0.06);
+        }
+
+        .room-subtitle {
+            margin: 9px 0 0;
+
+            color: rgba(0, 245, 225, 0.72);
+
+            font-size: clamp(0.55rem, 1vw, 0.74rem);
+            line-height: 1.45;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+        }
+
+        /* ============================================================
+           NAVIGATION
+        ============================================================ */
+
+        .menu-shell {
+            position: relative;
+            flex: 0 0 auto;
+        }
+
+        .menu-button {
+            width: 46px;
+            height: 46px;
+            padding: 0;
+
+            display: grid;
+            place-items: center;
+
+            border: 1px solid var(--glass-border);
+            border-radius: 13px;
+
+            background: rgba(3, 10, 20, 0.48);
+            color: rgba(242, 251, 255, 0.84);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 14px 42px rgba(0, 0, 0, 0.34),
+                inset 0 1px 0 rgba(255, 255, 255, 0.025);
+
+            cursor: pointer;
+
+            transition:
+                color 160ms ease,
+                border-color 160ms ease,
+                background 160ms ease,
+                transform 160ms ease;
+        }
+
+        .menu-button:hover,
+        .menu-button:focus-visible {
+            color: var(--cyan);
+            border-color: rgba(0, 245, 225, 0.5);
+            background: rgba(0, 245, 225, 0.07);
+            transform: translateY(-1px);
+            outline: none;
+        }
+
+        .hamburger {
+            width: 19px;
+            display: grid;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 1px;
+            border-radius: 999px;
+            background: currentColor;
+        }
+
+        .site-menu {
+            position: absolute;
+            left: 0;
+            bottom: 58px;
+
+            width: min(286px, calc(100vw - 32px));
+            padding: 10px;
+
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+
+            background: var(--glass-strong);
+
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+
+            box-shadow:
+                0 24px 72px rgba(0, 0, 0, 0.58),
+                inset 0 1px 0 rgba(255, 255, 255, 0.025);
+
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px) scale(0.985);
+            transform-origin: bottom left;
+
+            transition:
+                opacity 170ms ease,
+                visibility 170ms ease,
+                transform 170ms ease;
+        }
+
+        .site-menu.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .site-menu a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+
+            padding: 11px 12px;
+            border-radius: 9px;
+
+            color: rgba(239, 248, 255, 0.7);
+            text-decoration: none;
+
+            font-size: 0.77rem;
+            letter-spacing: 0.045em;
+
+            transition:
+                background 150ms ease,
+                color 150ms ease;
+        }
+
+        .site-menu a:hover,
+        .site-menu a:focus-visible {
+            color: var(--cyan);
+            background: rgba(0, 245, 225, 0.07);
+            outline: none;
+        }
+
+        .site-menu a[aria-current="page"] {
+            color: var(--cyan);
+            background: rgba(0, 245, 225, 0.075);
+        }
+
+        .menu-marker {
+            width: 5px;
+            height: 5px;
+            flex: 0 0 auto;
+
+            border-radius: 50%;
+            background: currentColor;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        /* ============================================================
+           PLAYER
+        ============================================================ */
+
+        .player-wrap {
+            position: fixed;
+            left: 50%;
+            bottom: 20px;
+            z-index: 30;
+
+            width: min(
+                var(--player-width),
+                calc(100vw - 34px)
+            );
+
+            transform: translateX(-50%);
+        }
+
+        .player {
+            position: relative;
+            width: 100%;
+            padding: 15px 17px;
+
+            display: grid;
+            grid-template-columns: auto minmax(160px, 1fr) auto;
+            align-items: center;
+            gap: 17px;
+
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(16, 30, 48, 0.62),
+                    rgba(3, 10, 21, 0.54)
+                );
+
+            backdrop-filter: blur(25px) saturate(140%);
+            -webkit-backdrop-filter: blur(25px) saturate(140%);
+
+            box-shadow:
+                0 25px 74px rgba(0, 0, 0, 0.56),
+                inset 0 1px 0 rgba(255, 255, 255, 0.035),
+                0 0 46px rgba(0, 191, 207, 0.035);
+        }
+
+        .player::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+
+            border-radius: inherit;
+            pointer-events: none;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0, 245, 225, 0.035),
+                    transparent 40%,
+                    rgba(143, 77, 255, 0.03)
+                );
+        }
+
+        .transport {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .icon-button {
+            width: 40px;
+            height: 40px;
+            padding: 0;
+
+            display: inline-grid;
+            place-items: center;
+
+            border: 1px solid transparent;
+            border-radius: 50%;
+
+            background: transparent;
+            color: rgba(240, 249, 255, 0.74);
+
+            font-size: 1rem;
+            line-height: 1;
+
+            cursor: pointer;
+
+            transition:
+                color 150ms ease,
+                background 150ms ease,
+                border-color 150ms ease,
+                transform 150ms ease,
+                box-shadow 150ms ease;
+        }
+
+        .icon-button:hover,
+        .icon-button:focus-visible {
+            color: var(--cyan);
+            background: rgba(0, 245, 225, 0.065);
+            border-color: rgba(0, 245, 225, 0.18);
+            outline: none;
+        }
+
+        .icon-button:active {
+            transform: scale(0.94);
+        }
+
+        .play-button {
+            width: 50px;
+            height: 50px;
+
+            color: var(--cyan);
+            border-color: rgba(0, 245, 225, 0.62);
+            background: rgba(0, 245, 225, 0.05);
+
+            font-size: 1.1rem;
+
+            box-shadow:
+                0 0 22px rgba(0, 245, 225, 0.1),
+                inset 0 0 18px rgba(0, 245, 225, 0.035);
+        }
+
+        .play-button:hover,
+        .play-button:focus-visible {
+            box-shadow:
+                0 0 28px rgba(0, 245, 225, 0.19),
+                inset 0 0 20px rgba(0, 245, 225, 0.05);
+        }
+
+        .track-section {
+            min-width: 0;
+            display: grid;
+            gap: 9px;
+        }
+
+        .track-heading {
+            min-width: 0;
+
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .track-text {
+            min-width: 0;
+        }
+
+        .track-kicker {
+            display: block;
+            margin-bottom: 3px;
+
+            color: rgba(138, 157, 173, 0.7);
+
+            font-size: 0.57rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .track-title {
+            display: block;
+            overflow: hidden;
+
+            color: rgba(248, 252, 255, 0.92);
+
+            font-size: 0.83rem;
+            font-weight: 700;
+
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .time {
+            flex: 0 0 auto;
+
+            color: rgba(139, 155, 170, 0.68);
+
+            font-size: 0.67rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .progress-row {
+            display: flex;
+            align-items: center;
+        }
+
+        .range {
+            --range-progress: 0%;
+
+            width: 100%;
+            height: 16px;
+            margin: 0;
+
+            appearance: none;
+            -webkit-appearance: none;
+
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .range::-webkit-slider-runnable-track {
+            height: 3px;
+            border-radius: 999px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--cyan) 0 var(--range-progress),
+                    rgba(255, 255, 255, 0.12)
+                    var(--range-progress) 100%
+                );
+        }
+
+        .range::-moz-range-track {
+            height: 3px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .range::-moz-range-progress {
+            height: 3px;
+            border-radius: 999px;
+            background: var(--cyan);
+        }
+
+        .range::-webkit-slider-thumb {
+            width: 10px;
+            height: 10px;
+            margin-top: -3.5px;
+
+            appearance: none;
+            -webkit-appearance: none;
+
+            border: 0;
+            border-radius: 50%;
+
+            background: var(--cyan);
+            box-shadow: 0 0 10px rgba(0, 245, 225, 0.65);
+        }
+
+        .range::-moz-range-thumb {
+            width: 10px;
+            height: 10px;
+
+            border: 0;
+            border-radius: 50%;
+
+            background: var(--cyan);
+            box-shadow: 0 0 10px rgba(0, 245, 225, 0.65);
+        }
+
+        .range:focus-visible {
+            outline: 1px solid rgba(0, 245, 225, 0.4);
+            outline-offset: 4px;
+            border-radius: 999px;
+        }
+
+        .utility {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 6px;
+        }
+
+        .volume-group {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .volume-range {
+            width: 92px;
+        }
+
+        .playlist-toggle.active {
+            color: var(--cyan);
+            background: rgba(0, 245, 225, 0.065);
+            border-color: rgba(0, 245, 225, 0.18);
+        }
+
+        /* ============================================================
+           PLAYLIST
+        ============================================================ */
+
+        .playlist-drawer {
+            position: fixed;
+            right: max(
+                17px,
+                calc((100vw - var(--player-width)) / 2)
+            );
+            bottom: 116px;
+            z-index: 29;
+
+            width: min(395px, calc(100vw - 34px));
+            max-height: min(58vh, 500px);
+            padding: 13px;
+
+            overflow: hidden;
+
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+
+            background: var(--glass-strong);
+
+            backdrop-filter: blur(25px) saturate(140%);
+            -webkit-backdrop-filter: blur(25px) saturate(140%);
+
+            box-shadow:
+                0 27px 82px rgba(0, 0, 0, 0.63),
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px) scale(0.985);
+            transform-origin: bottom right;
+
+            transition:
+                opacity 180ms ease,
+                visibility 180ms ease,
+                transform 180ms ease;
+        }
+
+        .playlist-drawer.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .playlist-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+
+            padding: 4px 5px 11px 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+        }
+
+        .playlist-heading {
+            margin: 0;
+
+            color: rgba(247, 252, 255, 0.85);
+
+            font-size: 0.72rem;
+            font-weight: 400;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .close-button {
+            width: 32px;
+            height: 32px;
+            font-size: 1.1rem;
+        }
+
+        .playlist-list {
+            max-height: min(50vh, 420px);
+            padding: 7px 0 1px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+
+            scrollbar-width: thin;
+            scrollbar-color:
+                rgba(0, 245, 225, 0.27)
+                rgba(255, 255, 255, 0.035);
+        }
+
+        .playlist-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .playlist-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .playlist-list::-webkit-scrollbar-thumb {
+            border-radius: 999px;
+            background: rgba(0, 245, 225, 0.25);
+        }
+
+        .playlist-item {
+            width: 100%;
+            padding: 10px;
+
+            display: grid;
+            grid-template-columns: 25px minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 9px;
+
+            border: 0;
+            border-left: 2px solid transparent;
+            border-radius: 8px;
+
+            background: transparent;
+            color: rgba(223, 235, 244, 0.66);
+            text-align: left;
+
+            cursor: pointer;
+
+            transition:
+                color 145ms ease,
+                background 145ms ease,
+                border-color 145ms ease;
+        }
+
+        .playlist-item:hover,
+        .playlist-item:focus-visible {
+            color: rgba(248, 252, 255, 0.94);
+            background: rgba(255, 255, 255, 0.035);
+            outline: none;
+        }
+
+        .playlist-item.active {
+            color: var(--cyan);
+            border-left-color: var(--cyan);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0, 245, 225, 0.1),
+                    rgba(0, 245, 225, 0.018)
+                );
+        }
+
+        .track-number {
+            color: rgba(139, 155, 170, 0.62);
+
+            font-size: 0.7rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .playlist-item.active .track-number {
+            color: var(--cyan);
+        }
+
+        .playlist-item-title {
+            min-width: 0;
+            overflow: hidden;
+
+            font-size: 0.74rem;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .playing-indicator {
+            width: 14px;
+            height: 12px;
+
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 2px;
+
+            opacity: 0;
+        }
+
+        .playlist-item.active .playing-indicator {
+            opacity: 0.75;
+        }
+
+        .playing-indicator span {
+            width: 2px;
+            height: 4px;
+            border-radius: 1px;
+            background: var(--cyan);
+        }
+
+        .playlist-item.active.is-playing .playing-indicator span {
+            animation: meter 780ms ease-in-out infinite alternate;
+        }
+
+        .playlist-item.active.is-playing .playing-indicator span:nth-child(2) {
+            animation-delay: 120ms;
+        }
+
+        .playlist-item.active.is-playing .playing-indicator span:nth-child(3) {
+            animation-delay: 240ms;
+        }
+
+        @keyframes meter {
+            from {
+                height: 3px;
+            }
+
+            to {
+                height: 11px;
+            }
+        }
+
+        /* ============================================================
+           COPYRIGHT
+        ============================================================ */
+
+        .copyright-mark {
+            position: fixed;
+            right: 12px;
+            bottom: 8px;
+            z-index: 40;
+
+            color: rgba(220, 237, 244, 0.18);
+
+            font-size: 0.56rem;
+            line-height: 1;
+            letter-spacing: 0.07em;
+            white-space: nowrap;
+
+            user-select: text;
+            pointer-events: none;
+        }
+
+        /* ============================================================
+           MOBILE
+        ============================================================ */
+
+        @media (max-width: 760px) {
+            .room-identity {
+                left: 12px;
+                bottom: 150px;
+                gap: 10px;
+            }
+
+            .menu-button {
+                width: 42px;
+                height: 42px;
+                border-radius: 12px;
+            }
+
+            .room-title {
+                font-size: clamp(1.02rem, 6vw, 1.7rem);
+            }
+
+            .room-subtitle {
+                margin-top: 7px;
+
+                max-width: 260px;
+
+                font-size: 0.5rem;
+                line-height: 1.5;
+                letter-spacing: 0.2em;
+            }
+
+            .player-wrap {
+                bottom: max(
+                    8px,
+                    env(safe-area-inset-bottom)
+                );
+
+                width: calc(100vw - 16px);
+            }
+
+            .player {
+                padding: 12px 11px;
+
+                grid-template-columns: 1fr;
+                gap: 10px;
+
+                border-radius: 17px;
+            }
+
+            .track-section {
+                grid-row: 1;
+            }
+
+            .transport {
+                grid-row: 2;
+
+                justify-content: center;
+                padding-right: 102px;
+            }
+
+            .utility {
+                position: absolute;
+                right: 10px;
+                bottom: 13px;
+            }
+
+            .volume-range {
+                display: none;
+            }
+
+            .icon-button {
+                width: 37px;
+                height: 37px;
+            }
+
+            .play-button {
+                width: 46px;
+                height: 46px;
+            }
+
+            .playlist-drawer {
+                right: 8px;
+                bottom: 142px;
+
+                width: calc(100vw - 16px);
+                max-height: min(53vh, 440px);
+
+                transform-origin: bottom center;
+            }
+
+            .copyright-mark {
+                right: 10px;
+                bottom: 137px;
+
+                max-width: 58vw;
+
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                font-size: 0.48rem;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .identity-copy {
+                max-width: calc(100vw - 75px);
+            }
+
+            .room-title {
+                font-size: 1rem;
+            }
+
+            .track-title {
+                font-size: 0.76rem;
+            }
+
+            .transport {
+                justify-content: flex-start;
+                padding-right: 90px;
+                gap: 3px;
+            }
+
+            .utility {
+                gap: 1px;
+            }
+
+            .icon-button {
+                width: 35px;
+                height: 35px;
+            }
+
+            .play-button {
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="room">
+        <canvas
+            id="visualizer"
+            aria-label="Audio-reactive digital landscape"
+        ></canvas>
+
+        <div class="room-identity">
+            <div class="menu-shell">
+                <button
+                    id="menu-button"
+                    class="menu-button"
+                    type="button"
+                    aria-label="Open portfolio navigation"
+                    aria-expanded="false"
+                    aria-controls="site-menu"
+                >
+                    <span class="hamburger" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+
+                <nav
+                    id="site-menu"
+                    class="site-menu"
+                    aria-label="Portfolio navigation"
+                >
+                    <a href="index.html">
+                        <span>Home</span>
+                        <span class="menu-marker"></span>
+                    </a>
+
+                    <a href="resonance.html" aria-current="page">
+                        <span>Resonance &amp; Sound</span>
+                        <span class="menu-marker"></span>
+                    </a>
+
+                    <a href="techspressionism.html">
+                        <span>Techspressionism</span>
+                        <span class="menu-marker"></span>
+                    </a>
+
+                    <a href="studio.html">
+                        <span>Studio Art</span>
+                        <span class="menu-marker"></span>
+                    </a>
+
+                    <a href="tattoo.html">
+                        <span>Tattoo</span>
+                        <span class="menu-marker"></span>
+                    </a>
+
+                    <a href="dimensional.html">
+                        <span>Dimensional Art</span>
+                        <span class="menu-marker"></span>
+                    </a>
+
+                    <a href="spaces.html">
+                        <span>Intentional Spaces</span>
+                        <span class="menu-marker"></span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="identity-copy">
+                <h1 class="room-title">
+                    Resonance &amp; Sound
+                </h1>
+
+                <p class="room-subtitle">
+                    A digital landscape that listens.
+                </p>
+            </div>
+        </div>
+
+        <aside
+            id="playlist-drawer"
+            class="playlist-drawer"
+            aria-hidden="true"
+        >
+            <div class="playlist-header">
+                <h2 class="playlist-heading">
+                    Playlist
+                </h2>
+
+                <button
+                    id="playlist-close"
+                    class="icon-button close-button"
+                    type="button"
+                    aria-label="Close playlist"
+                >
+                    ×
+                </button>
+            </div>
+
+            <div
+                id="playlist-list"
+                class="playlist-list"
+            ></div>
+        </aside>
+
+        <div class="player-wrap">
+            <section
+                class="player"
+                aria-label="Music player"
+            >
+                <div class="transport">
+                    <button
+                        id="previous-button"
+                        class="icon-button"
+                        type="button"
+                        aria-label="Previous track"
+                        title="Previous"
+                    >
+                        ⏮
+                    </button>
+
+                    <button
+                        id="play-button"
+                        class="icon-button play-button"
+                        type="button"
+                        aria-label="Play"
+                        title="Play"
+                    >
+                        ▶
+                    </button>
+
+                    <button
+                        id="next-button"
+                        class="icon-button"
+                        type="button"
+                        aria-label="Next track"
+                        title="Next"
+                    >
+                        ⏭
+                    </button>
+                </div>
+
+                <div class="track-section">
+                    <div class="track-heading">
+                        <div class="track-text">
+                            <span class="track-kicker">
+                                Now playing
+                            </span>
+
+                            <strong
+                                id="track-title"
+                                class="track-title"
+                            >
+                                Ancestral Awakening
+                            </strong>
+                        </div>
+
+                        <span
+                            id="time-display"
+                            class="time"
+                        >
+                            0:00 / 0:00
+                        </span>
+                    </div>
+
+                    <div class="progress-row">
+                        <input
+                            id="progress-range"
+                            class="range"
+                            type="range"
+                            min="0"
+                            max="100"
+                            value="0"
+                            step="0.01"
+                            aria-label="Track progress"
+                        >
+                    </div>
+                </div>
+
+                <div class="utility">
+                    <div class="volume-group">
+                        <button
+                            id="mute-button"
+                            class="icon-button"
+                            type="button"
+                            aria-label="Mute"
+                            title="Mute"
+                        >
+                            🔊
+                        </button>
+
+                        <input
+                            id="volume-range"
+                            class="range volume-range"
+                            type="range"
+                            min="0"
+                            max="1"
+                            value="0.72"
+                            step="0.01"
+                            aria-label="Volume"
+                        >
+                    </div>
+
+                    <button
+                        id="playlist-toggle"
+                        class="icon-button playlist-toggle"
+                        type="button"
+                        aria-label="Open playlist"
+                        aria-expanded="false"
+                        title="Playlist"
+                    >
+                        ☷
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <div class="copyright-mark">
+            © ℗ 2026 CASEY MARIE ROY · @spacecase135
+        </div>
+
+        <audio
+            id="audio"
+            preload="metadata"
+        ></audio>
+    </main>
+
+    <script>
+        "use strict";
+
+        /* ============================================================
+           MUSIC CATALOG
+        ============================================================ */
+
+        const tracks = [
+            {
+                title: "Ancestral Awakening",
+                file: "Ancestral Awakening.mp3"
+            },
+            {
+                title: "Bildungsroman (Coming-of-age)",
+                file: "Bildungsroman (Coming-of-age).mp3"
+            },
+            {
+                title: "Butterfly Effect",
+                file: "Butterfly Effect.mp3"
+            },
+            {
+                title: "Dance of the Binary",
+                file: "Dance of the Binary.mp3"
+            },
+            {
+                title: "Drunk Words",
+                file: "Drunk Words.mp3"
+            },
+            {
+                title: "Holy Water",
+                file: "Holy Water.mp3"
+            },
+            {
+                title: "Home",
+                file: "Home.mp3"
+            },
+            {
+                title: "Matrix of Our Sins",
+                file: "Matrix of Our Sins.mp3"
+            },
+            {
+                title: "Miroir Noir",
+                file: "Miroir Noir.mp3"
+            },
+            {
+                title: "New Horizon",
+                file: "New Horizon.mp3"
+            },
+            {
+                title: "Remember",
+                file: "Remember.mp3"
+            },
+            {
+                title: "Sleeping Sober",
+                file: "Sleeping Sober.mp3"
+            },
+            {
+                title: "Wunderkind (Wonder Child)",
+                file: "Wunderkind (Wonder Child).mp3"
+            }
+        ];
+
+        const soundPath = "portfolio-media/sound/";
+
+        /* ============================================================
+           ELEMENTS
+        ============================================================ */
+
+        const audio =
+            document.getElementById("audio");
+
+        const playButton =
+            document.getElementById("play-button");
+
+        const previousButton =
+            document.getElementById("previous-button");
+
+        const nextButton =
+            document.getElementById("next-button");
+
+        const muteButton =
+            document.getElementById("mute-button");
+
+        const progressRange =
+            document.getElementById("progress-range");
+
+        const volumeRange =
+            document.getElementById("volume-range");
+
+        const trackTitle =
+            document.getElementById("track-title");
+
+        const timeDisplay =
+            document.getElementById("time-display");
+
+        const playlistToggle =
+            document.getElementById("playlist-toggle");
+
+        const playlistClose =
+            document.getElementById("playlist-close");
+
+        const playlistDrawer =
+            document.getElementById("playlist-drawer");
+
+        const playlistList =
+            document.getElementById("playlist-list");
+
+        const menuButton =
+            document.getElementById("menu-button");
+
+        const siteMenu =
+            document.getElementById("site-menu");
+
+        /* ============================================================
+           PLAYER STATE
+        ============================================================ */
+
+        let currentTrackIndex = 0;
+        let previousVolume = 0.72;
+
+        let audioContext = null;
+        let analyser = null;
+        let mediaSource = null;
+        let frequencyData = null;
+
+        audio.volume = Number(volumeRange.value);
+
+        function createTrackPath(fileName) {
+            return soundPath + encodeURIComponent(fileName);
+        }
+
+        function loadTrack(index, shouldPlay = false) {
+            currentTrackIndex =
+                (index + tracks.length) % tracks.length;
+
+            const selectedTrack =
+                tracks[currentTrackIndex];
+
+            audio.src =
+                createTrackPath(selectedTrack.file);
+
+            trackTitle.textContent =
+                selectedTrack.title;
+
+            progressRange.value = "0";
+            updateRangeFill(progressRange, 0);
+
+            timeDisplay.textContent =
+                "0:00 / 0:00";
+
+            updatePlaylistState();
+
+            if (shouldPlay) {
+                playAudio();
+            }
+        }
+
+        async function initializeAudioAnalysis() {
+            if (audioContext) {
+                if (audioContext.state === "suspended") {
+                    await audioContext.resume();
+                }
+
+                return;
+            }
+
+            const AudioContextClass =
+                window.AudioContext ||
+                window.webkitAudioContext;
+
+            if (!AudioContextClass) {
+                console.warn(
+                    "Web Audio API is unavailable in this browser."
+                );
+
+                return;
+            }
+
+            audioContext =
+                new AudioContextClass();
+
+            analyser =
+                audioContext.createAnalyser();
+
+            analyser.fftSize = 1024;
+            analyser.smoothingTimeConstant = 0.84;
+
+            frequencyData =
+                new Uint8Array(
+                    analyser.frequencyBinCount
+                );
+
+            mediaSource =
+                audioContext.createMediaElementSource(audio);
+
+            mediaSource.connect(analyser);
+            analyser.connect(audioContext.destination);
+        }
+
+        async function playAudio() {
+            try {
+                await initializeAudioAnalysis();
+                await audio.play();
+            } catch (error) {
+                console.error(
+                    "Unable to play this track:",
+                    error
+                );
+            }
+        }
+
+        function togglePlay() {
+            if (audio.paused) {
+                playAudio();
+            } else {
+                audio.pause();
+            }
+        }
+
+        function formatTime(seconds) {
+            if (!Number.isFinite(seconds)) {
+                return "0:00";
+            }
+
+            const minutes =
+                Math.floor(seconds / 60);
+
+            const remainingSeconds =
+                Math.floor(seconds % 60)
+                    .toString()
+                    .padStart(2, "0");
+
+            return `${minutes}:${remainingSeconds}`;
+        }
+
+        function updateRangeFill(range, percentage) {
+            const safePercentage =
+                Math.max(
+                    0,
+                    Math.min(100, percentage)
+                );
+
+            range.style.setProperty(
+                "--range-progress",
+                `${safePercentage}%`
+            );
+        }
+
+        function updatePlayerTime() {
+            if (!Number.isFinite(audio.duration)) {
+                return;
+            }
+
+            const progress =
+                audio.duration > 0
+                    ? (
+                        audio.currentTime /
+                        audio.duration
+                    ) * 100
+                    : 0;
+
+            progressRange.value =
+                progress.toString();
+
+            updateRangeFill(
+                progressRange,
+                progress
+            );
+
+            timeDisplay.textContent =
+                `${formatTime(audio.currentTime)} / ` +
+                `${formatTime(audio.duration)}`;
+        }
+
+        function updatePlayButton() {
+            const isPlaying = !audio.paused;
+
+            playButton.textContent =
+                isPlaying ? "⏸" : "▶";
+
+            playButton.setAttribute(
+                "aria-label",
+                isPlaying ? "Pause" : "Play"
+            );
+
+            playButton.title =
+                isPlaying ? "Pause" : "Play";
+
+            updatePlaylistState();
+        }
+
+        function updateMuteButton() {
+            const muted =
+                audio.muted ||
+                audio.volume === 0;
+
+            muteButton.textContent =
+                muted ? "🔇" : "🔊";
+
+            muteButton.setAttribute(
+                "aria-label",
+                muted ? "Unmute" : "Mute"
+            );
+
+            muteButton.title =
+                muted ? "Unmute" : "Mute";
+        }
+
+        function toggleMute() {
+            if (
+                !audio.muted &&
+                audio.volume > 0
+            ) {
+                previousVolume = audio.volume;
+                audio.muted = true;
+            } else {
+                audio.muted = false;
+
+                if (audio.volume === 0) {
+                    audio.volume =
+                        previousVolume || 0.72;
+
+                    volumeRange.value =
+                        audio.volume.toString();
+                }
+            }
+
+            updateMuteButton();
+
+            updateRangeFill(
+                volumeRange,
+                audio.volume * 100
+            );
+        }
+
+        /* ============================================================
+           PLAYLIST
+        ============================================================ */
+
+        function buildPlaylist() {
+            playlistList.innerHTML = "";
+
+            tracks.forEach((track, index) => {
+                const item =
+                    document.createElement("button");
+
+                item.type = "button";
+                item.className = "playlist-item";
+
+                item.innerHTML = `
+                    <span class="track-number">
+                        ${String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    <span class="playlist-item-title">
+                        ${track.title}
+                    </span>
+
+                    <span
+                        class="playing-indicator"
+                        aria-hidden="true"
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                `;
+
+                item.addEventListener(
+                    "click",
+                    () => {
+                        loadTrack(index, true);
+                        closePlaylist();
+                    }
+                );
+
+                playlistList.appendChild(item);
+            });
+
+            updatePlaylistState();
+        }
+
+        function updatePlaylistState() {
+            const items =
+                playlistList.querySelectorAll(
+                    ".playlist-item"
+                );
+
+            items.forEach((item, index) => {
+                const active =
+                    index === currentTrackIndex;
+
+                item.classList.toggle(
+                    "active",
+                    active
+                );
+
+                item.classList.toggle(
+                    "is-playing",
+                    active && !audio.paused
+                );
+            });
+        }
+
+        function openPlaylist() {
+            playlistDrawer.classList.add("open");
+
+            playlistDrawer.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            playlistToggle.classList.add("active");
+
+            playlistToggle.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+        }
+
+        function closePlaylist() {
+            playlistDrawer.classList.remove("open");
+
+            playlistDrawer.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            playlistToggle.classList.remove("active");
+
+            playlistToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+        }
+
+        function togglePlaylist() {
+            if (
+                playlistDrawer.classList.contains("open")
+            ) {
+                closePlaylist();
+            } else {
+                openPlaylist();
+            }
+        }
+
+        /* ============================================================
+           SITE MENU
+        ============================================================ */
+
+        function closeSiteMenu() {
+            siteMenu.classList.remove("open");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+        }
+
+        function toggleSiteMenu() {
+            const open =
+                siteMenu.classList.toggle("open");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                open.toString()
+            );
+        }
+
+        /* ============================================================
+           EVENTS
+        ============================================================ */
+
+        playButton.addEventListener(
+            "click",
+            togglePlay
+        );
+
+        previousButton.addEventListener(
+            "click",
+            () => {
+                loadTrack(
+                    currentTrackIndex - 1,
+                    true
+                );
+            }
+        );
+
+        nextButton.addEventListener(
+            "click",
+            () => {
+                loadTrack(
+                    currentTrackIndex + 1,
+                    true
+                );
+            }
+        );
+
+        muteButton.addEventListener(
+            "click",
+            toggleMute
+        );
+
+        progressRange.addEventListener(
+            "input",
+            () => {
+                if (
+                    Number.isFinite(audio.duration)
+                ) {
+                    audio.currentTime =
+                        (
+                            Number(progressRange.value) /
+                            100
+                        ) * audio.duration;
+                }
+
+                updateRangeFill(
+                    progressRange,
+                    Number(progressRange.value)
+                );
+            }
+        );
+
+        volumeRange.addEventListener(
+            "input",
+            () => {
+                const value =
+                    Number(volumeRange.value);
+
+                audio.muted = false;
+                audio.volume = value;
+
+                if (value > 0) {
+                    previousVolume = value;
+                }
+
+                updateMuteButton();
+
+                updateRangeFill(
+                    volumeRange,
+                    value * 100
+                );
+            }
+        );
+
+        playlistToggle.addEventListener(
+            "click",
+            togglePlaylist
+        );
+
+        playlistClose.addEventListener(
+            "click",
+            closePlaylist
+        );
+
+        menuButton.addEventListener(
+            "click",
+            toggleSiteMenu
+        );
+
+        audio.addEventListener(
+            "play",
+            updatePlayButton
+        );
+
+        audio.addEventListener(
+            "pause",
+            updatePlayButton
+        );
+
+        audio.addEventListener(
+            "timeupdate",
+            updatePlayerTime
+        );
+
+        audio.addEventListener(
+            "loadedmetadata",
+            updatePlayerTime
+        );
+
+        audio.addEventListener(
+            "ended",
+            () => {
+                loadTrack(
+                    currentTrackIndex + 1,
+                    true
+                );
+            }
+        );
+
+        audio.addEventListener(
+            "error",
+            () => {
+                console.error(
+                    "The browser could not load:",
+                    audio.src
+                );
+            }
+        );
+
+        document.addEventListener(
+            "click",
+            event => {
+                const clickedMenu =
+                    siteMenu.contains(event.target) ||
+                    menuButton.contains(event.target);
+
+                if (!clickedMenu) {
+                    closeSiteMenu();
+                }
+
+                const clickedPlaylist =
+                    playlistDrawer.contains(event.target) ||
+                    playlistToggle.contains(event.target);
+
+                if (!clickedPlaylist) {
+                    closePlaylist();
+                }
+            }
+        );
+
+        document.addEventListener(
+            "keydown",
+            event => {
+                if (event.key === "Escape") {
+                    closeSiteMenu();
+                    closePlaylist();
+                }
+
+                if (
+                    event.code === "Space" &&
+                    !["INPUT", "BUTTON", "A"].includes(
+                        document.activeElement.tagName
+                    )
+                ) {
+                    event.preventDefault();
+                    togglePlay();
+                }
+            }
+        );
+
+        /* ============================================================
+           LIVING DIGITAL LANDSCAPE
+        ============================================================ */
+
+        const canvas =
+            document.getElementById("visualizer");
+
+        const context =
+            canvas.getContext("2d", {
+                alpha: false
+            });
+
+        let canvasWidth = 0;
+        let canvasHeight = 0;
+        let pixelRatio = 1;
+
+        let columns = 0;
+        let rows = 0;
+        let terrainPoints = [];
+
+        let animationFrame = 0;
+        let lastFrameTime = 0;
+
+        const sound = {
+            bass: 0,
+            lowMid: 0,
+            mid: 0,
+            high: 0,
+            energy: 0,
+            transient: 0
+        };
+
+        function resizeCanvas() {
+            pixelRatio =
+                Math.min(
+                    window.devicePixelRatio || 1,
+                    1.6
+                );
+
+            canvasWidth =
+                window.innerWidth;
+
+            canvasHeight =
+                window.innerHeight;
+
+            canvas.width =
+                Math.round(
+                    canvasWidth * pixelRatio
+                );
+
+            canvas.height =
+                Math.round(
+                    canvasHeight * pixelRatio
+                );
+
+            canvas.style.width =
+                `${canvasWidth}px`;
+
+            canvas.style.height =
+                `${canvasHeight}px`;
+
+            context.setTransform(
+                pixelRatio,
+                0,
+                0,
+                pixelRatio,
+                0,
+                0
+            );
+
+            createTerrain();
+        }
+
+        function createTerrain() {
+            const mobile =
+                canvasWidth < 760;
+
+            const compact =
+                canvasWidth < 430;
+
+            columns =
+                compact
+                    ? 64
+                    : mobile
+                        ? 86
+                        : 132;
+
+            rows =
+                compact
+                    ? 38
+                    : mobile
+                        ? 45
+                        : 58;
+
+            terrainPoints = [];
+
+            for (
+                let row = 0;
+                row < rows;
+                row++
+            ) {
+                const depth =
+                    row / (rows - 1);
+
+                for (
+                    let column = 0;
+                    column < columns;
+                    column++
+                ) {
+                    const normalizedX =
+                        column / (columns - 1);
+
+                    const deterministicNoise =
+                        (
+                            Math.sin(
+                                column * 12.9898 +
+                                row * 78.233
+                            ) *
+                            43758.5453
+                        ) % 1;
+
+                    terrainPoints.push({
+                        row,
+                        column,
+                        normalizedX,
+                        depth,
+
+                        phase:
+                            column * 0.16 +
+                            row * 0.2,
+
+                        noise:
+                            Math.abs(
+                                deterministicNoise
+                            ),
+
+                        x: 0,
+                        y: 0,
+                        radius: 1,
+                        alpha: 1,
+                        height: 0
+                    });
+                }
+            }
+        }
+
+        function averageFrequency(
+            startRatio,
+            endRatio
+        ) {
+            if (
+                !analyser ||
+                !frequencyData
+            ) {
+                return 0;
+            }
+
+            const start =
+                Math.floor(
+                    frequencyData.length *
+                    startRatio
+                );
+
+            const end =
+                Math.max(
+                    start + 1,
+                    Math.floor(
+                        frequencyData.length *
+                        endRatio
+                    )
+                );
+
+            let total = 0;
+
+            for (
+                let index = start;
+                index < end;
+                index++
+            ) {
+                total += frequencyData[index];
+            }
+
+            return (
+                total /
+                (end - start) /
+                255
+            );
+        }
+
+        function analyzeSound() {
+            let targetBass = 0;
+            let targetLowMid = 0;
+            let targetMid = 0;
+            let targetHigh = 0;
+
+            if (
+                analyser &&
+                frequencyData &&
+                !audio.paused
+            ) {
+                analyser.getByteFrequencyData(
+                    frequencyData
+                );
+
+                targetBass =
+                    averageFrequency(0, 0.065);
+
+                targetLowMid =
+                    averageFrequency(0.065, 0.19);
+
+                targetMid =
+                    averageFrequency(0.19, 0.5);
+
+                targetHigh =
+                    averageFrequency(0.5, 0.95);
+            } else {
+                const idleTime =
+                    performance.now() * 0.00019;
+
+                targetBass =
+                    0.04 +
+                    Math.sin(idleTime) * 0.011;
+
+                targetLowMid =
+                    0.032 +
+                    Math.cos(
+                        idleTime * 0.72
+                    ) * 0.008;
+
+                targetMid = 0.022;
+                targetHigh = 0.014;
+            }
+
+            const easing =
+                audio.paused
+                    ? 0.028
+                    : 0.17;
+
+            const previousEnergy =
+                sound.energy;
+
+            sound.bass +=
+                (
+                    targetBass -
+                    sound.bass
+                ) * easing;
+
+            sound.lowMid +=
+                (
+                    targetLowMid -
+                    sound.lowMid
+                ) * easing;
+
+            sound.mid +=
+                (
+                    targetMid -
+                    sound.mid
+                ) * easing;
+
+            sound.high +=
+                (
+                    targetHigh -
+                    sound.high
+                ) * easing;
+
+            sound.energy =
+                sound.bass * 0.44 +
+                sound.lowMid * 0.27 +
+                sound.mid * 0.19 +
+                sound.high * 0.1;
+
+            sound.transient =
+                Math.max(
+                    0,
+                    sound.energy -
+                    previousEnergy
+                );
+        }
+
+        function interpolateColor(
+            colorA,
+            colorB,
+            amount
+        ) {
+            return {
+                red:
+                    colorA.red +
+                    (
+                        colorB.red -
+                        colorA.red
+                    ) * amount,
+
+                green:
+                    colorA.green +
+                    (
+                        colorB.green -
+                        colorA.green
+                    ) * amount,
+
+                blue:
+                    colorA.blue +
+                    (
+                        colorB.blue -
+                        colorA.blue
+                    ) * amount
+            };
+        }
+
+        function terrainColor(
+            point,
+            heightIntensity
+        ) {
+            const teal = {
+                red: 0,
+                green: 218,
+                blue: 210
+            };
+
+            const blue = {
+                red: 38,
+                green: 118,
+                blue: 255
+            };
+
+            const violet = {
+                red: 143,
+                green: 77,
+                blue: 255
+            };
+
+            const magenta = {
+                red: 239,
+                green: 61,
+                blue: 255
+            };
+
+            const hotPink = {
+                red: 255,
+                green: 25,
+                blue: 135
+            };
+
+            const horizontalFlow =
+                Math.sin(
+                    point.normalizedX *
+                    Math.PI
+                );
+
+            let color =
+                interpolateColor(
+                    teal,
+                    blue,
+                    Math.min(
+                        1,
+                        horizontalFlow * 0.66 +
+                        point.depth * 0.16
+                    )
+                );
+
+            color =
+                interpolateColor(
+                    color,
+                    violet,
+                    Math.min(
+                        1,
+                        point.depth * 0.43 +
+                        sound.mid * 0.72
+                    )
+                );
+
+            color =
+                interpolateColor(
+                    color,
+                    magenta,
+                    Math.min(
+                        1,
+                        sound.energy * 0.52 +
+                        heightIntensity * 0.32
+                    )
+                );
+
+            color =
+                interpolateColor(
+                    color,
+                    hotPink,
+                    Math.min(
+                        0.72,
+                        sound.transient * 4.8 +
+                        sound.high * 0.18
+                    )
+                );
+
+            const depthBrightness =
+                0.46 +
+                point.depth * 0.54;
+
+            return {
+                red:
+                    Math.min(
+                        255,
+                        color.red *
+                        depthBrightness
+                    ),
+
+                green:
+                    Math.min(
+                        255,
+                        color.green *
+                        depthBrightness
+                    ),
+
+                blue:
+                    Math.min(
+                        255,
+                        color.blue *
+                        depthBrightness
+                    )
+            };
+        }
+
+        function updateTerrain(time) {
+            const mobile =
+                canvasWidth < 760;
+
+            /*
+                The horizon begins near the top so the
+                landscape immediately occupies the page.
+            */
+            const horizon =
+                canvasHeight *
+                (
+                    mobile
+                        ? 0.12
+                        : 0.1
+                );
+
+            const depthSpan =
+                canvasHeight *
+                (
+                    mobile
+                        ? 0.7
+                        : 0.73
+                );
+
+            const slowTime =
+                time * 0.00028;
+
+            const mediumTime =
+                time * 0.00054;
+
+            for (
+                let index = 0;
+                index < terrainPoints.length;
+                index++
+            ) {
+                const point =
+                    terrainPoints[index];
+
+                const perspective =
+                    Math.pow(
+                        point.depth,
+                        1.52
+                    );
+
+                const spread =
+                    0.12 +
+                    perspective * 1.04;
+
+                const centerOffset =
+                    (
+                        point.normalizedX -
+                        0.5
+                    ) *
+                    canvasWidth *
+                    spread;
+
+                const x =
+                    canvasWidth * 0.5 +
+                    centerOffset;
+
+                const largeSwell =
+                    Math.sin(
+                        point.normalizedX * 8.8 +
+                        slowTime * 4.1 +
+                        point.phase * 0.11
+                    );
+
+                const crossingSwell =
+                    Math.cos(
+                        point.normalizedX * 18.5 -
+                        mediumTime * 2.3 +
+                        point.depth * 5.8
+                    );
+
+                const detailWave =
+                    Math.sin(
+                        point.normalizedX * 39 +
+                        point.row * 0.31 +
+                        slowTime * 1.5
+                    );
+
+                const microTexture =
+                    Math.cos(
+                        point.normalizedX * 73 +
+                        point.row * 0.48 -
+                        mediumTime
+                    );
+
+                const idleAmplitude =
+                    7 +
+                    perspective * 22;
+
+                const bassAmplitude =
+                    sound.bass *
+                    (
+                        58 +
+                        perspective * 168
+                    );
+
+                const lowMidAmplitude =
+                    sound.lowMid *
+                    (
+                        35 +
+                        perspective * 88
+                    );
+
+                const midDetail =
+                    sound.mid *
+                    (
+                        18 +
+                        perspective * 44
+                    );
+
+                const combinedWave =
+                    largeSwell * 0.55 +
+                    crossingSwell * 0.25 +
+                    detailWave * 0.14 +
+                    microTexture * 0.06;
+
+                const centralPeak =
+                    Math.exp(
+                        -Math.pow(
+                            (
+                                point.normalizedX -
+                                0.54
+                            ) / 0.145,
+                            2
+                        )
+                    ) *
+                    sound.bass *
+                    (
+                        35 +
+                        perspective * 82
+                    );
+
+                const sidePeak =
+                    Math.exp(
+                        -Math.pow(
+                            (
+                                point.normalizedX -
+                                0.24
+                            ) / 0.1,
+                            2
+                        )
+                    ) *
+                    sound.lowMid *
+                    (
+                        20 +
+                        perspective * 58
+                    );
+
+                const amplitude =
+                    idleAmplitude +
+                    bassAmplitude +
+                    lowMidAmplitude +
+                    midDetail;
+
+                const verticalDisplacement =
+                    combinedWave *
+                    amplitude *
+                    (
+                        0.1 +
+                        perspective * 0.9
+                    ) +
+                    centralPeak +
+                    sidePeak;
+
+                const y =
+                    horizon +
+                    perspective * depthSpan -
+                    verticalDisplacement;
+
+                point.x = x;
+                point.y = y;
+                point.height =
+                    verticalDisplacement;
+
+                point.radius =
+                    0.23 +
+                    perspective * 1.28 +
+                    sound.high *
+                    (
+                        0.55 +
+                        point.noise * 1.35
+                    );
+
+                point.alpha =
+                    0.075 +
+                    perspective * 0.69 +
+                    sound.energy * 0.32;
+            }
+        }
+
+        function drawBackground(time) {
+            const backgroundGradient =
+                context.createLinearGradient(
+                    0,
+                    0,
+                    0,
+                    canvasHeight
+                );
+
+            backgroundGradient.addColorStop(
+                0,
+                "#010208"
+            );
+
+            backgroundGradient.addColorStop(
+                0.38,
+                "#02091a"
+            );
+
+            backgroundGradient.addColorStop(
+                0.72,
+                "#020713"
+            );
+
+            backgroundGradient.addColorStop(
+                1,
+                "#010309"
+            );
+
+            context.fillStyle =
+                backgroundGradient;
+
+            context.fillRect(
+                0,
+                0,
+                canvasWidth,
+                canvasHeight
+            );
+
+            const glowCenterY =
+                canvasHeight * 0.24;
+
+            const landscapeGlow =
+                context.createRadialGradient(
+                    canvasWidth * 0.5,
+                    glowCenterY,
+                    0,
+                    canvasWidth * 0.5,
+                    glowCenterY,
+                    canvasWidth * 0.62
+                );
+
+            landscapeGlow.addColorStop(
+                0,
+                `rgba(
+                    0,
+                    221,
+                    220,
+                    ${0.055 + sound.energy * 0.08}
+                )`
+            );
+
+            landscapeGlow.addColorStop(
+                0.45,
+                `rgba(
+                    54,
+                    82,
+                    255,
+                    ${0.025 + sound.mid * 0.055}
+                )`
+            );
+
+            landscapeGlow.addColorStop(
+                0.76,
+                `rgba(
+                    143,
+                    77,
+                    255,
+                    ${0.012 + sound.energy * 0.025}
+                )`
+            );
+
+            landscapeGlow.addColorStop(
+                1,
+                "rgba(0, 0, 0, 0)"
+            );
+
+            context.fillStyle =
+                landscapeGlow;
+
+            context.fillRect(
+                0,
+                0,
+                canvasWidth,
+                canvasHeight
+            );
+
+            drawAtmosphericParticles(time);
+        }
+
+        function drawAtmosphericParticles(time) {
+            const mobile =
+                canvasWidth < 760;
+
+            const particleCount =
+                mobile
+                    ? 52
+                    : 94;
+
+            const skyDepth =
+                canvasHeight * 0.58;
+
+            for (
+                let index = 0;
+                index < particleCount;
+                index++
+            ) {
+                const seed =
+                    index * 19.371;
+
+                const normalizedX =
+                    Math.sin(seed) *
+                    0.5 +
+                    0.5;
+
+                const x =
+                    normalizedX *
+                    canvasWidth;
+
+                const drift =
+                    (
+                        time * 0.0034 *
+                        (
+                            0.2 +
+                            index % 6 * 0.075
+                        )
+                    ) %
+                    (
+                        skyDepth + 100
+                    );
+
+                const y =
+                    skyDepth -
+                    drift +
+                    50;
+
+                const shimmer =
+                    0.17 +
+                    Math.sin(
+                        time * 0.0015 +
+                        seed
+                    ) * 0.15;
+
+                const radius =
+                    0.3 +
+                    (index % 4) * 0.23 +
+                    sound.high * 1.4;
+
+                context.beginPath();
+
+                context.arc(
+                    x,
+                    y,
+                    radius,
+                    0,
+                    Math.PI * 2
+                );
+
+                const energetic =
+                    sound.energy > 0.28 &&
+                    index % 9 === 0;
+
+                if (energetic) {
+                    context.fillStyle =
+                        `rgba(
+                            255,
+                            25,
+                            135,
+                            ${Math.max(0, shimmer)}
+                        )`;
+                } else if (index % 7 === 0) {
+                    context.fillStyle =
+                        `rgba(
+                            143,
+                            77,
+                            255,
+                            ${Math.max(0, shimmer)}
+                        )`;
+                } else {
+                    context.fillStyle =
+                        `rgba(
+                            0,
+                            225,
+                            226,
+                            ${Math.max(0, shimmer)}
+                        )`;
+                }
+
+                context.fill();
+            }
+        }
+
+        function drawConnections() {
+            context.lineWidth = 0.42;
+
+            for (
+                let row = 0;
+                row < rows;
+                row++
+            ) {
+                for (
+                    let column = 0;
+                    column < columns;
+                    column++
+                ) {
+                    const index =
+                        row * columns +
+                        column;
+
+                    const point =
+                        terrainPoints[index];
+
+                    const horizontalConnection =
+                        (
+                            row * 7 +
+                            column * 11
+                        ) % 11 === 0;
+
+                    const verticalConnection =
+                        (
+                            row +
+                            column * 2
+                        ) % 19 === 0;
+
+                    if (
+                        horizontalConnection &&
+                        column < columns - 1
+                    ) {
+                        const right =
+                            terrainPoints[index + 1];
+
+                        drawLineBetween(
+                            point,
+                            right
+                        );
+                    }
+
+                    if (
+                        verticalConnection &&
+                        row < rows - 1
+                    ) {
+                        const below =
+                            terrainPoints[
+                                index +
+                                columns
+                            ];
+
+                        drawLineBetween(
+                            point,
+                            below
+                        );
+                    }
+                }
+            }
+        }
+
+        function drawLineBetween(
+            firstPoint,
+            secondPoint
+        ) {
+            const heightIntensity =
+                Math.min(
+                    1,
+                    Math.abs(firstPoint.height) /
+                    140
+                );
+
+            const color =
+                terrainColor(
+                    firstPoint,
+                    heightIntensity
+                );
+
+            const alpha =
+                0.035 +
+                firstPoint.depth * 0.16 +
+                sound.mid * 0.14;
+
+            context.beginPath();
+
+            context.moveTo(
+                firstPoint.x,
+                firstPoint.y
+            );
+
+            context.lineTo(
+                secondPoint.x,
+                secondPoint.y
+            );
+
+            context.strokeStyle =
+                `rgba(
+                    ${Math.round(color.red)},
+                    ${Math.round(color.green)},
+                    ${Math.round(color.blue)},
+                    ${alpha}
+                )`;
+
+            context.stroke();
+        }
+
+        function drawTerrainPoints() {
+            for (
+                let index = 0;
+                index < terrainPoints.length;
+                index++
+            ) {
+                const point =
+                    terrainPoints[index];
+
+                const heightIntensity =
+                    Math.min(
+                        1,
+                        Math.abs(point.height) /
+                        135
+                    );
+
+                const color =
+                    terrainColor(
+                        point,
+                        heightIntensity
+                    );
+
+                const brightPoint =
+                    (
+                        point.row * 17 +
+                        point.column * 23
+                    ) % 53 === 0;
+
+                const transientPoint =
+                    sound.transient > 0.015 &&
+                    (
+                        point.row +
+                        point.column
+                    ) % 37 === 0;
+
+                if (
+                    brightPoint ||
+                    transientPoint
+                ) {
+                    context.shadowColor =
+                        `rgba(
+                            ${Math.round(color.red)},
+                            ${Math.round(color.green)},
+                            ${Math.round(color.blue)},
+                            0.85
+                        )`;
+
+                    context.shadowBlur =
+                        5 +
+                        sound.high * 11 +
+                        sound.transient * 85;
+                }
+
+                context.beginPath();
+
+                context.arc(
+                    point.x,
+                    point.y,
+                    point.radius *
+                    (
+                        transientPoint
+                            ? 1.75
+                            : brightPoint
+                                ? 1.35
+                                : 1
+                    ),
+                    0,
+                    Math.PI * 2
+                );
+
+                context.fillStyle =
+                    `rgba(
+                        ${Math.round(color.red)},
+                        ${Math.round(color.green)},
+                        ${Math.round(color.blue)},
+                        ${Math.min(
+                            0.96,
+                            point.alpha
+                        )}
+                    )`;
+
+                context.fill();
+
+                context.shadowBlur = 0;
+            }
+        }
+
+        function drawVisualizer(time) {
+            analyzeSound();
+            drawBackground(time);
+            updateTerrain(time);
+            drawConnections();
+            drawTerrainPoints();
+        }
+
+        function animate(time) {
+            animationFrame =
+                requestAnimationFrame(animate);
+
+            const targetInterval =
+                canvasWidth < 760
+                    ? 1000 / 45
+                    : 1000 / 60;
+
+            if (
+                time - lastFrameTime <
+                targetInterval
+            ) {
+                return;
+            }
+
+            lastFrameTime = time;
+
+            drawVisualizer(time);
+        }
+
+        window.addEventListener(
+            "resize",
+            resizeCanvas,
+            {
+                passive: true
+            }
+        );
+
+        document.addEventListener(
+            "visibilitychange",
+            () => {
+                if (document.hidden) {
+                    cancelAnimationFrame(
+                        animationFrame
+                    );
+                } else {
+                    animationFrame =
+                        requestAnimationFrame(
+                            animate
+                        );
+                }
+            }
+        );
+
+        /* ============================================================
+           START
+        ============================================================ */
+
+        buildPlaylist();
+        loadTrack(0, false);
+
+        updateMuteButton();
+
+        updateRangeFill(
+            volumeRange,
+            audio.volume * 100
+        );
+
+        resizeCanvas();
+
+        animationFrame =
+            requestAnimationFrame(animate);
+    </script>
+
+    <!--
+    End of Resonance.html
+
+    Thank you for visiting.
+
+    — CASEY MARIE ROY
+    -->
+</body>
+</html>

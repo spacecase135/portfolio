@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tattoo work by Casey Marie Roy — custom, hand-drawn work made for living bodies.">
+  <meta name="theme-color" content="#000000">
+  <title>Tattoo | Casey Marie Studio</title>
+  <style>
+    :root {
+      --black: #000;
+      --ink: #080608;
+      --white: #f6f1f4;
+      --muted: #a89fa5;
+      --magenta: #ef0f83;
+      --red: #8f1028;
+      --blue: #9eeaff;
+      --page: min(92vw, 1240px);
+    }
+    * { box-sizing: border-box; }
+    html { color-scheme: dark; scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--black);
+      color: var(--white);
+      font-family: "Courier New", Courier, monospace;
+    }
+    body.lightbox-open { overflow: hidden; }
+    button, a { font: inherit; }
+    a { color: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
+    .skip-link {
+      position: fixed; left: 1rem; top: -5rem; z-index: 100;
+      padding: .7rem 1rem; background: var(--white); color: #000;
+    }
+    .skip-link:focus { top: 1rem; }
+    .site-header {
+      position: fixed; inset: 0 0 auto; z-index: 30;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: clamp(18px, 3vw, 38px);
+      pointer-events: none;
+    }
+    .brand {
+      pointer-events: auto; text-decoration: none; text-transform: uppercase;
+      letter-spacing: .16em; font-size: .72rem; color: var(--muted);
+    }
+    .brand span { color: var(--magenta); }
+    .menu-shell { position: relative; pointer-events: auto; }
+    .menu-button {
+      position: relative; z-index: 2; display: grid; place-items: center;
+      width: 48px; height: 48px; padding: 0; cursor: pointer;
+      border: 1px solid rgba(239,15,131,.45); border-radius: 50%;
+      background: rgba(0,0,0,.76); color: var(--white);
+      backdrop-filter: blur(10px); transition: border-color .2s, transform .2s;
+    }
+    .menu-button:hover, .menu-button:focus-visible { border-color: var(--magenta); transform: rotate(4deg); }
+    .hamburger, .hamburger span { display: block; }
+    .hamburger { width: 19px; }
+    .hamburger span { height: 1px; margin: 4px 0; background: currentColor; transition: .25s; }
+    .menu-button[aria-expanded="true"] .hamburger span:first-child { transform: translateY(5px) rotate(45deg); }
+    .menu-button[aria-expanded="true"] .hamburger span:nth-child(2) { opacity: 0; }
+    .menu-button[aria-expanded="true"] .hamburger span:last-child { transform: translateY(-5px) rotate(-45deg); }
+    .site-menu {
+      position: absolute; top: 58px; right: 0; width: min(82vw, 290px);
+      padding: 1.1rem; visibility: hidden; opacity: 0; transform: translateY(-8px);
+      border: 1px solid rgba(239,15,131,.22); background: rgba(3,0,2,.95);
+      box-shadow: 0 20px 80px #000; backdrop-filter: blur(16px);
+      transition: .22s ease;
+    }
+    .site-menu.open { visibility: visible; opacity: 1; transform: none; }
+    .site-menu a {
+      display: flex; justify-content: space-between; gap: 1rem; padding: .66rem .5rem;
+      color: var(--muted); text-decoration: none; text-transform: uppercase;
+      letter-spacing: .11em; font-size: .68rem;
+    }
+    .site-menu a:hover, .site-menu a:focus-visible, .site-menu a[aria-current="page"] { color: var(--white); }
+    .menu-marker { width: 5px; height: 5px; margin-top: .25rem; border-radius: 50%; background: transparent; }
+    .site-menu a[aria-current="page"] .menu-marker { background: var(--magenta); box-shadow: 0 0 12px var(--magenta); }
+    .hero {
+      position: relative; min-height: 100svh; padding: clamp(84px, 9vw, 120px) 0 clamp(52px, 8vw, 100px);
+      isolation: isolate; overflow: hidden;
+    }
+    .hero-media { position: relative; width: 100%; overflow: hidden; }
+    .hero-media img { display: block; width: 100%; height: auto; }
+    .hero-media::after {
+      content: ""; position: absolute; inset: -1px;
+      background: linear-gradient(180deg, rgba(0,0,0,.48) 0%, transparent 22%, transparent 55%, #000 98%),
+                  linear-gradient(90deg, #000 0%, transparent 16%, transparent 84%, #000 100%);
+      pointer-events: none;
+    }
+    .hero-copy { position: relative; z-index: 1; width: min(720px, 90vw); margin: clamp(-100px, -7vw, -60px) max(4vw, calc((100vw - 1240px)/2)) 0; }
+    .eyebrow { margin: 0 0 .7rem; color: var(--blue); font-size: .67rem; letter-spacing: .22em; text-transform: uppercase; }
+    h1 { margin: 0; color: var(--magenta); font-size: clamp(4rem, 14vw, 10rem); font-weight: 400; line-height: .78; letter-spacing: -.08em; text-transform: uppercase; }
+    .hero-line { display: flex; align-items: center; gap: 1rem; margin-top: 1.1rem; color: var(--muted); font-size: .75rem; letter-spacing: .09em; }
+    .hero-line::before { content: ""; width: clamp(35px, 8vw, 110px); height: 1px; background: var(--red); }
+    main { display: block; }
+    .intro { width: var(--page); margin: 0 auto; padding: clamp(68px, 11vw, 145px) 0 clamp(45px, 7vw, 90px); }
+    .intro p { width: min(640px, 100%); margin: 0; font-size: clamp(1.05rem, 2.1vw, 1.55rem); line-height: 1.65; letter-spacing: .025em; }
+    .intro p::first-letter { color: var(--magenta); }
+    .intro small { display: block; margin-top: 1.4rem; color: var(--muted); font-size: .67rem; text-transform: uppercase; letter-spacing: .18em; }
+    .gallery { width: var(--page); margin: 0 auto; padding-bottom: clamp(90px, 13vw, 180px); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(24px, 5vw, 76px) clamp(16px, 3vw, 42px); }
+    .piece { grid-column: span 5; margin: 0; }
+    .piece:nth-child(4n + 2) { grid-column: 7 / span 6; margin-top: clamp(40px, 10vw, 150px); }
+    .piece:nth-child(4n + 3) { grid-column: 2 / span 6; }
+    .piece:nth-child(4n + 4) { grid-column: 8 / span 5; margin-top: clamp(20px, 6vw, 90px); }
+    .piece-button { display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; cursor: zoom-in; text-align: left; }
+    .image-wrap { position: relative; background: var(--ink); overflow: hidden; }
+    .image-wrap::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 34px 10px rgba(0,0,0,.34); pointer-events: none; }
+    .piece img { display: block; width: 100%; height: auto; transition: transform .55s cubic-bezier(.2,.7,.2,1), opacity .3s; }
+    .piece-button:hover img, .piece-button:focus-visible img { transform: scale(1.018); }
+    .piece-button:focus-visible { outline: 1px solid var(--blue); outline-offset: 7px; }
+    .piece figcaption { display: flex; gap: .7rem; margin-top: .65rem; color: #756d72; font-size: .59rem; letter-spacing: .16em; text-transform: uppercase; }
+    .piece figcaption::before { content: attr(data-number); color: var(--red); }
+    .inquiry { position: relative; width: var(--page); margin: 0 auto; padding: 0 0 clamp(100px, 14vw, 180px); }
+    .inquiry::before { content: ""; display: block; width: 100%; height: 1px; margin-bottom: clamp(45px, 7vw, 85px); background: linear-gradient(90deg, var(--red), transparent 68%); }
+    .inquiry h2 { margin: 0 0 1rem; color: var(--magenta); font-size: clamp(2.3rem, 7vw, 6rem); font-weight: 400; line-height: .94; letter-spacing: -.06em; text-transform: uppercase; }
+    .inquiry p { max-width: 610px; margin: 0; color: var(--muted); line-height: 1.7; }
+    .inquiry a { display: inline-block; margin-top: 1.6rem; color: var(--white); text-decoration-color: var(--red); text-underline-offset: .4rem; }
+    footer { display: flex; justify-content: space-between; gap: 1rem; width: var(--page); margin: 0 auto; padding: 0 0 35px; color: #5f585c; font-size: .58rem; letter-spacing: .13em; text-transform: uppercase; }
+    .lightbox {
+      position: fixed; inset: 0; z-index: 60; display: grid; grid-template: 1fr auto / auto 1fr auto;
+      align-items: center; gap: 1rem; padding: clamp(16px, 3vw, 42px);
+      visibility: hidden; opacity: 0; background: rgba(0,0,0,.96); transition: opacity .2s, visibility .2s;
+    }
+    .lightbox.open { visibility: visible; opacity: 1; }
+    .lightbox-stage { grid-column: 2; display: grid; place-items: center; min-width: 0; height: calc(100svh - 110px); }
+    .lightbox img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+    .lightbox-control { width: 46px; height: 46px; border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 1.7rem; }
+    .lightbox-control:hover, .lightbox-control:focus-visible { color: var(--blue); }
+    .lightbox-close { position: absolute; top: 18px; right: 20px; }
+    .lightbox-meta { grid-column: 1 / -1; display: flex; justify-content: center; gap: .8rem; color: var(--muted); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; }
+    .lightbox-count { color: var(--magenta); }
+    @media (max-width: 720px) {
+      .brand { max-width: 150px; line-height: 1.55; }
+      .hero { min-height: 0; padding-top: 78px; padding-bottom: 42px; }
+      .hero-media::after { background: linear-gradient(180deg, rgba(0,0,0,.34), transparent 25%, transparent 55%, #000 96%), linear-gradient(90deg, #000, transparent 7%, transparent 93%, #000); }
+      .gallery-grid { display: block; }
+      .piece, .piece:nth-child(n) { width: 88%; margin: 0 0 64px; }
+      .piece:nth-child(even) { margin-left: auto; }
+      footer { flex-direction: column; }
+      .lightbox { grid-template-columns: 38px 1fr 38px; gap: .25rem; padding: 14px 5px; }
+      .lightbox-control { width: 38px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#gallery">Skip to tattoo gallery</a>
+  <header class="site-header">
+    <a class="brand" href="index.html">Casey Marie <span>Studio</span></a>
+    <div class="menu-shell">
+      <button id="menu-button" class="menu-button" type="button" aria-label="Open portfolio navigation" aria-expanded="false" aria-controls="site-menu">
+        <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+      <nav id="site-menu" class="site-menu" aria-label="Portfolio navigation">
+        <a href="index.html"><span>Home</span><span class="menu-marker"></span></a>
+        <a href="resonance.html"><span>Resonance &amp; Sound</span><span class="menu-marker"></span></a>
+        <a href="techspressionism.html"><span>Techspressionism</span><span class="menu-marker"></span></a>
+        <a href="studio.html"><span>Studio Art</span><span class="menu-marker"></span></a>
+        <a href="tattoo.html" aria-current="page"><span>Tattoo</span><span class="menu-marker"></span></a>
+        <a href="dimensional.html"><span>Dimensional Art</span><span class="menu-marker"></span></a>
+        <a href="spaces.html"><span>Intentional Spaces</span><span class="menu-marker"></span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-media"><img src="portfolio-media/tattoo/tattoo2.jpg" alt="Paired rose tattoos across a client's clavicles"></div>
+      <div class="hero-copy">
+        <p class="eyebrow">Living art / custom work</p>
+        <h1 id="page-title">Tattoo</h1>
+        <div class="hero-line">Hand-drawn. Body-bound. Singular.</div>
+      </div>
+    </section>
+
+    <section class="intro" aria-label="About the work">
+      <p>Marks made in collaboration—each piece shaped by the person, the placement, and the story it carries.</p>
+      <small>Selected work · 01—21</small>
+    </section>
+
+    <section id="gallery" class="gallery" aria-label="Selected tattoo work">
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </section>
+
+    <section class="inquiry" aria-labelledby="inquiry-title">
+      <p class="eyebrow">Begin a conversation</p>
+      <h2 id="inquiry-title">Your skin.<br>Your story.</h2>
+      <p>For custom work, collaborations, and tattoo inquiries, share what you’re imagining and where you’d like it to live.</p>
+      <a href="mailto:caseymarie@caseymarie.studio">caseymarie@caseymarie.studio</a>
+    </section>
+  </main>
+
+  <footer><span>© 2026 Casey Marie Roy</span><span>@spacecase135</span></footer>
+
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Tattoo image viewer" aria-hidden="true">
+    <button class="lightbox-control lightbox-close" type="button" aria-label="Close image viewer">×</button>
+    <button class="lightbox-control lightbox-prev" type="button" aria-label="Previous image">‹</button>
+    <div class="lightbox-stage"><img id="lightbox-image" src="" alt=""></div>
+    <button class="lightbox-control lightbox-next" type="button" aria-label="Next image">›</button>
+    <div class="lightbox-meta"><span>Selected work</span><span class="lightbox-count"></span></div>
+  </div>
+
+  <script>
+    "use strict";
+    const galleryOrder = [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+    const gallery = document.getElementById("gallery-grid");
+    const items = galleryOrder.map((number, index) => ({
+      number,
+      src: `portfolio-media/tattoo/tattoo${number}.jpg`,
+      alt: `Tattoo artwork by Casey Marie Roy, selected work ${String(index + 2).padStart(2, "0")}`
+    }));
+    items.forEach((item, index) => {
+      const figure = document.createElement("figure");
+      figure.className = "piece";
+      figure.innerHTML = `<button class="piece-button" type="button" data-index="${index}" aria-label="Open selected tattoo ${index + 2} in full screen"><span class="image-wrap"><img src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async"></span></button><figcaption data-number="${String(index + 2).padStart(2, "0")}"><span>Selected work</span></figcaption>`;
+      gallery.appendChild(figure);
+    });
+
+    const menuButton = document.getElementById("menu-button");
+    const siteMenu = document.getElementById("site-menu");
+    function closeMenu() { siteMenu.classList.remove("open"); menuButton.setAttribute("aria-expanded", "false"); }
+    menuButton.addEventListener("click", () => {
+      const open = siteMenu.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(open));
+    });
+    document.addEventListener("click", event => { if (!event.target.closest(".menu-shell")) closeMenu(); });
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightbox-image");
+    const count = lightbox.querySelector(".lightbox-count");
+    const closeButton = lightbox.querySelector(".lightbox-close");
+    let currentIndex = 0;
+    let lastFocus = null;
+    function renderLightbox() {
+      const item = items[currentIndex];
+      lightboxImage.src = item.src;
+      lightboxImage.alt = item.alt;
+      count.textContent = `${String(currentIndex + 2).padStart(2, "0")} / 21`;
+    }
+    function openLightbox(index) {
+      currentIndex = index; lastFocus = document.activeElement; renderLightbox();
+      lightbox.classList.add("open"); lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("lightbox-open"); closeButton.focus();
+    }
+    function closeLightbox() {
+      lightbox.classList.remove("open"); lightbox.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("lightbox-open"); lightboxImage.src = "";
+      if (lastFocus) lastFocus.focus();
+    }
+    function move(direction) { currentIndex = (currentIndex + direction + items.length) % items.length; renderLightbox(); }
+    gallery.addEventListener("click", event => { const button = event.target.closest(".piece-button"); if (button) openLightbox(Number(button.dataset.index)); });
+    closeButton.addEventListener("click", closeLightbox);
+    lightbox.querySelector(".lightbox-prev").addEventListener("click", () => move(-1));
+    lightbox.querySelector(".lightbox-next").addEventListener("click", () => move(1));
+    lightbox.addEventListener("click", event => { if (event.target === lightbox || event.target.classList.contains("lightbox-stage")) closeLightbox(); });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") { closeMenu(); if (lightbox.classList.contains("open")) closeLightbox(); }
+      if (!lightbox.classList.contains("open")) return;
+      if (event.key === "ArrowLeft") move(-1);
+      if (event.key === "ArrowRight") move(1);
+      if (event.key === "Tab") {
+        const controls = [...lightbox.querySelectorAll("button")];
+        const first = controls[0], last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+    });
+  </script>
+</body>
+</html>

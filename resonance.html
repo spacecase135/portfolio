@@ -1972,6 +1972,32 @@ God Bless.
 
         let animationFrame = 0;
         let lastFrameTime = 0;
+        let qualityLevel =
+            window.matchMedia("(pointer: coarse)").matches &&
+            window.innerWidth < 900
+                ? 1
+                : 0;
+        let performanceSampleTime = 0;
+        let performanceSampleFrames = 0;
+        let performanceSampleStarted = performance.now();
+
+        const qualitySettings = [
+            {
+                pixelRatio: 1.5,
+                desktopFps: 60,
+                mobileFps: 45
+            },
+            {
+                pixelRatio: 1.15,
+                desktopFps: 45,
+                mobileFps: 36
+            },
+            {
+                pixelRatio: 1,
+                desktopFps: 36,
+                mobileFps: 30
+            }
+        ];
 
         const sound = {
             bass: 0,
@@ -1993,7 +2019,9 @@ God Bless.
             pixelRatio =
                 Math.min(
                     window.devicePixelRatio || 1,
-                    1.6
+                    qualitySettings[
+                        qualityLevel
+                    ].pixelRatio
                 );
 
             canvasWidth =
@@ -6151,17 +6179,26 @@ God Bless.
             context.save();
 
             context.filter =
-                `hue-rotate(
-                    ${spectralHueShift}deg
-                )
-                saturate(
-                    ${1 + sound.high * 0.22}
-                )`;
+                qualityLevel === 0
+                    ? `hue-rotate(
+                        ${spectralHueShift}deg
+                    )
+                    saturate(
+                        ${1 + sound.high * 0.22}
+                    )`
+                    : "none";
 
-            drawTriangleFabric(time);
+            if (qualityLevel < 2) {
+                drawTriangleFabric(time);
+            }
+
             drawDistributedMandalas(time);
-            drawGeometricConnectors(time);
-            drawPrismaticStars(time);
+
+            if (qualityLevel < 2) {
+                drawGeometricConnectors(time);
+                drawPrismaticStars(time);
+            }
+
             drawMetatronsCube(time);
             drawOceanStrands(time);
             drawCymaticRain(time);
@@ -6173,10 +6210,13 @@ God Bless.
             animationFrame =
                 requestAnimationFrame(animate);
 
+            const quality =
+                qualitySettings[qualityLevel];
+
             const targetInterval =
                 canvasWidth < 760
-                    ? 1000 / 45
-                    : 1000 / 60;
+                    ? 1000 / quality.mobileFps
+                    : 1000 / quality.desktopFps;
 
             if (
                 time - lastFrameTime <
@@ -6187,7 +6227,45 @@ God Bless.
 
             lastFrameTime = time;
 
+            const renderStarted =
+                performance.now();
+
             drawVisualizer(time);
+
+            performanceSampleTime +=
+                performance.now() -
+                renderStarted;
+
+            performanceSampleFrames++;
+
+            if (
+                time - performanceSampleStarted >
+                2400
+            ) {
+                const averageRenderTime =
+                    performanceSampleTime /
+                    Math.max(
+                        1,
+                        performanceSampleFrames
+                    );
+
+                const availableRenderTime =
+                    targetInterval * 0.82;
+
+                if (
+                    averageRenderTime >
+                    availableRenderTime &&
+                    qualityLevel <
+                    qualitySettings.length - 1
+                ) {
+                    qualityLevel++;
+                    resizeCanvas();
+                }
+
+                performanceSampleTime = 0;
+                performanceSampleFrames = 0;
+                performanceSampleStarted = time;
+            }
         }
 
         window.addEventListener(

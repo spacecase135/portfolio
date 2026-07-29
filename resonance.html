@@ -199,15 +199,15 @@ God Bless.
 
         .room-identity {
             position: fixed;
+            top: clamp(16px, 2.5vw, 40px);
+            right: clamp(16px, 2.5vw, 40px);
             left: clamp(16px, 2.5vw, 40px);
-            bottom: 140px;
             z-index: 20;
 
             display: flex;
-            align-items: flex-end;
-            gap: 14px;
-
-            max-width: min(560px, calc(100vw - 32px));
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 24px;
         }
 
         .identity-copy {
@@ -261,7 +261,7 @@ God Bless.
             place-items: center;
 
             border: 1px solid var(--glass-border);
-            border-radius: 13px;
+            border-radius: 50%;
 
             background: rgba(3, 10, 20, 0.48);
             color: rgba(242, 251, 255, 0.84);
@@ -306,8 +306,8 @@ God Bless.
 
         .site-menu {
             position: absolute;
-            left: 0;
-            bottom: 58px;
+            top: 58px;
+            right: 0;
 
             width: min(286px, calc(100vw - 32px));
             padding: 10px;
@@ -327,7 +327,7 @@ God Bless.
             opacity: 0;
             visibility: hidden;
             transform: translateY(8px) scale(0.985);
-            transform-origin: bottom left;
+            transform-origin: top right;
 
             transition:
                 opacity 170ms ease,
@@ -881,17 +881,23 @@ God Bless.
 
         .copyright-mark {
             position: fixed;
-            right: 12px;
+            left: 50%;
             bottom: 8px;
             z-index: 40;
 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(10px, 2vw, 28px);
+
             color: rgba(220, 237, 244, 0.18);
 
-            font-size: 0.56rem;
+            font-size: clamp(0.42rem, 0.72vw, 0.56rem);
             line-height: 1;
             letter-spacing: 0.07em;
             white-space: nowrap;
 
+            transform: translateX(-50%);
             user-select: text;
             pointer-events: none;
         }
@@ -902,15 +908,15 @@ God Bless.
 
         @media (max-width: 760px) {
             .room-identity {
+                top: 12px;
+                right: 12px;
                 left: 12px;
-                bottom: 150px;
-                gap: 10px;
+                gap: 16px;
             }
 
             .menu-button {
                 width: 42px;
                 height: 42px;
-                border-radius: 12px;
             }
 
             .room-title {
@@ -925,6 +931,13 @@ God Bless.
                 font-size: 0.5rem;
                 line-height: 1.5;
                 letter-spacing: 0.2em;
+            }
+
+            .copyright-mark {
+                bottom: 6px;
+                gap: clamp(5px, 1.8vw, 10px);
+                font-size: clamp(0.34rem, 1.35vw, 0.46rem);
+                letter-spacing: 0.035em;
             }
 
             .player-wrap {
@@ -987,15 +1000,10 @@ God Bless.
             }
 
             .copyright-mark {
-                right: 10px;
                 bottom: 137px;
-
-                max-width: 58vw;
-
-                overflow: hidden;
-                text-overflow: ellipsis;
-
-                font-size: 0.48rem;
+                max-width: none;
+                overflow: visible;
+                font-size: clamp(0.34rem, 1.35vw, 0.46rem);
             }
         }
 
@@ -1053,6 +1061,16 @@ God Bless.
         ></canvas>
 
         <div class="room-identity">
+            <div class="identity-copy">
+                <h1 class="room-title">
+                    Resonance &amp; Sound
+                </h1>
+
+                <p class="room-subtitle">
+                    A digital landscape that listens.
+                </p>
+            </div>
+
             <div class="menu-shell">
                 <button
                     id="menu-button"
@@ -1109,16 +1127,6 @@ God Bless.
                         <span class="menu-marker"></span>
                     </a>
                 </nav>
-            </div>
-
-            <div class="identity-copy">
-                <h1 class="room-title">
-                    Resonance &amp; Sound
-                </h1>
-
-                <p class="room-subtitle">
-                    A digital landscape that listens.
-                </p>
             </div>
         </div>
 
@@ -1261,7 +1269,9 @@ God Bless.
         </div>
 
         <div class="copyright-mark">
-            © ℗ 2026 CASEY MARIE ROY · @spacecase135
+            <span>CASEY MARIE ROY</span>
+            <span>@SPACECASE135</span>
+            <span>© 2026 ALL RIGHTS RESERVED</span>
         </div>
 
         <audio

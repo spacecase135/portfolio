@@ -4,16 +4,327 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Techspressionism | Casey Marie Studio Portfolio</title>
-  <meta name="description" content="Digital art, moving image, process films, and techspressionist work by Casey Marie.">
+  <meta name="description" content="Digital art, moving image, process films, and techspressionist work by Casey Marie Roy.">
   <link rel="canonical" href="https://caseymarie.studio/techspressionism.html">
   <meta property="og:title" content="Techspressionism | Casey Marie Studio">
   <meta property="og:description" content="Emotion translated through digital tools, moving image, and synthetic worlds.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://caseymarie.studio/portfolio-media/techspressionism/tech4.jpg">
+  <meta property="og:image" content="https://caseymarie.studio/portfolio-media/techspressionism/tech10.jpg">
   <link rel="stylesheet" href="portfolio.css?v=20260725">
+  <style>
+    body.techspressionism {
+      --acid: #b8ff36;
+      --cyan-signal: #2ef0e0;
+      --hot-pink: #ff4db8;
+      --ink: #050409;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 74% 8%, rgba(255, 77, 184, .12), transparent 27rem),
+        radial-gradient(circle at 10% 32%, rgba(46, 240, 224, .09), transparent 24rem),
+        #050409;
+    }
+
+    body.techspressionism::before {
+      opacity: .34;
+      background-image:
+        linear-gradient(rgba(46, 240, 224, .06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46, 240, 224, .06) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: linear-gradient(to bottom, black, transparent 72%);
+    }
+
+    .site-header { mix-blend-mode: normal; }
+
+    .scrap-hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      isolation: isolate;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(46, 240, 224, .22);
+      background: #020205;
+    }
+
+    .hero-primary,
+    .hero-primary video,
+    .hero-shade,
+    .hero-scanlines {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-primary video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.84) contrast(1.14) brightness(.7);
+    }
+
+    .hero-shade {
+      background:
+        linear-gradient(90deg, rgba(2, 2, 5, .94) 0%, rgba(2, 2, 5, .54) 43%, rgba(2, 2, 5, .08) 76%),
+        linear-gradient(to top, #050409 0%, transparent 42%);
+    }
+
+    .hero-scanlines {
+      pointer-events: none;
+      opacity: .25;
+      background: repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0, 0, 0, .38) 4px);
+      mix-blend-mode: multiply;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      width: min(1500px, calc(100% - clamp(32px, 8vw, 120px)));
+      margin: 0 auto;
+      padding: 150px 0 clamp(26px, 4vw, 58px);
+    }
+
+    .terminal-tag,
+    .scrap-label,
+    .file-stamp {
+      width: max-content;
+      max-width: 100%;
+      padding: .42rem .62rem;
+      border: 1px solid currentColor;
+      color: var(--acid);
+      background: rgba(5, 4, 9, .8);
+      font: 700 clamp(.58rem, .9vw, .72rem)/1.2 "Courier New", monospace;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      box-shadow: 4px 4px 0 rgba(184, 255, 54, .13);
+    }
+
+    body.techspressionism h1 {
+      max-width: 11ch;
+      margin: .8rem 0 1rem;
+      color: #f4f2f6;
+      font: 700 clamp(3rem, 10.2vw, 9.4rem)/.76 "Courier New", monospace;
+      letter-spacing: -.105em;
+      text-transform: uppercase;
+      text-shadow:
+        3px 0 0 rgba(255, 77, 184, .62),
+        -3px 0 0 rgba(46, 240, 224, .52);
+    }
+
+    body.techspressionism h1 em {
+      color: transparent;
+      font-style: normal;
+      -webkit-text-stroke: 1px var(--cyan-signal);
+    }
+
+    .hero-declaration {
+      max-width: 39rem;
+      margin: 0;
+      color: rgba(244, 242, 246, .74);
+      font-size: clamp(.9rem, 1.4vw, 1.16rem);
+      line-height: 1.65;
+    }
+
+    .signal-marquee {
+      overflow: hidden;
+      border-bottom: 1px solid rgba(184, 255, 54, .24);
+      background: var(--acid);
+      color: #08070a;
+      white-space: nowrap;
+    }
+
+    .signal-marquee span {
+      display: block;
+      width: max-content;
+      padding: .52rem 0;
+      font: 700 .65rem/1 "Courier New", monospace;
+      letter-spacing: .14em;
+      animation: crawl 22s linear infinite;
+    }
+
+    @keyframes crawl { to { transform: translateX(-50%); } }
+
+    .scrapbook {
+      width: min(1440px, calc(100% - clamp(28px, 7vw, 110px)));
+      margin: 0 auto;
+      padding: clamp(72px, 10vw, 150px) 0;
+    }
+
+    .scrap-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, .6fr);
+      gap: clamp(35px, 8vw, 130px);
+      align-items: end;
+      margin-bottom: clamp(70px, 10vw, 140px);
+    }
+
+    .scrap-intro h2,
+    .process-block h2,
+    .closing h2 {
+      margin: .7rem 0 0;
+      color: #f3f0f5;
+      font-size: clamp(2.25rem, 6vw, 6.4rem);
+      line-height: .9;
+      letter-spacing: -.06em;
+    }
+
+    .scrap-intro p:last-child {
+      margin: 0;
+      padding: 1rem;
+      border-left: 2px solid var(--hot-pink);
+      color: rgba(243, 240, 245, .65);
+      font-family: "Courier New", monospace;
+      line-height: 1.75;
+      background: rgba(255, 77, 184, .035);
+    }
+
+    .scrap-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: clamp(32px, 6vw, 92px) clamp(18px, 3.5vw, 54px);
+      align-items: start;
+    }
+
+    .scrap-piece {
+      position: relative;
+      grid-column: span 5;
+      margin: 0;
+      padding: 9px 9px 0;
+      border: 1px solid rgba(255, 255, 255, .18);
+      background: #0b0910;
+      box-shadow: 12px 14px 0 rgba(255, 77, 184, .07);
+    }
+
+    .scrap-piece:nth-child(2n) {
+      grid-column: 7 / span 6;
+      transform: translateY(64px) rotate(1deg);
+      box-shadow: -12px 14px 0 rgba(46, 240, 224, .07);
+    }
+
+    .scrap-piece:nth-child(3n) { transform: rotate(-1.1deg); }
+    .scrap-piece.wide { grid-column: 2 / span 10; }
+
+    .scrap-piece::after {
+      content: attr(data-file);
+      position: absolute;
+      top: -17px;
+      right: 9px;
+      padding: .3rem .45rem;
+      color: #08070a;
+      background: var(--acid);
+      font: 700 .52rem/1 "Courier New", monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .scrap-piece .piece-button,
+    .scrap-piece .media-only {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      color: inherit;
+      background: none;
+      text-align: left;
+    }
+
+    .scrap-piece .media-frame {
+      display: block;
+      overflow: hidden;
+      background: #020205;
+    }
+
+    .scrap-piece img,
+    .scrap-piece video {
+      display: block;
+      width: 100%;
+      max-height: 72svh;
+      object-fit: contain;
+      transition: filter .3s ease, transform .3s ease;
+    }
+
+    .scrap-piece .piece-button:hover img {
+      filter: saturate(1.16) contrast(1.06);
+      transform: scale(1.012);
+    }
+
+    .scrap-piece figcaption {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: .85rem .25rem .9rem;
+      color: rgba(243, 240, 245, .84);
+      font: 700 .64rem/1.35 "Courier New", monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .scrap-piece figcaption span:last-child {
+      color: var(--cyan-signal);
+      text-align: right;
+    }
+
+    .process-block {
+      width: min(1260px, calc(100% - clamp(28px, 7vw, 110px)));
+      margin: 0 auto;
+      padding: 0 0 clamp(90px, 12vw, 170px);
+    }
+
+    .process-block .signal-links { margin-top: 3.5rem; }
+    .process-block .signal-link {
+      font-family: "Courier New", monospace;
+      border-color: rgba(46, 240, 224, .25);
+    }
+
+    .closing {
+      position: relative;
+      border-block: 1px solid rgba(255, 77, 184, .2);
+      background: linear-gradient(135deg, rgba(255, 77, 184, .07), transparent 40%, rgba(46, 240, 224, .05));
+    }
+
+    body.techspressionism footer {
+      justify-content: center;
+      gap: clamp(10px, 2vw, 28px);
+      color: rgba(243, 240, 245, .48);
+      font-size: clamp(.38rem, .72vw, .62rem);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 760px) {
+      .hero-content { padding-bottom: 30px; }
+      body.techspressionism h1 { font-size: clamp(2.75rem, 15vw, 5rem); }
+      .hero-declaration { max-width: 75%; font-size: .78rem; }
+      .scrap-intro { grid-template-columns: 1fr; gap: 28px; }
+      .scrap-grid { display: block; }
+
+      .scrap-piece,
+      .scrap-piece:nth-child(2n),
+      .scrap-piece.wide {
+        width: 94%;
+        margin: 0 0 58px;
+        transform: rotate(-.6deg);
+      }
+
+      .scrap-piece:nth-child(2n) {
+        margin-left: auto;
+        transform: rotate(.7deg);
+      }
+
+      body.techspressionism footer {
+        flex-direction: row;
+        gap: clamp(5px, 1.8vw, 10px);
+        padding-inline: 8px;
+        font-size: clamp(.31rem, 1.25vw, .46rem);
+        letter-spacing: .06em;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .signal-marquee span { animation: none; }
+    }
+  </style>
 </head>
 <body class="techspressionism">
   <a class="skip-link" href="#signals">Skip to the work</a>
+
   <header class="site-header">
     <a class="brand" href="index.html">Casey Marie <span>Studio</span></a>
     <button id="menu-button" class="menu-button" type="button" aria-label="Open portfolio navigation" aria-expanded="false" aria-controls="site-menu"><span></span></button>
@@ -27,55 +338,154 @@
       <a href="spaces.html"><span>Intentional Spaces</span><span class="menu-marker"></span></a>
     </nav>
   </header>
+
   <main>
-    <section class="hero" aria-labelledby="page-title">
-      <div class="hero-orbit" aria-hidden="true"></div>
-      <div>
-        <p class="eyebrow">Digital / Emotional / Post-analog</p>
+    <section class="scrap-hero" aria-labelledby="page-title">
+      <div class="hero-primary" aria-hidden="true">
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="portfolio-media/techspressionism/SlowBlink-CASEYMARIEROY.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-scanlines" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="terminal-tag">user://casey_marie/archive/signal_room_02</p>
         <h1 id="page-title">Tech<em>spres</em>sionism</h1>
-        <p class="hero-copy">Technology is the medium; emotion is the message.</p>
-      </div>
-      <span class="hero-index">Signal Room 02 — Mixed Media</span>
-    </section>
-    <section id="signals" class="section">
-      <article class="feature">
-        <div class="feature-media">
-          <video class="feature-video" autoplay muted loop playsinline>
-            <source src="portfolio-media/techspressionism/tech3.mp4" type="video/mp4">
-            Your browser does not support the video element.
-          </video>
-        </div>
-        <div class="feature-copy">
-          <p class="section-kicker">Blue Eyed Loner</p>
-          <h2>From the minds eye to physical reality</h2>
-          <p>Intuitive collaborations, incredible tech, where the art medium itself responds to the emotional and conceptual design ideas of the artist.</p>
-        </div>
-      </article>
-      <div class="section-head">
-        <div><p class="section-kicker">Selected Works</p><h2>A new kind of canvas</h2></div>
-        <p>Digital compositions and hybrid studies where imagination isn't the limit, but articulation. If you can say it, you can see it.</p>
-      </div>
-      <div class="gallery">
-        <figure class="piece landscape"><button class="piece-button" data-lightbox="portfolio-media/techspressionism/tech4.jpg" data-alt="Luminous human figure floating in a cosmic energy field"><span class="media-frame"><img src="portfolio-media/techspressionism/tech4.jpg" alt="Luminous human figure floating in a cosmic energy field" loading="lazy"></span><figcaption><span>Starlight</span><span>Digital composition, Procreate</span></figcaption></button></figure>
-        <figure class="piece"><button class="piece-button" data-lightbox="portfolio-media/techspressionism/tech5.jpg" data-alt="Monochrome portrait entwined with vivid orange bands"><span class="media-frame"><img src="portfolio-media/techspressionism/tech5.jpg" alt="Monochrome portrait entwined with vivid orange bands" loading="lazy"></span><figcaption><span>Orange Ribbon</span><span>Digital portrait</span></figcaption></button></figure>
-        <figure class="piece"><button class="piece-button" data-lightbox="portfolio-media/techspressionism/tech7.jpg" data-alt="Anatomical human figure layered with botanical illustration"><span class="media-frame"><img src="portfolio-media/techspressionism/tech7.jpg" alt="Anatomical human figure layered with botanical illustration" loading="lazy"></span><figcaption><span>Botanical Anatomy</span><span>Hybrid drawing, Procreate</span></figcaption></button></figure>
-        <figure class="piece"><button class="piece-button" data-lightbox="portfolio-media/techspressionism/tech8.jpg" data-alt="Satellite approaching a colorful planet in deep space"><span class="media-frame"><img src="portfolio-media/techspressionism/tech8.jpg" alt="Satellite approaching a colorful planet in deep space" loading="lazy"></span><figcaption><span>Satellite</span><span>Digital painting, Procreate</span></figcaption></button></figure>
+        <p class="hero-declaration">Technology is the medium; emotion is the message. A living cache of images, gestures, altered signals, and synthetic worlds.</p>
       </div>
     </section>
-    <section class="section" aria-labelledby="process-title">
-      <div class="section-head">
-        <div><p class="section-kicker">Process Portals</p><h2 id="process-title">A time lapse<br>and a short film</h2></div>
-        <p>Two external process films. One reveals the marks, layers, decisions, and revisions behind selected works. The second is a short film made purely for fun.</p>
+
+    <div class="signal-marquee" aria-hidden="true">
+      <span>EMOTION.EXE &nbsp; // &nbsp; IMAGE AS SIGNAL &nbsp; // &nbsp; POST-ANALOG MARK MAKING &nbsp; // &nbsp; HUMAN INPUT / MACHINE ECHO &nbsp; // &nbsp; EMOTION.EXE &nbsp; // &nbsp; IMAGE AS SIGNAL &nbsp; // &nbsp; POST-ANALOG MARK MAKING &nbsp; // &nbsp; HUMAN INPUT / MACHINE ECHO &nbsp; //</span>
+    </div>
+
+    <section id="signals" class="scrapbook" aria-labelledby="archive-title">
+      <div class="scrap-intro">
+        <div>
+          <p class="scrap-label">Selected works // recovered media</p>
+          <h2 id="archive-title">A new kind<br>of canvas.</h2>
+        </div>
+        <p>Digital compositions and hybrid studies where imagination is not the limit, but articulation. If you can say it, you can see it.</p>
       </div>
+
+      <div class="scrap-grid">
+        <figure class="scrap-piece wide" data-file="tech3.mp4">
+          <div class="media-only">
+            <span class="media-frame"><video autoplay muted loop playsinline preload="metadata"><source src="portfolio-media/techspressionism/tech3.mp4" type="video/mp4"></video></span>
+            <figcaption><span>Blue Eyed Loner</span><span>Moving image / signal study</span></figcaption>
+          </div>
+        </figure>
+
+        <figure class="scrap-piece" data-file="tech4.jpg">
+          <button class="piece-button" data-lightbox="portfolio-media/techspressionism/tech4.jpg" data-alt="Luminous human figure floating in a cosmic energy field">
+            <span class="media-frame"><img src="portfolio-media/techspressionism/tech4.jpg" alt="Luminous human figure floating in a cosmic energy field" loading="lazy"></span>
+            <figcaption><span>Starlight</span><span>Digital composition, Procreate</span></figcaption>
+          </button>
+        </figure>
+
+        <figure class="scrap-piece" data-file="tech5.jpg">
+          <button class="piece-button" data-lightbox="portfolio-media/techspressionism/tech5.jpg" data-alt="Monochrome portrait entwined with vivid orange bands">
+            <span class="media-frame"><img src="portfolio-media/techspressionism/tech5.jpg" alt="Monochrome portrait entwined with vivid orange bands" loading="lazy"></span>
+            <figcaption><span>Orange Ribbon</span><span>Digital portrait</span></figcaption>
+          </button>
+        </figure>
+
+        <figure class="scrap-piece" data-file="alpha.jpg">
+          <button class="piece-button" data-lightbox="portfolio-media/techspressionism/alpha.jpg" data-alt="Wolf howling beneath a luminous geometric moon">
+            <span class="media-frame"><img src="portfolio-media/techspressionism/alpha.jpg" alt="Wolf howling beneath a luminous geometric moon" loading="lazy"></span>
+            <figcaption><span>Alpha</span><span>Digital composition</span></figcaption>
+          </button>
+        </figure>
+
+        <figure class="scrap-piece" data-file="c'est moi.jpg">
+          <button class="piece-button" data-lightbox="portfolio-media/techspressionism/c%27est%20moi.jpg" data-alt="Blue-eyed woman rendered in a luminous painterly digital portrait">
+            <span class="media-frame"><img src="portfolio-media/techspressionism/c%27est%20moi.jpg" alt="Blue-eyed woman rendered in a luminous painterly digital portrait" loading="lazy"></span>
+            <figcaption><span>C'est Moi</span><span>Digital self-image</span></figcaption>
+          </button>
+        </figure>
+
+        <figure class="scrap-piece wide" data-file="YACHT2.mp4">
+          <div class="media-only">
+            <span class="media-frame"><video autoplay muted loop playsinline preload="metadata"><source src="portfolio-media/techspressionism/YACHT2.mp4" type="video/mp4"></video></span>
+            <figcaption><span>Yacht Study</span><span>Moving image / Casey Marie Roy</span></figcaption>
+          </div>
+        </figure>
+
+        <figure class="scrap-piece" data-file="tech7.jpg">
+          <button class="piece-button" data-lightbox="portfolio-media/techspressionism/tech7.jpg" data-alt="Anatomical human figure layered with botanical illustration">
+            <span class="media-frame"><img src="portfolio-media/techspressionism/tech7.jpg" alt="Anatomical human figure layered with botanical illustration" loading="lazy"></span>
+            <figcaption><span>Botanical Anatomy</span><span>Hybrid drawing, Procreate</span></figcaption>
+          </button>
+        </figure>
+
+        <figure class="scrap-piece" data-file="tech8.jpg">
+          <button class="piece-button" data-lightbox="portfolio-media/techspressionism/tech8.jpg" data-alt="Satellite approaching a colorful planet in deep space">
+            <span class="media-frame"><img src="portfolio-media/techspressionism/tech8.jpg" alt="Satellite approaching a colorful planet in deep space" loading="lazy"></span>
+            <figcaption><span>Satellite</span><span>Digital painting, Procreate</span></figcaption>
+          </button>
+        </figure>
+
+        <figure class="scrap-piece wide" data-file="tech10.jpg">
+          <button class="piece-button" data-lightbox="portfolio-media/techspressionism/tech10.jpg" data-alt="Faceted blue eye emerging from darkness">
+            <span class="media-frame"><img src="portfolio-media/techspressionism/tech10.jpg" alt="Faceted blue eye emerging from darkness" loading="lazy"></span>
+            <figcaption><span>Third Eye Spy</span><span>Digital banner study</span></figcaption>
+          </button>
+        </figure>
+      </div>
+    </section>
+
+    <section class="process-block" aria-labelledby="process-title">
+      <p class="scrap-label">Process portals // external uplink</p>
+      <h2 id="process-title">Marks, layers,<br>decisions, revisions.</h2>
       <div class="signal-links">
         <a class="signal-link" href="https://www.youtube.com/watch?v=1u6FOppV6uA" target="_blank" rel="noopener"><span>Anatomy — Time-lapse</span><span>Watch ↗</span></a>
         <a class="signal-link" href="https://www.youtube.com/watch?v=DGGxgy7J8-M" target="_blank" rel="noopener"><span>Clearly Canadian — Short</span><span>Watch ↗</span></a>
       </div>
     </section>
-    <section class="section closing"><p class="section-kicker">Signal / Feeling / Form</p><h2>The digital canvas<br>enters the studio.</h2><p>Techspressionism brings intuitive mark-making, moving image, and emerging tools into one emotionally responsive practice.</p></section>
+
+    <section class="section closing">
+      <p class="section-kicker">Signal / Feeling / Form</p>
+      <h2>The digital canvas<br>enters the studio.</h2>
+      <p>Techspressionism brings intuitive mark-making, moving image, and emerging tools into one emotionally responsive practice.</p>
+    </section>
   </main>
-  <footer><span>© Casey Marie Studio</span><span>Techspressionism / Signal Room 02</span></footer>
-  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Techspressionist artwork viewer" aria-hidden="true"><button class="lightbox-control lightbox-close" type="button" aria-label="Close image viewer">×</button><button class="lightbox-control lightbox-prev" type="button" aria-label="Previous image">‹</button><div class="lightbox-stage"><img id="lightbox-image" src="" alt=""></div><button class="lightbox-control lightbox-next" type="button" aria-label="Next image">›</button><div class="lightbox-meta">Signal archive <span class="lightbox-count"></span></div></div>
+
+  <footer>
+    <span>CASEY MARIE ROY</span>
+    <span>@SPACECASE135</span>
+    <span>© 2026 ALL RIGHTS RESERVED</span>
+  </footer>
+
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Techspressionist artwork viewer" aria-hidden="true">
+    <button class="lightbox-control lightbox-close" type="button" aria-label="Close image viewer">×</button>
+    <button class="lightbox-control lightbox-prev" type="button" aria-label="Previous image">‹</button>
+    <div class="lightbox-stage"><img id="lightbox-image" src="" alt=""></div>
+    <button class="lightbox-control lightbox-next" type="button" aria-label="Next image">›</button>
+    <div class="lightbox-meta">Signal archive <span class="lightbox-count"></span></div>
+  </div>
+
+  <script>
+    const ambientVideos = document.querySelectorAll("video");
+
+    function startAmbientVideo(video) {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.volume = 0;
+      video.loop = true;
+      video.playsInline = true;
+      const playAttempt = video.play();
+      if (playAttempt) playAttempt.catch(() => {});
+    }
+
+    ambientVideos.forEach(video => {
+      startAmbientVideo(video);
+      video.addEventListener("loadeddata", () => startAmbientVideo(video), { once: true });
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) ambientVideos.forEach(startAmbientVideo);
+    });
+  </script>
   <script src="portfolio.js?v=20260725"></script>
 </body>
 </html>

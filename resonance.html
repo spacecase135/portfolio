@@ -219,17 +219,24 @@ God Bless.
         .room-title {
             margin: 0;
 
-            color: rgba(231, 243, 252, 0.32);
+            color: transparent;
 
             font-size: clamp(1.25rem, 3vw, 2.55rem);
-            font-weight: 400;
+            font-family:
+                Bahnschrift,
+                "Arial Narrow",
+                "Segoe UI",
+                sans-serif;
+            font-weight: 300;
             line-height: 0.98;
-            letter-spacing: 0.035em;
+            letter-spacing: 0.075em;
             text-transform: uppercase;
+            -webkit-text-stroke:
+                1px rgba(191, 225, 255, 0.62);
 
             text-shadow:
-                0 0 22px rgba(0, 245, 225, 0.08),
-                0 0 36px rgba(143, 77, 255, 0.06);
+                0 0 12px rgba(0, 245, 225, 0.16),
+                0 0 28px rgba(143, 77, 255, 0.13);
         }
 
         .room-subtitle {
@@ -411,41 +418,18 @@ God Bless.
             align-items: center;
             gap: 17px;
 
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(127, 230, 255, 0.32);
             border-radius: 20px;
+            background: transparent !important;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(16, 30, 48, 0.62),
-                    rgba(3, 10, 21, 0.54)
-                );
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
 
-            backdrop-filter: blur(25px) saturate(140%);
-            -webkit-backdrop-filter: blur(25px) saturate(140%);
-
-            box-shadow:
-                0 25px 74px rgba(0, 0, 0, 0.56),
-                inset 0 1px 0 rgba(255, 255, 255, 0.035),
-                0 0 46px rgba(0, 191, 207, 0.035);
+            box-shadow: none;
         }
 
         .player::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            z-index: -1;
-
-            border-radius: inherit;
-            pointer-events: none;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(0, 245, 225, 0.035),
-                    transparent 40%,
-                    rgba(143, 77, 255, 0.03)
-                );
+            content: none;
         }
 
         .transport {
@@ -593,10 +577,14 @@ God Bless.
             background:
                 linear-gradient(
                     90deg,
-                    var(--cyan) 0 var(--range-progress),
-                    rgba(255, 255, 255, 0.12)
-                    var(--range-progress) 100%
-                );
+                    #00e8df,
+                    #3aa7ff 38%,
+                    #b45cff 70%,
+                    #ff2794
+                )
+                0 / var(--range-progress) 100%
+                no-repeat,
+                rgba(255, 255, 255, 0.12);
         }
 
         .range::-moz-range-track {
@@ -608,7 +596,14 @@ God Bless.
         .range::-moz-range-progress {
             height: 3px;
             border-radius: 999px;
-            background: var(--cyan);
+            background:
+                linear-gradient(
+                    90deg,
+                    #00e8df,
+                    #3aa7ff 42%,
+                    #b45cff 72%,
+                    #ff2794
+                );
         }
 
         .range::-webkit-slider-thumb {
@@ -966,7 +961,7 @@ God Bless.
                 grid-row: 2;
 
                 justify-content: center;
-                padding-right: 102px;
+                padding-right: 164px;
             }
 
             .utility {
@@ -976,7 +971,8 @@ God Bless.
             }
 
             .volume-range {
-                display: none;
+                display: block;
+                width: 72px;
             }
 
             .icon-button {
@@ -1022,7 +1018,7 @@ God Bless.
 
             .transport {
                 justify-content: flex-start;
-                padding-right: 90px;
+                padding-right: 156px;
                 gap: 3px;
             }
 
@@ -1049,6 +1045,39 @@ God Bless.
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.001ms !important;
             }
+        }
+
+        .transport .icon-button:nth-child(1) {
+            color: #7effff;
+            border-color: rgba(0, 232, 223, 0.34);
+            background: rgba(0, 232, 223, 0.09);
+        }
+
+        .transport .play-button {
+            color: #ffffff;
+            border-color: rgba(255, 49, 153, 0.62);
+            background: rgba(255, 49, 153, 0.14);
+            box-shadow:
+                0 0 20px rgba(255, 49, 153, 0.24),
+                inset 0 0 15px rgba(180, 92, 255, 0.08);
+        }
+
+        .transport .icon-button:nth-child(3) {
+            color: #e3b6ff;
+            border-color: rgba(180, 92, 255, 0.38);
+            background: rgba(180, 92, 255, 0.1);
+        }
+
+        #mute-button {
+            color: #ffd96a;
+            border-color: rgba(255, 194, 64, 0.36);
+            background: rgba(255, 194, 64, 0.09);
+        }
+
+        .playlist-toggle {
+            color: #93ffba;
+            border-color: rgba(126, 255, 104, 0.34);
+            background: rgba(126, 255, 104, 0.08);
         }
     </style>
 </head>
@@ -1464,8 +1493,8 @@ God Bless.
             analyser =
                 audioContext.createAnalyser();
 
-            analyser.fftSize = 1024;
-            analyser.smoothingTimeConstant = 0.84;
+            analyser.fftSize = 2048;
+            analyser.smoothingTimeConstant = 0.68;
 
             frequencyData =
                 new Uint8Array(
@@ -1953,6 +1982,13 @@ God Bless.
             transient: 0
         };
 
+        const cymaticModes = {
+            low: 4,
+            mid: 7,
+            high: 12,
+            centroid: 0.34
+        };
+
         function resizeCanvas() {
             pixelRatio =
                 Math.min(
@@ -2342,27 +2378,51 @@ God Bless.
         }
 
         function updateTerrain(time) {
-            const mobile =
-                canvasWidth < 760;
+            const portrait =
+                canvasHeight > canvasWidth;
 
             /*
-                The horizon begins near the top so the
-                landscape immediately occupies the page.
+                Keep the field shallow and horizontal on every
+                viewport. Rows now form a luminous ribbon rather
+                than receding toward a distant horizon.
             */
-            const horizon =
+            const bandCenterY =
                 canvasHeight *
                 (
-                    mobile
-                        ? 0.12
-                        : 0.1
+                    portrait
+                        ? 0.39
+                        : 0.34
                 );
 
-            const depthSpan =
-                canvasHeight *
+            const bandHeight =
+                Math.min(
+                    canvasHeight *
+                    (
+                        portrait
+                            ? 0.24
+                            : 0.31
+                    ),
+                    canvasWidth * 0.34
+                );
+
+            const fieldWidth =
+                canvasWidth *
                 (
-                    mobile
-                        ? 0.7
-                        : 0.73
+                    portrait
+                        ? 0.98
+                        : 1.04
+                );
+
+            const responseScale =
+                Math.max(
+                    0.52,
+                    Math.min(
+                        1,
+                        Math.min(
+                            canvasWidth,
+                            canvasHeight * 1.35
+                        ) / 980
+                    )
                 );
 
             const slowTime =
@@ -2379,27 +2439,26 @@ God Bless.
                 const point =
                     terrainPoints[index];
 
-                const perspective =
-                    Math.pow(
-                        point.depth,
-                        1.52
-                    );
-
-                const spread =
-                    0.12 +
-                    perspective * 1.04;
+                const layer =
+                    0.36 +
+                    point.depth * 0.64;
 
                 const centerOffset =
                     (
                         point.normalizedX -
                         0.5
                     ) *
-                    canvasWidth *
-                    spread;
+                    fieldWidth;
 
                 const x =
                     canvasWidth * 0.5 +
-                    centerOffset;
+                    centerOffset +
+                    Math.sin(
+                        point.depth * 8.4 +
+                        slowTime * 1.7
+                    ) *
+                    5 *
+                    responseScale;
 
                 const largeSwell =
                     Math.sin(
@@ -2430,29 +2489,35 @@ God Bless.
                     );
 
                 const idleAmplitude =
-                    7 +
-                    perspective * 22;
+                    (
+                        8 +
+                        layer * 7
+                    ) *
+                    responseScale;
 
                 const bassAmplitude =
                     sound.bass *
                     (
-                        58 +
-                        perspective * 168
-                    );
+                        68 +
+                        layer * 52
+                    ) *
+                    responseScale;
 
                 const lowMidAmplitude =
                     sound.lowMid *
                     (
-                        35 +
-                        perspective * 88
-                    );
+                        38 +
+                        layer * 34
+                    ) *
+                    responseScale;
 
                 const midDetail =
                     sound.mid *
                     (
-                        18 +
-                        perspective * 44
-                    );
+                        19 +
+                        layer * 18
+                    ) *
+                    responseScale;
 
                 const combinedWave =
                     largeSwell * 0.55 +
@@ -2472,9 +2537,10 @@ God Bless.
                     ) *
                     sound.bass *
                     (
-                        35 +
-                        perspective * 82
-                    );
+                        38 +
+                        layer * 34
+                    ) *
+                    responseScale;
 
                 const sidePeak =
                     Math.exp(
@@ -2488,9 +2554,10 @@ God Bless.
                     ) *
                     sound.lowMid *
                     (
-                        20 +
-                        perspective * 58
-                    );
+                        22 +
+                        layer * 24
+                    ) *
+                    responseScale;
 
                 const amplitude =
                     idleAmplitude +
@@ -2502,15 +2569,18 @@ God Bless.
                     combinedWave *
                     amplitude *
                     (
-                        0.1 +
-                        perspective * 0.9
+                        0.54 +
+                        layer * 0.46
                     ) +
                     centralPeak +
                     sidePeak;
 
                 const y =
-                    horizon +
-                    perspective * depthSpan -
+                    bandCenterY +
+                    (
+                        point.depth - 0.5
+                    ) *
+                    bandHeight -
                     verticalDisplacement;
 
                 point.x = x;
@@ -2519,18 +2589,18 @@ God Bless.
                     verticalDisplacement;
 
                 point.radius =
-                    0.23 +
-                    perspective * 1.28 +
+                    0.48 +
+                    layer * 0.72 +
                     sound.high *
                     (
-                        0.55 +
-                        point.noise * 1.35
+                        0.45 +
+                        point.noise * 1.05
                     );
 
                 point.alpha =
-                    0.075 +
-                    perspective * 0.69 +
-                    sound.energy * 0.32;
+                    0.22 +
+                    layer * 0.48 +
+                    sound.energy * 0.28;
             }
         }
 
@@ -2545,22 +2615,22 @@ God Bless.
 
             backgroundGradient.addColorStop(
                 0,
-                "#010208"
+                "#000002"
             );
 
             backgroundGradient.addColorStop(
                 0.38,
-                "#02091a"
+                "#02030a"
             );
 
             backgroundGradient.addColorStop(
                 0.72,
-                "#020713"
+                "#010108"
             );
 
             backgroundGradient.addColorStop(
                 1,
-                "#010309"
+                "#000001"
             );
 
             context.fillStyle =
@@ -2574,7 +2644,18 @@ God Bless.
             );
 
             const glowCenterY =
-                canvasHeight * 0.24;
+                canvasHeight *
+                (
+                    canvasHeight > canvasWidth
+                        ? 0.39
+                        : 0.34
+                );
+
+            const glowRadius =
+                Math.max(
+                    canvasWidth * 0.58,
+                    canvasHeight * 0.46
+                );
 
             const landscapeGlow =
                 context.createRadialGradient(
@@ -2583,7 +2664,7 @@ God Bless.
                     0,
                     canvasWidth * 0.5,
                     glowCenterY,
-                    canvasWidth * 0.62
+                    glowRadius
                 );
 
             landscapeGlow.addColorStop(
@@ -2592,7 +2673,7 @@ God Bless.
                     0,
                     221,
                     220,
-                    ${0.055 + sound.energy * 0.08}
+                    ${0.024 + sound.energy * 0.045}
                 )`
             );
 
@@ -2602,7 +2683,7 @@ God Bless.
                     54,
                     82,
                     255,
-                    ${0.025 + sound.mid * 0.055}
+                    ${0.011 + sound.mid * 0.03}
                 )`
             );
 
@@ -2612,7 +2693,7 @@ God Bless.
                     143,
                     77,
                     255,
-                    ${0.012 + sound.energy * 0.025}
+                    ${0.005 + sound.energy * 0.012}
                 )`
             );
 
@@ -2631,7 +2712,6 @@ God Bless.
                 canvasHeight
             );
 
-            drawAtmosphericParticles(time);
         }
 
         function drawAtmosphericParticles(time) {
@@ -2932,12 +3012,3161 @@ God Bless.
             }
         }
 
+        function spectrumValue(
+            normalizedX,
+            time
+        ) {
+            if (
+                analyser &&
+                frequencyData &&
+                !audio.paused
+            ) {
+                const curvedPosition =
+                    0.008 +
+                    Math.pow(
+                        normalizedX,
+                        1.82
+                    ) *
+                    0.73;
+
+                const centerIndex =
+                    Math.min(
+                        frequencyData.length - 1,
+                        Math.floor(
+                            curvedPosition *
+                            frequencyData.length
+                        )
+                    );
+
+                let total = 0;
+                let weight = 0;
+
+                for (
+                    let offset = -3;
+                    offset <= 3;
+                    offset++
+                ) {
+                    const sampleIndex =
+                        Math.max(
+                            0,
+                            Math.min(
+                                frequencyData.length - 1,
+                                centerIndex + offset
+                            )
+                        );
+
+                    const sampleWeight =
+                        4 - Math.abs(offset);
+
+                    total +=
+                        frequencyData[sampleIndex] *
+                        sampleWeight;
+
+                    weight += sampleWeight;
+                }
+
+                return Math.pow(
+                    total / weight / 255,
+                    1.2
+                );
+            }
+
+            const idleTime =
+                time * 0.00052;
+
+            const broadWave =
+                Math.sin(
+                    normalizedX * 17 +
+                    idleTime * 2.1
+                ) *
+                0.5 +
+                0.5;
+
+            const fineWave =
+                Math.sin(
+                    normalizedX * 43 -
+                    idleTime * 1.3
+                ) *
+                0.5 +
+                0.5;
+
+            return (
+                0.055 +
+                broadWave * 0.045 +
+                fineWave * 0.018
+            );
+        }
+
+        function drawSacredGeometry(time) {
+            const portrait =
+                canvasHeight > canvasWidth;
+
+            const centerX =
+                canvasWidth *
+                (
+                    portrait
+                        ? 0.72
+                        : 0.68
+                );
+
+            const centerY =
+                canvasHeight *
+                (
+                    portrait
+                        ? 0.54
+                        : 0.57
+                );
+
+            const baseRadius =
+                Math.min(
+                    canvasWidth,
+                    canvasHeight
+                ) *
+                (
+                    portrait
+                        ? 0.25
+                        : 0.31
+                );
+
+            const pulse =
+                1 +
+                sound.bass * 0.2;
+
+            context.save();
+
+            context.translate(
+                centerX,
+                centerY
+            );
+
+            context.rotate(
+                time * 0.000025
+            );
+
+            context.lineWidth = 0.7;
+
+            context.shadowColor =
+                "rgba(202, 92, 255, 0.5)";
+
+            context.shadowBlur =
+                8 +
+                sound.high * 18;
+
+            for (
+                let ring = 0;
+                ring < 3;
+                ring++
+            ) {
+                const radius =
+                    baseRadius *
+                    (
+                        0.42 +
+                        ring * 0.27
+                    ) *
+                    pulse;
+
+                context.beginPath();
+
+                context.arc(
+                    0,
+                    0,
+                    radius,
+                    0,
+                    Math.PI * 2
+                );
+
+                context.strokeStyle =
+                    `rgba(
+                        ${ring === 1 ? 255 : 84},
+                        ${ring === 1 ? 63 : 214},
+                        255,
+                        ${0.09 + sound.bass * 0.22}
+                    )`;
+
+                context.stroke();
+            }
+
+            const polygonRadius =
+                baseRadius *
+                0.72 *
+                pulse;
+
+            for (
+                let shape = 0;
+                shape < 2;
+                shape++
+            ) {
+                context.save();
+
+                context.rotate(
+                    shape * Math.PI / 6 +
+                    time *
+                    (
+                        shape === 0
+                            ? 0.000018
+                            : -0.000014
+                    )
+                );
+
+                context.beginPath();
+
+                for (
+                    let vertex = 0;
+                    vertex < 6;
+                    vertex++
+                ) {
+                    const angle =
+                        vertex /
+                        6 *
+                        Math.PI *
+                        2;
+
+                    const x =
+                        Math.cos(angle) *
+                        polygonRadius;
+
+                    const y =
+                        Math.sin(angle) *
+                        polygonRadius;
+
+                    if (vertex === 0) {
+                        context.moveTo(x, y);
+                    } else {
+                        context.lineTo(x, y);
+                    }
+                }
+
+                context.closePath();
+
+                context.strokeStyle =
+                    `rgba(
+                        ${shape === 0 ? 0 : 255},
+                        ${shape === 0 ? 226 : 38},
+                        ${shape === 0 ? 235 : 162},
+                        ${0.055 + sound.mid * 0.16}
+                    )`;
+
+                context.stroke();
+                context.restore();
+            }
+
+            const flowerRadius =
+                baseRadius *
+                (
+                    0.2 +
+                    sound.mid * 0.055
+                ) *
+                pulse;
+
+            context.lineWidth = 0.55;
+            context.shadowBlur =
+                6 +
+                sound.mid * 14;
+
+            for (
+                let motif = -1;
+                motif <= 1;
+                motif++
+            ) {
+                const motifScale =
+                    motif === 0
+                        ? 1
+                        : 0.62;
+
+                const motifX =
+                    motif *
+                    baseRadius *
+                    1.26;
+
+                const circleCount =
+                    motif === 0
+                        ? 19
+                        : 7;
+
+                for (
+                    let petal = 0;
+                    petal < circleCount;
+                    petal++
+                ) {
+                    let ring = 0;
+                    let angle = 0;
+
+                    if (petal > 0 && petal <= 6) {
+                        ring = 1;
+                        angle =
+                            (
+                                petal - 1
+                            ) /
+                            6 *
+                            Math.PI *
+                            2;
+                    } else if (petal > 6) {
+                        ring = 2;
+                        angle =
+                            (
+                                petal - 7
+                            ) /
+                            12 *
+                            Math.PI *
+                            2;
+                    }
+
+                    const offset =
+                        ring *
+                        flowerRadius *
+                        motifScale;
+
+                    context.beginPath();
+
+                    context.arc(
+                        motifX +
+                        Math.cos(angle) *
+                        offset,
+                        Math.sin(angle) *
+                        offset,
+                        flowerRadius *
+                        motifScale,
+                        0,
+                        Math.PI * 2
+                    );
+
+                    context.strokeStyle =
+                        `rgba(
+                            ${motif === 0 ? 221 : 75},
+                            ${motif === 0 ? 126 : 205},
+                            255,
+                            ${0.08 + sound.mid * 0.18}
+                        )`;
+
+                    context.stroke();
+                }
+            }
+
+            const rayCount = 18;
+
+            context.lineWidth = 0.5;
+            context.shadowBlur = 4;
+
+            for (
+                let ray = 0;
+                ray < rayCount;
+                ray++
+            ) {
+                const angle =
+                    ray /
+                    rayCount *
+                    Math.PI *
+                    2;
+
+                const innerRadius =
+                    baseRadius *
+                    (
+                        0.28 +
+                        sound.lowMid * 0.06
+                    );
+
+                const outerRadius =
+                    baseRadius *
+                    (
+                        0.94 +
+                        sound.lowMid * 0.16
+                    );
+
+                context.beginPath();
+
+                context.moveTo(
+                    Math.cos(angle) *
+                    innerRadius,
+                    Math.sin(angle) *
+                    innerRadius
+                );
+
+                context.lineTo(
+                    Math.cos(angle) *
+                    outerRadius,
+                    Math.sin(angle) *
+                    outerRadius
+                );
+
+                context.strokeStyle =
+                    `rgba(
+                        ${ray % 2 === 0 ? 44 : 241},
+                        ${ray % 2 === 0 ? 225 : 78},
+                        255,
+                        ${0.045 + sound.lowMid * 0.15}
+                    )`;
+
+                context.stroke();
+            }
+
+            context.restore();
+        }
+
+        function drawMetatronsCube(time) {
+            const portrait =
+                canvasHeight > canvasWidth;
+
+            const centerX =
+                canvasWidth *
+                (
+                    portrait
+                        ? 0.72
+                        : 0.68
+                );
+
+            const centerY =
+                canvasHeight *
+                (
+                    portrait
+                        ? 0.54
+                        : 0.57
+                );
+
+            const radius =
+                Math.min(
+                    canvasWidth,
+                    canvasHeight
+                ) *
+                (
+                    portrait
+                        ? 0.19
+                        : 0.22
+                ) *
+                (
+                    1 +
+                    sound.bass * 0.12
+                );
+
+            const points = [{
+                x: 0,
+                y: 0
+            }];
+
+            for (
+                let ring = 1;
+                ring <= 2;
+                ring++
+            ) {
+                for (
+                    let point = 0;
+                    point < 6;
+                    point++
+                ) {
+                    const angle =
+                        point / 6 *
+                        Math.PI * 2;
+
+                    const ringRadius =
+                        radius *
+                        (
+                            ring === 1
+                                ? 0.5
+                                : 1
+                        );
+
+                    points.push({
+                        x:
+                            Math.cos(angle) *
+                            ringRadius,
+                        y:
+                            Math.sin(angle) *
+                            ringRadius
+                    });
+                }
+            }
+
+            context.save();
+            context.translate(
+                centerX,
+                centerY
+            );
+            context.rotate(
+                -time * 0.000017
+            );
+            context.globalCompositeOperation =
+                "lighter";
+
+            context.lineWidth = 0.45;
+            context.shadowColor =
+                "rgba(103, 210, 255, 0.42)";
+            context.shadowBlur = 5;
+
+            for (
+                let first = 0;
+                first < points.length;
+                first++
+            ) {
+                for (
+                    let second = first + 1;
+                    second < points.length;
+                    second++
+                ) {
+                    const distance =
+                        Math.hypot(
+                            points[first].x -
+                            points[second].x,
+                            points[first].y -
+                            points[second].y
+                        );
+
+                    if (
+                        distance >
+                        radius * 1.22
+                    ) {
+                        continue;
+                    }
+
+                    context.beginPath();
+                    context.moveTo(
+                        points[first].x,
+                        points[first].y
+                    );
+                    context.lineTo(
+                        points[second].x,
+                        points[second].y
+                    );
+
+                    context.strokeStyle =
+                        `rgba(
+                            ${second % 3 === 0 ? 245 : 68},
+                            ${second % 3 === 0 ? 91 : 219},
+                            255,
+                            ${0.04 + sound.lowMid * 0.11}
+                        )`;
+
+                    context.stroke();
+                }
+            }
+
+            for (
+                let index = 0;
+                index < points.length;
+                index++
+            ) {
+                const circleRadius =
+                    radius *
+                    (
+                        0.12 +
+                        sound.mid * 0.025
+                    );
+
+                context.beginPath();
+                context.arc(
+                    points[index].x,
+                    points[index].y,
+                    circleRadius,
+                    0,
+                    Math.PI * 2
+                );
+
+                context.strokeStyle =
+                    `rgba(
+                        155,
+                        120,
+                        255,
+                        ${0.045 + sound.mid * 0.12}
+                    )`;
+
+                context.stroke();
+            }
+
+            context.restore();
+        }
+
+        function drawTriangleFabric(time) {
+            const portrait =
+                canvasHeight > canvasWidth;
+
+            const columns =
+                portrait
+                    ? 7
+                    : 12;
+
+            const rows =
+                portrait
+                    ? 8
+                    : 6;
+
+            const centerY =
+                canvasHeight *
+                (
+                    portrait
+                        ? 0.42
+                        : 0.4
+                );
+
+            const fabricHeight =
+                canvasHeight *
+                (
+                    portrait
+                        ? 0.62
+                        : 0.68
+                );
+
+            const cellWidth =
+                canvasWidth /
+                columns;
+
+            const cellHeight =
+                fabricHeight /
+                rows;
+
+            const top =
+                centerY -
+                fabricHeight * 0.5;
+
+            context.save();
+            context.globalCompositeOperation =
+                "lighter";
+            context.lineWidth = 0.42;
+
+            for (
+                let row = 0;
+                row < rows;
+                row++
+            ) {
+                for (
+                    let column = 0;
+                    column < columns;
+                    column++
+                ) {
+                    const x =
+                        column * cellWidth;
+
+                    const y =
+                        top +
+                        row * cellHeight;
+
+                    const fold =
+                        Math.sin(
+                            column * 1.31 +
+                            row * 0.88 +
+                            time * 0.00024
+                        ) *
+                        (
+                            4 +
+                            sound.lowMid * 19
+                        );
+
+                    const alternate =
+                        (
+                            row + column
+                        ) % 2 === 0;
+
+                    context.beginPath();
+
+                    if (alternate) {
+                        context.moveTo(
+                            x,
+                            y + fold
+                        );
+                        context.lineTo(
+                            x + cellWidth,
+                            y + cellHeight - fold
+                        );
+                        context.lineTo(
+                            x,
+                            y + cellHeight + fold
+                        );
+                    } else {
+                        context.moveTo(
+                            x + cellWidth,
+                            y - fold
+                        );
+                        context.lineTo(
+                            x,
+                            y + cellHeight + fold
+                        );
+                        context.lineTo(
+                            x + cellWidth,
+                            y + cellHeight - fold
+                        );
+                    }
+
+                    context.closePath();
+
+                    const alpha =
+                        0.025 +
+                        sound.lowMid * 0.065;
+
+                    context.strokeStyle =
+                        alternate
+                            ? `rgba(42, 221, 255, ${alpha})`
+                            : `rgba(235, 75, 255, ${alpha})`;
+
+                    context.stroke();
+
+                    if (
+                        (
+                            row * columns +
+                            column
+                        ) % 5 === 0
+                    ) {
+                        context.fillStyle =
+                            alternate
+                                ? `rgba(0, 225, 224, ${alpha * 0.16})`
+                                : `rgba(255, 42, 167, ${alpha * 0.14})`;
+
+                        context.fill();
+                    }
+                }
+            }
+
+            context.restore();
+        }
+
+        function drawCrystallineStructures(time) {
+            const portrait =
+                canvasHeight > canvasWidth;
+
+            const centerX =
+                canvasWidth * 0.5;
+
+            const centerY =
+                canvasHeight *
+                (
+                    portrait
+                        ? 0.42
+                        : 0.4
+                );
+
+            const scale =
+                Math.min(
+                    canvasWidth,
+                    canvasHeight
+                ) /
+                820;
+
+            function branch(
+                length,
+                depth,
+                direction
+            ) {
+                if (depth === 0) {
+                    return;
+                }
+
+                context.beginPath();
+                context.moveTo(0, 0);
+                context.lineTo(
+                    0,
+                    -length
+                );
+                context.stroke();
+
+                context.translate(
+                    0,
+                    -length
+                );
+
+                const foldAngle =
+                    0.42 +
+                    sound.high * 0.16 +
+                    Math.sin(
+                        time * 0.0002 +
+                        depth
+                    ) *
+                    0.045;
+
+                context.save();
+                context.rotate(
+                    foldAngle * direction
+                );
+                branch(
+                    length * 0.68,
+                    depth - 1,
+                    direction
+                );
+                context.restore();
+
+                context.save();
+                context.rotate(
+                    -foldAngle * direction
+                );
+                branch(
+                    length * 0.68,
+                    depth - 1,
+                    direction
+                );
+                context.restore();
+            }
+
+            context.save();
+            context.globalCompositeOperation =
+                "lighter";
+            context.lineWidth = 0.58;
+            context.strokeStyle =
+                `rgba(
+                    173,
+                    211,
+                    255,
+                    ${0.06 + sound.high * 0.15}
+                )`;
+            context.shadowColor =
+                "rgba(77, 203, 255, 0.48)";
+            context.shadowBlur =
+                5 +
+                sound.high * 9;
+
+            for (
+                let crystal = 0;
+                crystal < 4;
+                crystal++
+            ) {
+                const side =
+                    crystal < 2
+                        ? -1
+                        : 1;
+
+                const tier =
+                    crystal % 2;
+
+                context.save();
+                context.translate(
+                    centerX +
+                    side *
+                    canvasWidth *
+                    (
+                        0.19 +
+                        tier * 0.16
+                    ),
+                    centerY +
+                    (
+                        tier === 0
+                            ? 1
+                            : -1
+                    ) *
+                    canvasHeight *
+                    0.08
+                );
+
+                context.rotate(
+                    side *
+                    (
+                        0.6 +
+                        tier * 0.34
+                    ) +
+                    Math.sin(
+                        time * 0.00012 +
+                        crystal
+                    ) *
+                    0.06
+                );
+
+                branch(
+                    (
+                        32 +
+                        sound.high * 25
+                    ) *
+                    scale,
+                    4,
+                    side
+                );
+
+                context.restore();
+            }
+
+            context.restore();
+        }
+
+        function drawOceanStrands(time) {
+            const portrait =
+                canvasHeight > canvasWidth;
+
+            const strandCount = 13;
+
+            const centerY =
+                canvasHeight *
+                (
+                    portrait
+                        ? 0.42
+                        : 0.4
+                );
+
+            const totalSpread =
+                canvasHeight *
+                (
+                    portrait
+                        ? 0.4
+                        : 0.5
+                );
+
+            const horizontalPadding =
+                canvasWidth * 0.015;
+
+            const usableWidth =
+                canvasWidth -
+                horizontalPadding * 2;
+
+            const steps =
+                canvasWidth < 760
+                    ? 130
+                    : 220;
+
+            const phase =
+                audio.paused
+                    ? time * 0.00016
+                    : audio.currentTime * 0.31;
+
+            context.save();
+            context.globalCompositeOperation =
+                "lighter";
+
+            for (
+                let strand = 0;
+                strand < strandCount;
+                strand++
+            ) {
+                const strandRatio =
+                    strand /
+                    (strandCount - 1);
+
+                const baseY =
+                    centerY +
+                    (
+                        strandRatio - 0.5
+                    ) *
+                    totalSpread;
+
+                const centerWeight =
+                    1 -
+                    Math.abs(
+                        strandRatio - 0.5
+                    ) *
+                    1.5;
+
+                context.beginPath();
+
+                for (
+                    let step = 0;
+                    step <= steps;
+                    step++
+                ) {
+                    const normalizedX =
+                        step / steps;
+
+                    const spectrum =
+                        spectrumValue(
+                            Math.abs(
+                                normalizedX - 0.5
+                            ) * 2,
+                            time
+                        );
+
+                    const slowSwell =
+                        Math.sin(
+                            normalizedX *
+                            (
+                                6.5 +
+                                strand * 0.16
+                            ) +
+                            phase *
+                            (
+                                0.72 +
+                                strand * 0.035
+                            ) +
+                            strand * 0.64
+                        ) *
+                        (
+                            3 +
+                            sound.bass * 18
+                        );
+
+                    const crossCurrent =
+                        Math.cos(
+                            normalizedX * 17 -
+                            phase * 1.18 +
+                            strand * 0.42
+                        ) *
+                        (
+                            1.5 +
+                            sound.lowMid * 10
+                        );
+
+                    const spectralLift =
+                        (
+                            spectrum - 0.07
+                        ) *
+                        (
+                            10 +
+                            Math.max(
+                                0,
+                                centerWeight
+                            ) * 18
+                        ) *
+                        (
+                            strand % 2 === 0
+                                ? 1
+                                : -1
+                        );
+
+                    const y =
+                        baseY +
+                        slowSwell +
+                        crossCurrent +
+                        spectralLift;
+
+                    const x =
+                        horizontalPadding +
+                        normalizedX *
+                        usableWidth;
+
+                    if (step === 0) {
+                        context.moveTo(x, y);
+                    } else {
+                        context.lineTo(x, y);
+                    }
+                }
+
+                const huePosition =
+                    strandRatio;
+
+                const red =
+                    Math.round(
+                        24 +
+                        huePosition * 226
+                    );
+
+                const green =
+                    Math.round(
+                        228 -
+                        huePosition * 142
+                    );
+
+                const blue = 255;
+
+                context.lineWidth =
+                    strand === 6
+                        ? 0.9
+                        : 0.48;
+
+                context.strokeStyle =
+                    `rgba(
+                        ${red},
+                        ${green},
+                        ${blue},
+                        ${0.055 + sound.energy * 0.09}
+                    )`;
+
+                context.shadowColor =
+                    `rgba(
+                        ${red},
+                        ${green},
+                        ${blue},
+                        0.42
+                    )`;
+
+                context.shadowBlur =
+                    strand % 3 === 0
+                        ? 6
+                        : 3;
+
+                context.stroke();
+            }
+
+            context.restore();
+        }
+
+        function drawNeuralField(time) {
+            const portrait =
+                canvasHeight > canvasWidth;
+
+            const centerX =
+                canvasWidth * 0.5;
+
+            const centerY =
+                canvasHeight *
+                (
+                    portrait
+                        ? 0.42
+                        : 0.4
+                );
+
+            const spreadY =
+                Math.min(
+                    canvasHeight * 0.24,
+                    canvasWidth * 0.25
+                );
+
+            const nodes = [];
+            const nodePairs = 17;
+
+            for (
+                let index = 0;
+                index < nodePairs;
+                index++
+            ) {
+                const seed =
+                    index * 7.137;
+
+                const radialPosition =
+                    0.08 +
+                    index /
+                    (nodePairs - 1) *
+                    0.4;
+
+                const drift =
+                    Math.sin(
+                        time * 0.00018 +
+                        seed
+                    ) *
+                    8;
+
+                const y =
+                    centerY +
+                    Math.sin(
+                        seed * 1.73 +
+                        time * 0.00011
+                    ) *
+                    spreadY *
+                    (
+                        0.24 +
+                        index /
+                        nodePairs *
+                        0.76
+                    );
+
+                const xOffset =
+                    canvasWidth *
+                    radialPosition +
+                    drift;
+
+                nodes.push({
+                    x: centerX - xOffset,
+                    y,
+                    side: -1,
+                    seed
+                });
+
+                nodes.push({
+                    x: centerX + xOffset,
+                    y,
+                    side: 1,
+                    seed
+                });
+            }
+
+            context.save();
+            context.globalCompositeOperation = "lighter";
+            context.lineWidth = 0.55;
+            context.shadowBlur = 4;
+
+            for (
+                let first = 0;
+                first < nodes.length;
+                first++
+            ) {
+                for (
+                    let second = first + 1;
+                    second < nodes.length;
+                    second++
+                ) {
+                    const nodeA = nodes[first];
+                    const nodeB = nodes[second];
+
+                    if (
+                        nodeA.side !== nodeB.side
+                    ) {
+                        continue;
+                    }
+
+                    const distance =
+                        Math.hypot(
+                            nodeA.x - nodeB.x,
+                            nodeA.y - nodeB.y
+                        );
+
+                    const connectionLimit =
+                        Math.min(
+                            canvasWidth * 0.16,
+                            190
+                        );
+
+                    if (
+                        distance >
+                        connectionLimit
+                    ) {
+                        continue;
+                    }
+
+                    const alpha =
+                        (
+                            1 -
+                            distance /
+                            connectionLimit
+                        ) *
+                        (
+                            0.085 +
+                            sound.mid * 0.11
+                        );
+
+                    context.beginPath();
+                    context.moveTo(
+                        nodeA.x,
+                        nodeA.y
+                    );
+                    context.lineTo(
+                        nodeB.x,
+                        nodeB.y
+                    );
+
+                    context.strokeStyle =
+                        nodeA.side < 0
+                            ? `rgba(58, 194, 255, ${alpha})`
+                            : `rgba(221, 74, 255, ${alpha})`;
+
+                    context.stroke();
+                }
+            }
+
+            for (
+                let index = 0;
+                index < nodes.length;
+                index++
+            ) {
+                const node = nodes[index];
+
+                const radius =
+                    0.8 +
+                    (
+                        index % 4
+                    ) *
+                    0.38 +
+                    sound.high * 1.1;
+
+                context.beginPath();
+                context.arc(
+                    node.x,
+                    node.y,
+                    radius,
+                    0,
+                    Math.PI * 2
+                );
+
+                context.fillStyle =
+                    node.side < 0
+                        ? `rgba(78, 220, 255, ${0.26 + sound.high * 0.2})`
+                        : `rgba(240, 86, 255, ${0.22 + sound.high * 0.2})`;
+
+                context.shadowColor =
+                    node.side < 0
+                        ? "rgba(0, 229, 255, 0.55)"
+                        : "rgba(255, 61, 226, 0.5)";
+
+                context.fill();
+            }
+
+            for (
+                let branch = 0;
+                branch < 6;
+                branch++
+            ) {
+                const side =
+                    branch % 2 === 0
+                        ? -1
+                        : 1;
+
+                const branchIndex =
+                    Math.floor(branch / 2);
+
+                context.beginPath();
+                context.moveTo(
+                    centerX,
+                    centerY
+                );
+
+                for (
+                    let segment = 1;
+                    segment <= 11;
+                    segment++
+                ) {
+                    const progress =
+                        segment / 11;
+
+                    const x =
+                        centerX +
+                        side *
+                        progress *
+                        canvasWidth *
+                        (
+                            0.25 +
+                            branchIndex * 0.065
+                        );
+
+                    const y =
+                        centerY +
+                        Math.sin(
+                            progress *
+                            (
+                                8.5 +
+                                branchIndex * 2.2
+                            ) +
+                            time * 0.00036 +
+                            branchIndex * 1.9
+                        ) *
+                        spreadY *
+                        (
+                            0.12 +
+                            progress * 0.22
+                        );
+
+                    context.lineTo(x, y);
+                }
+
+                context.lineWidth =
+                    0.65 +
+                    sound.high * 0.6;
+
+                context.strokeStyle =
+                    side < 0
+                        ? `rgba(84, 210, 255, ${0.11 + sound.energy * 0.12})`
+                        : `rgba(255, 82, 224, ${0.1 + sound.energy * 0.12})`;
+
+                context.shadowColor =
+                    side < 0
+                        ? "rgba(0, 219, 255, 0.55)"
+                        : "rgba(255, 38, 181, 0.5)";
+
+                context.shadowBlur = 7;
+                context.stroke();
+            }
+
+            context.restore();
+        }
+
+        function drawNeonBands(time) {
+            const portrait =
+                canvasHeight > canvasWidth;
+
+            const centerY =
+                canvasHeight *
+                (
+                    portrait
+                        ? 0.42
+                        : 0.4
+                );
+
+            const sampleCount =
+                canvasWidth < 760
+                    ? 128
+                    : 210;
+
+            const maximumHeight =
+                Math.min(
+                    canvasHeight *
+                    (
+                        portrait
+                            ? 0.16
+                            : 0.23
+                    ),
+                    canvasWidth * 0.22
+                );
+
+            const horizontalPadding =
+                portrait
+                    ? canvasWidth * 0.025
+                    : canvasWidth * 0.015;
+
+            const usableWidth =
+                canvasWidth -
+                horizontalPadding * 2;
+
+            const values = [];
+
+            for (
+                let index = 0;
+                index < sampleCount;
+                index++
+            ) {
+                const normalizedX =
+                    index /
+                    (sampleCount - 1);
+
+                const distanceFromCenter =
+                    Math.abs(
+                        normalizedX - 0.5
+                    ) *
+                    2;
+
+                const edgeEnvelope =
+                    Math.pow(
+                        Math.sin(
+                            normalizedX *
+                            Math.PI
+                        ),
+                        0.28
+                    );
+
+                const frequency =
+                    spectrumValue(
+                        distanceFromCenter,
+                        time
+                    );
+
+                const centerFocus =
+                    Math.exp(
+                        -Math.pow(
+                            (
+                                normalizedX -
+                                0.5
+                            ) /
+                            0.2,
+                            2
+                        )
+                    );
+
+                const bassBody =
+                    sound.bass *
+                    (
+                        0.34 +
+                        centerFocus * 1.06
+                    );
+
+                const waveTexture =
+                    Math.sin(
+                        distanceFromCenter * 31 -
+                        time * 0.0011
+                    ) *
+                    (
+                        0.018 +
+                        sound.mid * 0.05
+                    );
+
+                values.push(
+                    Math.max(
+                        0.018,
+                        (
+                            frequency *
+                            (
+                                0.56 +
+                                centerFocus * 0.42
+                            ) +
+                            bassBody * 0.38 +
+                            waveTexture * 0.62
+                        ) *
+                        edgeEnvelope
+                    )
+                );
+            }
+
+            /*
+                Spatial smoothing removes the harsh equalizer
+                "teeth" while preserving broad musical peaks.
+            */
+            for (
+                let pass = 0;
+                pass < 3;
+                pass++
+            ) {
+                const softened = [];
+
+                for (
+                    let index = 0;
+                    index < values.length;
+                    index++
+                ) {
+                    let total = 0;
+                    let weight = 0;
+
+                    for (
+                        let offset = -4;
+                        offset <= 4;
+                        offset++
+                    ) {
+                        const sampleIndex =
+                            Math.max(
+                                0,
+                                Math.min(
+                                    values.length - 1,
+                                    index + offset
+                                )
+                            );
+
+                        const sampleWeight =
+                            5 -
+                            Math.abs(offset);
+
+                        total +=
+                            values[sampleIndex] *
+                            sampleWeight;
+
+                        weight += sampleWeight;
+                    }
+
+                    softened.push(
+                        total / weight
+                    );
+                }
+
+                values.splice(
+                    0,
+                    values.length,
+                    ...softened
+                );
+            }
+
+            const neonGradient =
+                context.createLinearGradient(
+                    horizontalPadding,
+                    0,
+                    canvasWidth -
+                    horizontalPadding,
+                    0
+                );
+
+            neonGradient.addColorStop(
+                0,
+                "#00e8df"
+            );
+
+            neonGradient.addColorStop(
+                0.36,
+                "#3aa7ff"
+            );
+
+            neonGradient.addColorStop(
+                0.66,
+                "#b45cff"
+            );
+
+            neonGradient.addColorStop(
+                0.88,
+                "#ff2794"
+            );
+
+            neonGradient.addColorStop(
+                1,
+                "#52fff1"
+            );
+
+            context.save();
+            context.globalCompositeOperation = "lighter";
+
+            for (
+                let layer = 4;
+                layer >= 0;
+                layer--
+            ) {
+                const layerScale =
+                    1 -
+                    layer * 0.105;
+
+                const layerOffset =
+                    (
+                        layer - 2
+                    ) *
+                    (
+                        4 +
+                        sound.mid * 10
+                    );
+
+                const opacity =
+                    0.055 +
+                    (
+                        4 - layer
+                    ) *
+                    0.047;
+
+                for (
+                    let mirror = -1;
+                    mirror <= 1;
+                    mirror += 2
+                ) {
+                    context.beginPath();
+
+                    for (
+                        let index = 0;
+                        index < sampleCount;
+                        index++
+                    ) {
+                        const normalizedX =
+                            index /
+                            (sampleCount - 1);
+
+                        const x =
+                            horizontalPadding +
+                            normalizedX *
+                            usableWidth;
+
+                        const height =
+                            values[index] *
+                            maximumHeight *
+                            layerScale;
+
+                        const y =
+                            centerY +
+                            mirror *
+                            (
+                                height +
+                                layerOffset
+                            );
+
+                        if (index === 0) {
+                            context.moveTo(x, y);
+                        } else {
+                            context.lineTo(x, y);
+                        }
+                    }
+
+                    context.lineWidth =
+                        layer === 0
+                            ? 0.9
+                            : 0.48;
+
+                    context.strokeStyle =
+                        neonGradient;
+
+                    context.globalAlpha =
+                        opacity *
+                        (
+                            mirror === 1
+                                ? 0.76
+                                : 1
+                        );
+
+                    context.shadowColor =
+                        layer < 2
+                            ? "rgba(62, 225, 255, 0.9)"
+                            : "rgba(190, 70, 255, 0.45)";
+
+                    context.shadowBlur =
+                        layer < 2
+                            ? 8 +
+                              sound.high * 13
+                            : 3;
+
+                    context.stroke();
+                }
+            }
+
+            context.globalAlpha =
+                0.32 +
+                sound.energy * 0.12;
+
+            context.shadowColor =
+                "rgba(110, 244, 255, 0.95)";
+
+            context.shadowBlur =
+                7 +
+                sound.energy * 8;
+
+            context.lineWidth = 0.62;
+
+            context.beginPath();
+
+            context.moveTo(
+                horizontalPadding,
+                centerY
+            );
+
+            context.lineTo(
+                canvasWidth -
+                horizontalPadding,
+                centerY
+            );
+
+            context.strokeStyle =
+                neonGradient;
+
+            context.stroke();
+            context.restore();
+        }
+
+        function updateCymaticModes() {
+            if (
+                !analyser ||
+                !frequencyData ||
+                audio.paused
+            ) {
+                cymaticModes.low +=
+                    (
+                        4.2 -
+                        cymaticModes.low
+                    ) * 0.018;
+
+                cymaticModes.mid +=
+                    (
+                        7.4 -
+                        cymaticModes.mid
+                    ) * 0.018;
+
+                cymaticModes.high +=
+                    (
+                        12.2 -
+                        cymaticModes.high
+                    ) * 0.018;
+
+                cymaticModes.centroid +=
+                    (
+                        0.34 -
+                        cymaticModes.centroid
+                    ) * 0.018;
+
+                return;
+            }
+
+            const ranges = [
+                {
+                    start: 0.006,
+                    end: 0.12,
+                    minimumMode: 3,
+                    modeSpan: 5
+                },
+                {
+                    start: 0.12,
+                    end: 0.48,
+                    minimumMode: 6,
+                    modeSpan: 6
+                },
+                {
+                    start: 0.48,
+                    end: 0.9,
+                    minimumMode: 10,
+                    modeSpan: 8
+                }
+            ];
+
+            const targets = [];
+            let weightedFrequency = 0;
+            let totalEnergy = 0;
+
+            for (
+                let rangeIndex = 0;
+                rangeIndex < ranges.length;
+                rangeIndex++
+            ) {
+                const range =
+                    ranges[rangeIndex];
+
+                const start =
+                    Math.floor(
+                        frequencyData.length *
+                        range.start
+                    );
+
+                const end =
+                    Math.max(
+                        start + 1,
+                        Math.floor(
+                            frequencyData.length *
+                            range.end
+                        )
+                    );
+
+                let strongestIndex = start;
+                let strongestValue = -1;
+
+                for (
+                    let index = start;
+                    index < end;
+                    index++
+                ) {
+                    const value =
+                        frequencyData[index];
+
+                    if (
+                        value >
+                        strongestValue
+                    ) {
+                        strongestValue = value;
+                        strongestIndex = index;
+                    }
+
+                    weightedFrequency +=
+                        index * value;
+
+                    totalEnergy += value;
+                }
+
+                const normalizedPeak =
+                    (
+                        strongestIndex -
+                        start
+                    ) /
+                    Math.max(
+                        1,
+                        end - start - 1
+                    );
+
+                targets.push(
+                    range.minimumMode +
+                    normalizedPeak *
+                    range.modeSpan
+                );
+            }
+
+            const targetCentroid =
+                totalEnergy > 0
+                    ? weightedFrequency /
+                      totalEnergy /
+                      frequencyData.length
+                    : 0.34;
+
+            const modeEasing = 0.055;
+
+            cymaticModes.low +=
+                (
+                    targets[0] -
+                    cymaticModes.low
+                ) *
+                modeEasing;
+
+            cymaticModes.mid +=
+                (
+                    targets[1] -
+                    cymaticModes.mid
+                ) *
+                modeEasing;
+
+            cymaticModes.high +=
+                (
+                    targets[2] -
+                    cymaticModes.high
+                ) *
+                modeEasing;
+
+            cymaticModes.centroid +=
+                (
+                    targetCentroid -
+                    cymaticModes.centroid
+                ) *
+                0.045;
+        }
+
+        function drawCymaticField(time) {
+            updateCymaticModes();
+
+            const portrait =
+                canvasHeight > canvasWidth;
+
+            const centerX =
+                canvasWidth * 0.5;
+
+            const centerY =
+                canvasHeight *
+                (
+                    portrait
+                        ? 0.42
+                        : 0.4
+                );
+
+            const baseRadius =
+                Math.min(
+                    canvasWidth,
+                    canvasHeight
+                ) *
+                (
+                    portrait
+                        ? 0.42
+                        : 0.47
+                );
+
+            const playbackPhase =
+                (
+                    audio.paused
+                        ? time * 0.00016
+                        : audio.currentTime * 0.24
+                ) *
+                (
+                    0.72 +
+                    cymaticModes.centroid * 1.4
+                );
+
+            const spectrumGradient =
+                context.createLinearGradient(
+                    centerX - baseRadius,
+                    centerY,
+                    centerX + baseRadius,
+                    centerY
+                );
+
+            spectrumGradient.addColorStop(
+                0,
+                "#00e8df"
+            );
+
+            spectrumGradient.addColorStop(
+                0.34,
+                "#56b7ff"
+            );
+
+            spectrumGradient.addColorStop(
+                0.62,
+                "#bd66ff"
+            );
+
+            spectrumGradient.addColorStop(
+                0.86,
+                "#ff3199"
+            );
+
+            spectrumGradient.addColorStop(
+                1,
+                "#72fff3"
+            );
+
+            context.save();
+            context.translate(
+                centerX,
+                centerY
+            );
+
+            context.scale(
+                portrait
+                    ? 0.94
+                    : 1.34,
+                portrait
+                    ? 1.04
+                    : 0.76
+            );
+
+            context.globalCompositeOperation =
+                "lighter";
+
+            /*
+                Concentric interference contours. Each contour is
+                shaped only by analyzed frequency modes and the
+                current playback position.
+            */
+            const contourCount =
+                portrait
+                    ? 10
+                    : 13;
+
+            for (
+                let contour = 1;
+                contour <= contourCount;
+                contour++
+            ) {
+                const contourRatio =
+                    contour /
+                    contourCount;
+
+                context.beginPath();
+
+                const steps =
+                    canvasWidth < 760
+                        ? 180
+                        : 260;
+
+                for (
+                    let step = 0;
+                    step <= steps;
+                    step++
+                ) {
+                    const angle =
+                        step /
+                        steps *
+                        Math.PI *
+                        2;
+
+                    const lowPattern =
+                        Math.cos(
+                            cymaticModes.low *
+                            angle +
+                            playbackPhase
+                        ) *
+                        sound.bass *
+                        0.18;
+
+                    const midPattern =
+                        Math.sin(
+                            cymaticModes.mid *
+                            angle -
+                            playbackPhase * 0.72
+                        ) *
+                        sound.lowMid *
+                        0.12;
+
+                    const highPattern =
+                        Math.cos(
+                            cymaticModes.high *
+                            angle +
+                            playbackPhase * 1.18
+                        ) *
+                        sound.high *
+                        0.055;
+
+                    const radialInterference =
+                        Math.sin(
+                            contourRatio *
+                            Math.PI *
+                            (
+                                3 +
+                                cymaticModes.centroid *
+                                8
+                            ) +
+                            angle *
+                            (
+                                2 +
+                                sound.mid * 2.4
+                            )
+                        ) *
+                        sound.mid *
+                        0.065;
+
+                    const radius =
+                        baseRadius *
+                        contourRatio *
+                        (
+                            1 +
+                            lowPattern +
+                            midPattern +
+                            highPattern +
+                            radialInterference
+                        );
+
+                    const x =
+                        Math.cos(angle) *
+                        radius;
+
+                    const y =
+                        Math.sin(angle) *
+                        radius *
+                        (
+                            0.82 +
+                            contourRatio * 0.18
+                        );
+
+                    if (step === 0) {
+                        context.moveTo(x, y);
+                    } else {
+                        context.lineTo(x, y);
+                    }
+                }
+
+                context.closePath();
+
+                context.lineWidth =
+                    contour % 4 === 0
+                        ? 0.9
+                        : 0.48;
+
+                context.strokeStyle =
+                    spectrumGradient;
+
+                context.globalAlpha =
+                    0.075 +
+                    contourRatio * 0.12 +
+                    sound.energy * 0.11;
+
+                context.shadowColor =
+                    contour % 3 === 0
+                        ? "rgba(255, 49, 153, 0.46)"
+                        : "rgba(38, 218, 255, 0.48)";
+
+                context.shadowBlur =
+                    contour % 4 === 0
+                        ? 8 +
+                          sound.high * 8
+                        : 3;
+
+                context.stroke();
+            }
+
+            /*
+                Nodal spokes expose the modes themselves. The
+                number and orientation derive from dominant bands.
+            */
+            const spokeCount =
+                Math.max(
+                    8,
+                    Math.round(
+                        cymaticModes.low +
+                        cymaticModes.mid
+                    )
+                );
+
+            context.lineWidth = 0.5;
+            context.shadowBlur = 4;
+
+            for (
+                let spoke = 0;
+                spoke < spokeCount;
+                spoke++
+            ) {
+                const angle =
+                    spoke /
+                    spokeCount *
+                    Math.PI *
+                    2 +
+                    playbackPhase * 0.16;
+
+                const innerRadius =
+                    baseRadius *
+                    (
+                        0.08 +
+                        sound.bass * 0.05
+                    );
+
+                const outerRadius =
+                    baseRadius *
+                    (
+                        0.7 +
+                        sound.lowMid * 0.18
+                    );
+
+                context.beginPath();
+                context.moveTo(
+                    Math.cos(angle) *
+                    innerRadius,
+                    Math.sin(angle) *
+                    innerRadius
+                );
+                context.lineTo(
+                    Math.cos(angle) *
+                    outerRadius,
+                    Math.sin(angle) *
+                    outerRadius
+                );
+
+                context.strokeStyle =
+                    spoke % 2 === 0
+                        ? `rgba(0, 232, 223, ${0.055 + sound.lowMid * 0.1})`
+                        : `rgba(255, 49, 153, ${0.05 + sound.mid * 0.09})`;
+
+                context.stroke();
+            }
+
+            /*
+                Direct circular spectrum: every point samples the
+                current FFT data, producing an exact audio-driven
+                outer membrane with no random displacement.
+            */
+            const membraneSteps =
+                canvasWidth < 760
+                    ? 170
+                    : 280;
+
+            context.beginPath();
+
+            for (
+                let step = 0;
+                step <= membraneSteps;
+                step++
+            ) {
+                const normalized =
+                    step /
+                    membraneSteps;
+
+                const angle =
+                    normalized *
+                    Math.PI *
+                    2;
+
+                const mirroredFrequency =
+                    normalized <= 0.5
+                        ? normalized * 2
+                        : (
+                            1 -
+                            normalized
+                        ) * 2;
+
+                const frequency =
+                    spectrumValue(
+                        mirroredFrequency,
+                        time
+                    );
+
+                const radius =
+                    baseRadius *
+                    (
+                        0.76 +
+                        frequency * 0.27
+                    );
+
+                const x =
+                    Math.cos(angle) *
+                    radius;
+
+                const y =
+                    Math.sin(angle) *
+                    radius *
+                    0.9;
+
+                if (step === 0) {
+                    context.moveTo(x, y);
+                } else {
+                    context.lineTo(x, y);
+                }
+            }
+
+            context.closePath();
+            context.globalAlpha =
+                0.42 +
+                sound.energy * 0.16;
+            context.lineWidth = 1;
+            context.strokeStyle =
+                spectrumGradient;
+            context.shadowColor =
+                "rgba(97, 232, 255, 0.72)";
+            context.shadowBlur =
+                10 +
+                sound.high * 12;
+            context.stroke();
+
+            context.restore();
+        }
+
+        function drawCymaticRain(time) {
+            updateCymaticModes();
+
+            const portrait =
+                canvasHeight > canvasWidth;
+
+            /*
+                Each entry is an independent impact point:
+                x, y, radius, palette index, frequency position.
+                The placement is fixed and intentional; only the
+                ripple response comes from the current song.
+            */
+            const ripples =
+                portrait
+                    ? [
+                        [0.08, 0.12, 0.1, 0, 0.04],
+                        [0.36, 0.08, 0.19, 2, 0.12],
+                        [0.82, 0.1, 0.08, 3, 0.76],
+                        [0.62, 0.2, 0.28, 1, 0.32],
+                        [0.13, 0.29, 0.22, 2, 0.2],
+                        [0.92, 0.31, 0.16, 0, 0.62],
+                        [0.42, 0.36, 0.07, 3, 0.88],
+                        [0.73, 0.4, 0.13, 2, 0.48],
+                        [0.23, 0.47, 0.31, 1, 0.08],
+                        [0.54, 0.5, 0.17, 0, 0.27],
+                        [0.94, 0.53, 0.09, 3, 0.94],
+                        [0.08, 0.59, 0.12, 0, 0.55],
+                        [0.79, 0.63, 0.27, 1, 0.16],
+                        [0.37, 0.67, 0.14, 2, 0.72],
+                        [0.6, 0.73, 0.06, 3, 0.4],
+                        [0.15, 0.78, 0.24, 2, 0.24],
+                        [0.9, 0.82, 0.11, 0, 0.82],
+                        [0.48, 0.86, 0.2, 1, 0.34],
+                        [0.7, 0.92, 0.09, 3, 0.68],
+                        [0.27, 0.94, 0.05, 0, 0.98]
+                    ]
+                    : [
+                        [0.04, 0.13, 0.08, 0, 0.04],
+                        [0.18, 0.09, 0.16, 2, 0.12],
+                        [0.39, 0.14, 0.07, 3, 0.82],
+                        [0.57, 0.1, 0.24, 1, 0.3],
+                        [0.83, 0.12, 0.11, 2, 0.64],
+                        [0.96, 0.24, 0.18, 3, 0.92],
+                        [0.1, 0.34, 0.27, 1, 0.08],
+                        [0.29, 0.31, 0.12, 0, 0.44],
+                        [0.47, 0.34, 0.19, 2, 0.2],
+                        [0.69, 0.29, 0.09, 3, 0.76],
+                        [0.84, 0.39, 0.3, 0, 0.16],
+                        [0.02, 0.57, 0.14, 2, 0.56],
+                        [0.2, 0.56, 0.06, 3, 0.96],
+                        [0.38, 0.52, 0.25, 1, 0.26],
+                        [0.58, 0.59, 0.1, 0, 0.68],
+                        [0.72, 0.53, 0.18, 2, 0.38],
+                        [0.94, 0.62, 0.08, 3, 0.86],
+                        [0.12, 0.78, 0.21, 0, 0.1],
+                        [0.32, 0.72, 0.11, 3, 0.74],
+                        [0.51, 0.8, 0.29, 1, 0.22],
+                        [0.76, 0.74, 0.13, 2, 0.5],
+                        [0.91, 0.84, 0.2, 3, 0.9]
+                    ];
+
+            const colors = [
+                [0, 232, 223],
+                [180, 92, 255],
+                [58, 167, 255],
+                [255, 49, 153],
+                [255, 194, 64],
+                [126, 255, 104]
+            ];
+
+            const shortSide =
+                Math.min(
+                    canvasWidth,
+                    canvasHeight
+                );
+
+            const strokeWidths = [
+                0.65,
+                1.25,
+                2.3,
+                4,
+                6.5,
+                10,
+                15,
+                22
+            ];
+
+            context.save();
+            context.globalCompositeOperation =
+                "lighter";
+            context.lineCap = "round";
+            context.lineJoin = "round";
+
+            for (
+                let index = 0;
+                index < ripples.length;
+                index++
+            ) {
+                const ripple =
+                    ripples[index];
+
+                const frequency =
+                    spectrumValue(
+                        ripple[4],
+                        time
+                    );
+
+                const bandDrive =
+                    index % 4 === 0
+                        ? sound.bass
+                        : index % 4 === 1
+                            ? sound.lowMid
+                            : index % 4 === 2
+                                ? sound.mid
+                                : sound.high;
+
+                const baseRadius =
+                    shortSide *
+                    ripple[2];
+
+                const radius =
+                    baseRadius *
+                    (
+                        0.82 +
+                        frequency * 0.48 +
+                        bandDrive * 0.16
+                    );
+
+                const color =
+                    colors[
+                        (
+                            ripple[3] +
+                            index
+                        ) %
+                        colors.length
+                    ];
+
+                const centerX =
+                    ripple[0] *
+                    canvasWidth;
+
+                const centerY =
+                    ripple[1] *
+                    canvasHeight;
+
+                const ellipseRatio =
+                    portrait
+                        ? 0.94
+                        : 0.86 +
+                          (
+                              index % 3
+                          ) *
+                          0.055;
+
+                const strokeWidth =
+                    strokeWidths[
+                        index %
+                        strokeWidths.length
+                    ];
+
+                context.save();
+                context.translate(
+                    centerX,
+                    centerY
+                );
+
+                context.rotate(
+                    Math.sin(
+                        time * 0.00008 +
+                        index * 0.9
+                    ) *
+                    0.07
+                );
+
+                context.scale(
+                    1,
+                    ellipseRatio
+                );
+
+                context.beginPath();
+                context.arc(
+                    0,
+                    0,
+                    radius,
+                    0,
+                    Math.PI * 2
+                );
+
+                context.lineWidth =
+                    strokeWidth;
+
+                const alpha =
+                    (
+                        0.055 +
+                        frequency * 0.13 +
+                        bandDrive * 0.065
+                    ) *
+                    (
+                        index % 5 === 0
+                            ? 1.38
+                            : index % 3 === 0
+                                ? 0.68
+                                : 1
+                    ) *
+                    Math.max(
+                        0.28,
+                        1 -
+                        strokeWidth / 29
+                    );
+
+                context.strokeStyle =
+                    `rgba(
+                        ${color[0]},
+                        ${color[1]},
+                        ${color[2]},
+                        ${alpha}
+                    )`;
+
+                context.shadowColor =
+                    `rgba(
+                        ${color[0]},
+                        ${color[1]},
+                        ${color[2]},
+                        0.48
+                    )`;
+
+                context.shadowBlur =
+                    4 +
+                    strokeWidth * 0.72 +
+                    frequency * 7;
+
+                context.stroke();
+
+                /*
+                    A partial wake gives each impact a sense of
+                    continuing outward without recreating a target.
+                */
+                context.beginPath();
+                context.arc(
+                    0,
+                    0,
+                    radius *
+                    (
+                        1.1 +
+                        frequency * 0.08
+                    ),
+                    -Math.PI * 0.18,
+                    Math.PI * 0.72
+                );
+
+                context.lineWidth =
+                    Math.max(
+                        0.4,
+                        strokeWidth * 0.28
+                    );
+                context.strokeStyle =
+                    `rgba(
+                        ${color[0]},
+                        ${color[1]},
+                        ${color[2]},
+                        ${alpha * 0.34}
+                    )`;
+                context.shadowBlur = 2;
+                context.stroke();
+
+                context.restore();
+            }
+
+            context.restore();
+        }
+
+        function drawDistributedMandalas(time) {
+            const portrait =
+                canvasHeight > canvasWidth;
+
+            const shortSide =
+                Math.min(
+                    canvasWidth,
+                    canvasHeight
+                );
+
+            const layouts =
+                portrait
+                    ? [
+                        [0.18, 0.18, 0.23, 0],
+                        [0.72, 0.14, 0.19, 2],
+                        [0.48, 0.3, 0.27, 1],
+                        [0.12, 0.47, 0.2, 3],
+                        [0.78, 0.5, 0.25, 1],
+                        [0.36, 0.66, 0.22, 2],
+                        [0.82, 0.74, 0.18, 0]
+                    ]
+                    : [
+                        [0.1, 0.23, 0.2, 0],
+                        [0.29, 0.17, 0.17, 2],
+                        [0.48, 0.29, 0.25, 1],
+                        [0.69, 0.18, 0.18, 3],
+                        [0.9, 0.3, 0.22, 0],
+                        [0.22, 0.63, 0.2, 3],
+                        [0.76, 0.66, 0.24, 1]
+                    ];
+
+            const colors = [
+                [0, 232, 223],
+                [180, 92, 255],
+                [58, 167, 255],
+                [255, 49, 153],
+                [255, 194, 64],
+                [126, 255, 104]
+            ];
+
+            const motifWidths = [
+                0.5,
+                1.2,
+                2.4,
+                4.5,
+                7,
+                10,
+                14
+            ];
+
+            context.save();
+            context.globalCompositeOperation =
+                "lighter";
+            context.lineCap = "round";
+            context.lineJoin = "round";
+
+            for (
+                let motifIndex = 0;
+                motifIndex < layouts.length;
+                motifIndex++
+            ) {
+                const layout =
+                    layouts[motifIndex];
+
+                const color =
+                    colors[
+                        (
+                            layout[3] +
+                            motifIndex
+                        ) %
+                        colors.length
+                    ];
+
+                const audioDrive =
+                    motifIndex % 3 === 0
+                        ? sound.bass
+                        : motifIndex % 3 === 1
+                            ? sound.lowMid
+                            : sound.mid;
+
+                const radius =
+                    shortSide *
+                    layout[2] *
+                    (
+                        1 +
+                        audioDrive * 0.14
+                    );
+
+                const sides =
+                    5 +
+                    (
+                        motifIndex % 4
+                    );
+
+                context.save();
+                context.translate(
+                    canvasWidth * layout[0],
+                    canvasHeight * layout[1]
+                );
+
+                context.rotate(
+                    time *
+                    (
+                        motifIndex % 2 === 0
+                            ? 0.000012
+                            : -0.000016
+                    ) +
+                    motifIndex * 0.37
+                );
+
+                const motifWidth =
+                    motifWidths[
+                        motifIndex %
+                        motifWidths.length
+                    ];
+
+                const motifOpacity =
+                    Math.max(
+                        0.34,
+                        1 -
+                        motifWidth / 19
+                    );
+
+                context.lineWidth =
+                    motifWidth;
+                context.shadowColor =
+                    `rgba(
+                        ${color[0]},
+                        ${color[1]},
+                        ${color[2]},
+                        0.42
+                    )`;
+                context.shadowBlur =
+                    4 +
+                    motifWidth * 0.65 +
+                    sound.high * 8;
+
+                for (
+                    let ring = 1;
+                    ring <= 3;
+                    ring++
+                ) {
+                    const ringRadius =
+                        radius *
+                        (
+                            0.36 +
+                            ring * 0.21
+                        );
+
+                    context.beginPath();
+
+                    for (
+                        let vertex = 0;
+                        vertex <= sides;
+                        vertex++
+                    ) {
+                        const angle =
+                            vertex /
+                            sides *
+                            Math.PI *
+                            2;
+
+                        const fold =
+                            1 +
+                            Math.sin(
+                                angle *
+                                (
+                                    sides +
+                                    ring
+                                ) +
+                                time * 0.00021
+                            ) *
+                            audioDrive *
+                            0.065;
+
+                        const x =
+                            Math.cos(angle) *
+                            ringRadius *
+                            fold;
+
+                        const y =
+                            Math.sin(angle) *
+                            ringRadius *
+                            fold;
+
+                        if (vertex === 0) {
+                            context.moveTo(x, y);
+                        } else {
+                            context.lineTo(x, y);
+                        }
+                    }
+
+                    context.closePath();
+                    context.strokeStyle =
+                        `rgba(
+                            ${color[0]},
+                            ${color[1]},
+                            ${color[2]},
+                            ${
+                                (
+                                    0.065 +
+                                    audioDrive * 0.1
+                                ) *
+                                motifOpacity
+                            }
+                        )`;
+                    context.stroke();
+                }
+
+                const petalRadius =
+                    radius *
+                    (
+                        0.18 +
+                        sound.mid * 0.025
+                    );
+
+                for (
+                    let petal = 0;
+                    petal < sides;
+                    petal++
+                ) {
+                    const angle =
+                        petal /
+                        sides *
+                        Math.PI *
+                        2;
+
+                    context.beginPath();
+                    context.arc(
+                        Math.cos(angle) *
+                        petalRadius,
+                        Math.sin(angle) *
+                        petalRadius,
+                        petalRadius,
+                        0,
+                        Math.PI * 2
+                    );
+
+                    context.strokeStyle =
+                        `rgba(
+                            ${color[0]},
+                            ${color[1]},
+                            ${color[2]},
+                            ${
+                                (
+                                    0.05 +
+                                    sound.mid * 0.085
+                                ) *
+                                motifOpacity
+                            }
+                        )`;
+                    context.stroke();
+                }
+
+                for (
+                    let chord = 0;
+                    chord < sides;
+                    chord++
+                ) {
+                    const firstAngle =
+                        chord /
+                        sides *
+                        Math.PI *
+                        2;
+
+                    const secondAngle =
+                        (
+                            chord + 2
+                        ) /
+                        sides *
+                        Math.PI *
+                        2;
+
+                    context.beginPath();
+                    context.moveTo(
+                        Math.cos(firstAngle) *
+                        radius * 0.78,
+                        Math.sin(firstAngle) *
+                        radius * 0.78
+                    );
+                    context.lineTo(
+                        Math.cos(secondAngle) *
+                        radius * 0.78,
+                        Math.sin(secondAngle) *
+                        radius * 0.78
+                    );
+
+                    context.strokeStyle =
+                        `rgba(
+                            ${color[0]},
+                            ${color[1]},
+                            ${color[2]},
+                            ${0.035 + sound.lowMid * 0.075}
+                        )`;
+                    context.stroke();
+                }
+
+                context.restore();
+            }
+
+            context.restore();
+        }
+
+        function drawGeometricConnectors(time) {
+            const portrait =
+                canvasHeight > canvasWidth;
+
+            const points =
+                portrait
+                    ? [
+                        [0.18, 0.18],
+                        [0.72, 0.14],
+                        [0.48, 0.3],
+                        [0.12, 0.47],
+                        [0.78, 0.5],
+                        [0.36, 0.66],
+                        [0.82, 0.74]
+                    ]
+                    : [
+                        [0.1, 0.23],
+                        [0.29, 0.17],
+                        [0.48, 0.29],
+                        [0.69, 0.18],
+                        [0.9, 0.3],
+                        [0.22, 0.63],
+                        [0.76, 0.66]
+                    ];
+
+            context.save();
+            context.globalCompositeOperation =
+                "lighter";
+            context.lineWidth = 0.42;
+            context.shadowBlur = 3;
+
+            for (
+                let index = 0;
+                index < points.length;
+                index++
+            ) {
+                const current =
+                    points[index];
+
+                const next =
+                    points[
+                        (
+                            index + 2
+                        ) %
+                        points.length
+                    ];
+
+                const startX =
+                    current[0] *
+                    canvasWidth;
+
+                const startY =
+                    current[1] *
+                    canvasHeight;
+
+                const endX =
+                    next[0] *
+                    canvasWidth;
+
+                const endY =
+                    next[1] *
+                    canvasHeight;
+
+                const midpointX =
+                    (
+                        startX + endX
+                    ) *
+                    0.5;
+
+                const midpointY =
+                    (
+                        startY + endY
+                    ) *
+                    0.5 +
+                    Math.sin(
+                        time * 0.00015 +
+                        index
+                    ) *
+                    (
+                        8 +
+                        sound.lowMid * 18
+                    );
+
+                context.beginPath();
+                context.moveTo(
+                    startX,
+                    startY
+                );
+                context.quadraticCurveTo(
+                    midpointX,
+                    midpointY,
+                    endX,
+                    endY
+                );
+
+                context.strokeStyle =
+                    index % 2 === 0
+                        ? `rgba(70, 218, 255, ${0.035 + sound.lowMid * 0.065})`
+                        : `rgba(239, 74, 255, ${0.032 + sound.mid * 0.06})`;
+
+                context.shadowColor =
+                    index % 2 === 0
+                        ? "rgba(0, 220, 255, 0.3)"
+                        : "rgba(255, 48, 190, 0.28)";
+
+                context.stroke();
+
+                const distance =
+                    Math.hypot(
+                        endX - startX,
+                        endY - startY
+                    );
+
+                const vesicaRadius =
+                    Math.min(
+                        distance * 0.18,
+                        Math.min(
+                            canvasWidth,
+                            canvasHeight
+                        ) * 0.1
+                    ) *
+                    (
+                        1 +
+                        sound.mid * 0.1
+                    );
+
+                context.beginPath();
+                context.arc(
+                    midpointX -
+                    vesicaRadius * 0.42,
+                    midpointY,
+                    vesicaRadius,
+                    0,
+                    Math.PI * 2
+                );
+                context.arc(
+                    midpointX +
+                    vesicaRadius * 0.42,
+                    midpointY,
+                    vesicaRadius,
+                    0,
+                    Math.PI * 2
+                );
+
+                context.strokeStyle =
+                    `rgba(
+                        158,
+                        126,
+                        255,
+                        ${0.028 + sound.mid * 0.06}
+                    )`;
+
+                context.stroke();
+            }
+
+            context.restore();
+        }
+
+        function drawPrismaticStars(time) {
+            const portrait =
+                canvasHeight > canvasWidth;
+
+            const motifs =
+                portrait
+                    ? [
+                        [0.06, 0.2, 0.11, 4],
+                        [0.88, 0.23, 0.16, 0],
+                        [0.29, 0.39, 0.08, 5],
+                        [0.7, 0.55, 0.12, 3],
+                        [0.08, 0.7, 0.17, 2],
+                        [0.54, 0.79, 0.1, 4],
+                        [0.9, 0.9, 0.07, 5]
+                    ]
+                    : [
+                        [0.06, 0.17, 0.09, 4],
+                        [0.28, 0.42, 0.12, 0],
+                        [0.46, 0.15, 0.07, 5],
+                        [0.65, 0.5, 0.1, 3],
+                        [0.86, 0.2, 0.14, 2],
+                        [0.14, 0.76, 0.12, 5],
+                        [0.45, 0.72, 0.08, 4],
+                        [0.89, 0.74, 0.11, 0]
+                    ];
+
+            const colors = [
+                [0, 232, 223],
+                [180, 92, 255],
+                [58, 167, 255],
+                [255, 49, 153],
+                [255, 194, 64],
+                [126, 255, 104]
+            ];
+
+            const shortSide =
+                Math.min(
+                    canvasWidth,
+                    canvasHeight
+                );
+
+            context.save();
+            context.globalCompositeOperation =
+                "lighter";
+
+            for (
+                let motifIndex = 0;
+                motifIndex < motifs.length;
+                motifIndex++
+            ) {
+                const motif =
+                    motifs[motifIndex];
+
+                const color =
+                    colors[motif[3]];
+
+                const drive =
+                    motifIndex % 2 === 0
+                        ? sound.mid
+                        : sound.high;
+
+                const radius =
+                    shortSide *
+                    motif[2] *
+                    (
+                        1 +
+                        drive * 0.2
+                    );
+
+                const brightness =
+                    motifIndex % 4 === 0
+                        ? 1.35
+                        : motifIndex % 3 === 0
+                            ? 0.7
+                            : 1;
+
+                context.save();
+                context.translate(
+                    canvasWidth * motif[0],
+                    canvasHeight * motif[1]
+                );
+
+                context.rotate(
+                    time *
+                    (
+                        motifIndex % 2 === 0
+                            ? 0.000028
+                            : -0.000021
+                    ) +
+                    motifIndex * 0.58
+                );
+
+                context.lineWidth =
+                    motif[2] > 0.11
+                        ? 0.72
+                        : 0.46;
+
+                context.shadowColor =
+                    `rgba(
+                        ${color[0]},
+                        ${color[1]},
+                        ${color[2]},
+                        0.58
+                    )`;
+
+                context.shadowBlur =
+                    (
+                        5 +
+                        drive * 11
+                    ) *
+                    brightness;
+
+                for (
+                    let triangle = 0;
+                    triangle < 2;
+                    triangle++
+                ) {
+                    context.beginPath();
+
+                    for (
+                        let vertex = 0;
+                        vertex <= 3;
+                        vertex++
+                    ) {
+                        const angle =
+                            vertex /
+                            3 *
+                            Math.PI *
+                            2 +
+                            (
+                                triangle === 0
+                                    ? -Math.PI / 2
+                                    : Math.PI / 2
+                            );
+
+                        const x =
+                            Math.cos(angle) *
+                            radius;
+
+                        const y =
+                            Math.sin(angle) *
+                            radius;
+
+                        if (vertex === 0) {
+                            context.moveTo(x, y);
+                        } else {
+                            context.lineTo(x, y);
+                        }
+                    }
+
+                    context.closePath();
+
+                    context.strokeStyle =
+                        `rgba(
+                            ${color[0]},
+                            ${color[1]},
+                            ${color[2]},
+                            ${
+                                (
+                                    0.08 +
+                                    drive * 0.14
+                                ) *
+                                brightness
+                            }
+                        )`;
+
+                    context.stroke();
+                }
+
+                context.rotate(
+                    Math.PI / 4
+                );
+
+                context.strokeRect(
+                    -radius * 0.34,
+                    -radius * 0.34,
+                    radius * 0.68,
+                    radius * 0.68
+                );
+
+                context.restore();
+            }
+
+            context.restore();
+        }
+
         function drawVisualizer(time) {
             analyzeSound();
             drawBackground(time);
-            updateTerrain(time);
-            drawConnections();
-            drawTerrainPoints();
+
+            const spectralHueShift =
+                Math.max(
+                    -32,
+                    Math.min(
+                        42,
+                        (
+                            cymaticModes.centroid -
+                            0.34
+                        ) *
+                        155 +
+                        (
+                            sound.high -
+                            sound.bass
+                        ) *
+                        38
+                    )
+                );
+
+            context.save();
+
+            context.filter =
+                `hue-rotate(
+                    ${spectralHueShift}deg
+                )
+                saturate(
+                    ${1 + sound.high * 0.22}
+                )`;
+
+            drawTriangleFabric(time);
+            drawDistributedMandalas(time);
+            drawGeometricConnectors(time);
+            drawPrismaticStars(time);
+            drawMetatronsCube(time);
+            drawOceanStrands(time);
+            drawCymaticRain(time);
+
+            context.restore();
         }
 
         function animate(time) {

@@ -89,6 +89,14 @@ body.spaces .closing::before {
   text-shadow: none;
 }
 
+body.spaces footer {
+  flex-direction: row;
+  justify-content: center;
+  gap: clamp(10px, 2vw, 28px);
+  font-size: clamp(.38rem, .72vw, .62rem);
+  white-space: nowrap;
+}
+
 .project-grid-before-after .piece:first-child { grid-column: auto; }
 .project-grid-before-after .piece:first-child img { aspect-ratio: 4 / 5; }
 
@@ -97,6 +105,15 @@ body.spaces .closing::before {
 }
 
 @media (max-width: 560px) {
+  body.spaces footer {
+    flex-direction: row;
+    gap: clamp(5px, 1.8vw, 10px);
+    width: calc(100% - 16px);
+    padding-inline: 8px;
+    font-size: clamp(.31rem, 1.25vw, .46rem);
+    letter-spacing: .06em;
+  }
+
   .spaces-hero {
     min-height: 0;
     padding-top: 76px;

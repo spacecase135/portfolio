@@ -240,6 +240,14 @@
         letter-spacing: .06em;
       }
     }
+
+    @media (max-width: 800px) and (orientation: portrait) {
+      body.dimensional .clay-title {
+        padding-right: .12em;
+        font-size: clamp(3rem, 14.2vw, 5.4rem);
+        letter-spacing: -.075em;
+      }
+    }
   </style>
 </head>
 <body class="dimensional">
@@ -295,7 +303,7 @@
   <footer>
     <span>CASEY MARIE ROY</span>
     <span>@SPACECASE135</span>
-    <span>© 2026 ALL RIGHTS RESERVED</span>
+    <span>© 2026 ALL RIGHTS RESERVED.</span>
   </footer>
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Dimensional artwork viewer" aria-hidden="true"><button class="lightbox-control lightbox-close" type="button" aria-label="Close image viewer">×</button><button class="lightbox-control lightbox-prev" type="button" aria-label="Previous image">‹</button><div class="lightbox-stage"><img id="lightbox-image" src="" alt=""></div><button class="lightbox-control lightbox-next" type="button" aria-label="Next image">›</button><div class="lightbox-meta">Dimensional archive <span class="lightbox-count"></span></div></div>
   <script src="portfolio.js?v=20260725"></script>

@@ -1493,8 +1493,8 @@ God Bless.
             analyser =
                 audioContext.createAnalyser();
 
-            analyser.fftSize = 2048;
-            analyser.smoothingTimeConstant = 0.68;
+            analyser.fftSize = 1024;
+            analyser.smoothingTimeConstant = 0.46;
 
             frequencyData =
                 new Uint8Array(
@@ -1983,19 +1983,19 @@ God Bless.
 
         const qualitySettings = [
             {
-                pixelRatio: 1.5,
-                desktopFps: 60,
-                mobileFps: 45
-            },
-            {
                 pixelRatio: 1.15,
-                desktopFps: 45,
-                mobileFps: 36
+                desktopFps: 42,
+                mobileFps: 32
             },
             {
                 pixelRatio: 1,
-                desktopFps: 36,
-                mobileFps: 30
+                desktopFps: 32,
+                mobileFps: 26
+            },
+            {
+                pixelRatio: 0.85,
+                desktopFps: 24,
+                mobileFps: 20
             }
         ];
 
@@ -2189,17 +2189,23 @@ God Bless.
                     frequencyData
                 );
 
+                const amplify = value =>
+                    Math.min(
+                        1,
+                        Math.pow(value, 0.72) * 1.55
+                    );
+
                 targetBass =
-                    averageFrequency(0, 0.065);
+                    amplify(averageFrequency(0, 0.065));
 
                 targetLowMid =
-                    averageFrequency(0.065, 0.19);
+                    amplify(averageFrequency(0.065, 0.19));
 
                 targetMid =
-                    averageFrequency(0.19, 0.5);
+                    amplify(averageFrequency(0.19, 0.5));
 
                 targetHigh =
-                    averageFrequency(0.5, 0.95);
+                    amplify(averageFrequency(0.5, 0.95));
             } else {
                 const idleTime =
                     performance.now() * 0.00019;
@@ -2221,7 +2227,7 @@ God Bless.
             const easing =
                 audio.paused
                     ? 0.028
-                    : 0.17;
+                    : 0.29;
 
             const previousEnergy =
                 sound.energy;
@@ -2261,7 +2267,7 @@ God Bless.
                     0,
                     sound.energy -
                     previousEnergy
-                );
+                ) * 2.4;
         }
 
         function interpolateColor(
@@ -6308,8 +6314,22 @@ God Bless.
 
         resizeCanvas();
 
-        animationFrame =
-            requestAnimationFrame(animate);
+        const startVisualizer = () => {
+            animationFrame =
+                requestAnimationFrame(animate);
+        };
+
+        if ("requestIdleCallback" in window) {
+            window.requestIdleCallback(
+                startVisualizer,
+                { timeout: 350 }
+            );
+        } else {
+            window.setTimeout(
+                startVisualizer,
+                80
+            );
+        }
     </script>
 
     <!--

@@ -118,7 +118,7 @@
     .inquiry h2 { margin: 0 0 1rem; color: var(--magenta); font-size: clamp(2.3rem, 7vw, 6rem); font-weight: 400; line-height: .94; letter-spacing: -.06em; text-transform: uppercase; }
     .inquiry p { max-width: 610px; margin: 0; color: var(--muted); line-height: 1.7; }
     .inquiry a { display: inline-block; margin-top: 1.6rem; color: var(--white); text-decoration-color: var(--red); text-underline-offset: .4rem; }
-    footer { display: flex; justify-content: space-between; gap: 1rem; width: var(--page); margin: 0 auto; padding: 0 0 35px; color: #5f585c; font-size: .58rem; letter-spacing: .13em; text-transform: uppercase; }
+    footer { display: flex; justify-content: center; gap: clamp(10px, 2vw, 28px); width: var(--page); margin: 0 auto; padding: 0 0 35px; color: #5f585c; font-size: clamp(.38rem, .72vw, .58rem); letter-spacing: .13em; text-transform: uppercase; white-space: nowrap; }
     .lightbox {
       position: fixed; inset: 0; z-index: 60; display: grid; grid-template: 1fr auto / auto 1fr auto;
       align-items: center; gap: 1rem; padding: clamp(16px, 3vw, 42px);
@@ -139,7 +139,7 @@
       .gallery-grid { display: block; }
       .piece, .piece:nth-child(n) { width: 88%; margin: 0 0 64px; }
       .piece:nth-child(even) { margin-left: auto; }
-      footer { flex-direction: column; }
+      footer { flex-direction: row; gap: clamp(5px, 1.8vw, 10px); width: calc(100% - 16px); padding-inline: 8px; font-size: clamp(.31rem, 1.25vw, .46rem); letter-spacing: .06em; }
       .lightbox { grid-template-columns: 38px 1fr 38px; gap: .25rem; padding: 14px 5px; }
       .lightbox-control { width: 38px; }
     }
@@ -194,7 +194,11 @@
       <a href="mailto:spacecase135@outlook.com">spacecase135@outlook.com</a>    </section>
   </main>
 
-  <footer><span>© 2026 Casey Marie Roy</span><span>@spacecase135</span></footer>
+  <footer>
+    <span>CASEY MARIE ROY</span>
+    <span>@SPACECASE135</span>
+    <span>© 2026 ALL RIGHTS RESERVED.</span>
+  </footer>
 
   <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Tattoo image viewer" aria-hidden="true">
     <button class="lightbox-control lightbox-close" type="button" aria-label="Close image viewer">×</button>

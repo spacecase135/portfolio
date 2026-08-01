@@ -1972,30 +1972,27 @@ God Bless.
 
         let animationFrame = 0;
         let lastFrameTime = 0;
-        let qualityLevel =
-            window.matchMedia("(pointer: coarse)").matches &&
-            window.innerWidth < 900
-                ? 1
-                : 0;
+        let qualityLevel = 2;
+        let visualizerRunning = false;
         let performanceSampleTime = 0;
         let performanceSampleFrames = 0;
         let performanceSampleStarted = performance.now();
 
         const qualitySettings = [
             {
-                pixelRatio: 1.15,
-                desktopFps: 42,
-                mobileFps: 32
-            },
-            {
-                pixelRatio: 1,
-                desktopFps: 32,
-                mobileFps: 26
+                pixelRatio: 1.05,
+                desktopFps: 36,
+                mobileFps: 28
             },
             {
                 pixelRatio: 0.85,
-                desktopFps: 24,
-                mobileFps: 20
+                desktopFps: 28,
+                mobileFps: 22
+            },
+            {
+                pixelRatio: 0.55,
+                desktopFps: 20,
+                mobileFps: 15
             }
         ];
 
@@ -3535,6 +3532,13 @@ God Bless.
                     second < points.length;
                     second++
                 ) {
+                    if (
+                        qualityLevel === 2 &&
+                        (first + second) % 2 !== 0
+                    ) {
+                        continue;
+                    }
+
                     const distance =
                         Math.hypot(
                             points[first].x -
@@ -3575,7 +3579,7 @@ God Bless.
             for (
                 let index = 0;
                 index < points.length;
-                index++
+                index += qualityLevel === 2 ? 2 : 1
             ) {
                 const circleRadius =
                     radius *
@@ -5652,7 +5656,7 @@ God Bless.
 
                 for (
                     let ring = 1;
-                    ring <= 3;
+                    ring <= (qualityLevel === 2 ? 2 : 3);
                     ring++
                 ) {
                     const ringRadius =
@@ -6206,13 +6210,19 @@ God Bless.
             }
 
             drawMetatronsCube(time);
-            drawOceanStrands(time);
+            if (qualityLevel < 2) {
+                drawOceanStrands(time);
+            }
             drawCymaticRain(time);
 
             context.restore();
         }
 
         function animate(time) {
+            if (!visualizerRunning) {
+                return;
+            }
+
             animationFrame =
                 requestAnimationFrame(animate);
 
@@ -6276,7 +6286,15 @@ God Bless.
 
         window.addEventListener(
             "resize",
-            resizeCanvas,
+            () => {
+                resizeCanvas();
+
+                if (!visualizerRunning) {
+                    drawVisualizer(
+                        performance.now()
+                    );
+                }
+            },
             {
                 passive: true
             }
@@ -6286,14 +6304,13 @@ God Bless.
             "visibilitychange",
             () => {
                 if (document.hidden) {
-                    cancelAnimationFrame(
-                        animationFrame
-                    );
+                    stopVisualizer(false);
+                } else if (!audio.paused) {
+                    startVisualizer();
                 } else {
-                    animationFrame =
-                        requestAnimationFrame(
-                            animate
-                        );
+                    drawVisualizer(
+                        performance.now()
+                    );
                 }
             }
         );
@@ -6315,21 +6332,48 @@ God Bless.
         resizeCanvas();
 
         const startVisualizer = () => {
+            if (
+                visualizerRunning ||
+                document.hidden
+            ) {
+                return;
+            }
+
+            visualizerRunning = true;
+            lastFrameTime = 0;
             animationFrame =
                 requestAnimationFrame(animate);
         };
 
-        if ("requestIdleCallback" in window) {
-            window.requestIdleCallback(
-                startVisualizer,
-                { timeout: 350 }
-            );
-        } else {
-            window.setTimeout(
-                startVisualizer,
-                80
-            );
-        }
+        const stopVisualizer = (
+            drawStaticFrame = true
+        ) => {
+            visualizerRunning = false;
+            cancelAnimationFrame(animationFrame);
+
+            if (
+                drawStaticFrame &&
+                !document.hidden
+            ) {
+                drawVisualizer(
+                    performance.now()
+                );
+            }
+        };
+
+        audio.addEventListener(
+            "play",
+            startVisualizer
+        );
+
+        audio.addEventListener(
+            "pause",
+            () => stopVisualizer(true)
+        );
+
+        drawVisualizer(
+            performance.now()
+        );
     </script>
 
     <!--

@@ -1,542 +1,417 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casey Marie Studio</title>
-    <style>
-        /* BASIC FRAMEWORK STYLES WITH COURIER MONOSPACE PRESERVED */
-        body {
-            font-family: 'Courier New', Courier, monospace; 
-            margin: 0; 
-            padding: 0; 
-            background-color: #000000; 
-            color: #ffffff; 
-            overflow-x: hidden;
-        }
-        nav {
-            background-color: #0c0c10; 
-            padding: 20px; 
-            text-align: center; 
-            border-bottom: 1px solid #1a1a24; 
-        }
-        nav a {
-            color: #666670; 
-            text-decoration: none; 
-            margin: 0 15px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            transition: color 0.3s ease; 
-        }
-        nav a:hover, nav a.active {
-            color: #00f5d4; 
-        }
-        .container {
-            max-width: 1000px; 
-            margin: 40px auto; 
-            padding: 0 20px; 
-        }
-        .page {
-            display: none; 
-        }
-        .page.active {
-            display: block; 
-            animation: fadeIn 0.4s ease-out;
-        }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Casey Marie Studio | Multidisciplinary Artist</title>
+  <meta name="description" content="The portfolio of Casey Marie Roy: sound, digital expression, studio art, tattoo, dimensional objects, and intentional spaces.">
+  <meta name="author" content="Casey Marie Roy">
+  <link rel="canonical" href="https://caseymarie.studio/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Casey Marie Studio">
+  <meta property="og:description" content="A multidisciplinary practice spanning sound, image, object, body, and space.">
+  <meta property="og:url" content="https://caseymarie.studio/">
+  <meta property="og:image" content="https://caseymarie.studio/portfolio-media/home/home1.jpg">
+  <style>
+    :root {
+      --void: #050509;
+      --paper: #f2eef6;
+      --muted: #a49dac;
+      --cyan: #35ead9;
+      --violet: #ac73ff;
+      --line: rgba(229, 220, 246, .16);
+      --page: min(92vw, 1220px);
+    }
 
-        .page-intro {
-            border-left: 3px solid #00f5d4; 
-            padding-left: 15px; 
-            margin-bottom: 40px; 
-            color: #8a8a95; 
-        }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--void);
+      color: var(--paper);
+      font-family: "Courier New", Courier, monospace;
+    }
+    a { color: inherit; }
+    .skip-link {
+      position: fixed;
+      top: -5rem;
+      left: 1rem;
+      z-index: 100;
+      padding: .8rem 1rem;
+      background: var(--paper);
+      color: var(--void);
+    }
+    .skip-link:focus { top: 1rem; }
 
-        /* --- SOUND INTERFACE --- */
-        .sound-layout {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .audio-interface {
-            width: 100%;
-            background: #0c0c10;
-            border: 1px solid #1a1a24;
-            border-radius: 8px;
-            padding: 25px;
-            box-sizing: border-box;
-        }
-        .now-playing {
-            font-size: 0.9rem;
-            color: #8a8a95;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        .now-playing span {
-            color: #00f5d4;
-            font-weight: bold;
-        }
-        audio {
-            width: 100%;
-            margin-bottom: 20px;
-            filter: invert(0.9) hue-rotate(155deg) brightness(1.2);
-        }
-        .playlist {
-            max-height: 240px;
-            overflow-y: auto;
-            border-top: 1px solid #1a1a24;
-            padding-top: 12px;
-            scrollbar-width: thin;
-            scrollbar-color: #00f5d4 #0c0c10;
-        }
-        .track-item {
-            padding: 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            margin-bottom: 4px;
-            color: #8a8a95;
-        }
-        .track-item:hover {
-            background: rgba(0, 245, 212, 0.04);
-            color: #ffffff;
-        }
-        .track-item.playing {
-            background: rgba(0, 245, 212, 0.08);
-            color: #00f5d4;
-            font-weight: bold;
-        }
+    nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px 0;
+      padding: 20px clamp(10px, 2.5vw, 28px);
+      border-bottom: 1px solid rgba(255,255,255,.055);
+      background: linear-gradient(to bottom, rgba(5,5,9,.94), rgba(5,5,9,.72));
+      backdrop-filter: blur(12px);
+    }
+    nav a {
+      margin: 0 clamp(7px, 1.15vw, 15px);
+      color: #77717f;
+      font-size: clamp(.56rem, .78vw, .7rem);
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    nav a:hover,
+    nav a:focus-visible,
+    nav a.active { color: var(--cyan); }
 
-        /* GALLERY GRID STYLES */
-        .gallery-grid {
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px; 
-            margin-top: 30px; 
-        }
-        .art-card {
-            background-color: #0c0c10; 
-            border: 1px solid #1a1a24; 
-            border-radius: 8px; 
-            overflow: hidden; 
-            transition: transform 0.3s ease, border-color 0.3s ease; 
-        }
-        .art-card:hover {
-            transform: translateY(-5px); 
-            border-color: #00f5d4; 
-        }
-        .art-card img, .art-card video {
-            width: 100%; 
-            height: 300px; 
-            object-fit: cover; 
-            display: block; 
-            background-color: #15151f; 
-        }
-        .art-info {
-            padding: 15px; 
-        }
-        .art-title {
-            font-size: 1.1rem; 
-            margin: 0 0 5px 0; 
-            color: #ffffff; 
-        }
-        .art-meta {
-            font-size: 0.85rem; 
-            color: #00f5d4; 
-            margin-bottom: 10px; 
-        }
-        .art-desc {
-            font-size: 0.9rem; 
-            color: #8a8a95; 
-            margin: 0; 
-            line-height: 1.4; 
-        }
-    </style>
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 130px max(4vw, 18px) clamp(72px, 10vw, 122px);
+    }
+    .hero-media,
+    .hero-shade { position: absolute; inset: 0; }
+    .hero-media { z-index: -3; }
+    .hero-media img,
+    .hero-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+    }
+    .hero-shade {
+      z-index: -2;
+      background:
+        linear-gradient(180deg, rgba(3,3,7,.14), rgba(3,3,7,.18) 40%, rgba(3,3,7,.92) 100%),
+        linear-gradient(90deg, rgba(3,3,7,.7), transparent 62%);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .12;
+      background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 100% 4px;
+    }
+    .hero-copy { width: min(92vw, 1180px); margin: 0 auto; }
+    .eyebrow,
+    .section-kicker {
+      margin: 0 0 1rem;
+      color: var(--cyan);
+      font-size: .64rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 9ch;
+      margin: 0;
+      font: 400 clamp(4rem, 12vw, 9.6rem)/.77 Georgia, serif;
+      letter-spacing: -.07em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+    h1 span { color: var(--violet); }
+    .hero-declaration {
+      max-width: 690px;
+      margin: 2rem 0 0 clamp(0px, 18vw, 230px);
+      color: rgba(242,238,246,.79);
+      font-size: clamp(.84rem, 1.3vw, 1.04rem);
+      line-height: 1.75;
+    }
+    .hero .eyebrow { text-transform: none; }
+
+    .profile {
+      width: var(--page);
+      margin: auto;
+      padding: clamp(34px, 4.5vw, 66px) 0 clamp(90px, 12vw, 170px);
+      display: grid;
+      grid-template-columns: minmax(240px, .72fr) minmax(0, 1.28fr);
+      gap: clamp(42px, 8vw, 110px);
+      border-bottom: 1px solid var(--line);
+    }
+    .profile-heading h2,
+    .connect h2 {
+      margin: 0;
+      font: 400 clamp(2.7rem, 6vw, 5.8rem)/.88 Georgia, serif;
+      letter-spacing: -.055em;
+    }
+    .profile-heading img {
+      display: block;
+      width: min(100%, 430px);
+      margin-top: 2.4rem;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      filter: saturate(.88) contrast(1.03);
+    }
+    .profile-heading img + img {
+      width: min(76%, 330px);
+      margin: 1.25rem 0 0 auto;
+      aspect-ratio: 5 / 4;
+      object-position: center 44%;
+    }
+    .profile-copy {
+      align-self: center;
+      color: var(--muted);
+      font-family: Georgia, serif;
+      font-size: clamp(1.06rem, 1.5vw, 1.3rem);
+      line-height: 1.78;
+    }
+    .profile-copy p { margin: 0 0 1.4em; }
+    .profile-copy p:first-child::first-letter {
+      float: left;
+      margin: .08em .12em 0 0;
+      color: var(--violet);
+      font-size: 4.4em;
+      line-height: .72;
+    }
+    .profile-copy strong { color: var(--paper); font-weight: 400; }
+
+    .contact-stage {
+      display: grid;
+      width: 100%;
+      overflow: hidden;
+    }
+    .motion-pair {
+      grid-area: 1 / 1;
+      width: var(--page);
+      margin: auto;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .motion-frame {
+      position: relative;
+      width: 78%;
+      overflow: hidden;
+      background: #000;
+    }
+    .motion-frame:nth-child(2) {
+      width: 68%;
+      margin: clamp(-125px, -7vw, -62px) 0 0 auto;
+      z-index: 2;
+    }
+    .motion-frame video {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 88svh;
+      object-fit: contain;
+      margin: auto;
+    }
+    .motion-label {
+      position: absolute;
+      left: 14px;
+      bottom: 12px;
+      padding: .45rem .58rem;
+      color: rgba(242,238,246,.72);
+      background: rgba(5,5,9,.66);
+      font-size: .53rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+
+    .connect {
+      position: relative;
+      z-index: 4;
+      grid-area: 1 / 1;
+      align-self: stretch;
+      align-items: center;
+      width: var(--page);
+      margin: 0 auto;
+      padding: clamp(42px, 7vw, 90px) 0;
+      display: grid;
+      grid-template-columns: minmax(240px, .75fr) minmax(0, 1.25fr);
+      gap: clamp(38px, 8vw, 100px);
+    }
+    .connect-intro,
+    .link-list {
+      padding: clamp(22px, 3vw, 38px);
+      border: 0;
+      background: transparent;
+      backdrop-filter: none;
+      box-shadow: none;
+      text-shadow: 0 2px 10px #000, 0 0 24px rgba(0,0,0,.9);
+    }
+    .connect-intro p:last-child {
+      max-width: 420px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .link-list { display: grid; align-content: start; }
+    .link-list a {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .link-list a:first-child { border-top: 1px solid var(--line); }
+    .link-list a:hover,
+    .link-list a:focus-visible { color: var(--cyan); }
+    .link-list span:last-child { color: var(--violet); }
+
+    footer {
+      display: flex;
+      justify-content: center;
+      gap: clamp(10px, 2vw, 28px);
+      width: var(--page);
+      margin: auto;
+      padding: 0 0 max(28px, env(safe-area-inset-bottom));
+      color: #706a77;
+      font-size: clamp(.38rem, .72vw, .58rem);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 760px) {
+      nav { position: absolute; padding-block: 14px; }
+      nav a { margin-inline: 7px; font-size: .52rem; }
+      .hero { min-height: 96svh; padding-top: 145px; }
+      .hero-shade { background: linear-gradient(180deg, rgba(3,3,7,.16), rgba(3,3,7,.28) 44%, rgba(3,3,7,.95) 100%); }
+      h1 { font-size: clamp(3.55rem, 19vw, 6.2rem); }
+      .hero-declaration { margin-left: 0; max-width: 94%; }
+      .profile,
+      .connect { grid-template-columns: 1fr; }
+      .profile-heading img { width: 74%; }
+      .profile-heading img + img { width: 62%; }
+      .motion-pair { width: 100%; grid-template-columns: 1fr; }
+      .motion-frame,
+      .motion-frame:nth-child(2) { width: 92%; }
+      .motion-frame:nth-child(2) { margin: -22px 0 0 auto; }
+      .connect { margin: 0 auto; align-self: center; }
+      .connect-intro,
+      .link-list { padding: 20px; }
+      footer {
+        gap: clamp(5px, 1.8vw, 10px);
+        width: calc(100% - 16px);
+        padding-inline: 8px;
+        font-size: clamp(.31rem, 1.25vw, .46rem);
+        letter-spacing: .06em;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .motion-frame video { display: none; }
+      .motion-frame:first-child { background: url("portfolio-media/home/home2.jpg") center / cover; }
+      .motion-frame:nth-child(2) { background: url("portfolio-media/home/home1.jpg") center 42% / cover; }
+    }
+  </style>
 </head>
 <body>
+  <a class="skip-link" href="#profile">Skip to artist profile</a>
 
-    <!-- NAVIGATION BAR -->
-    <nav>
-        <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
-        <a href="resonance.html">Resonance &amp; Sound</a>
-        <a href="techspressionism.html" id="nav-techspressionism">Techspressionism</a>
-        <a href="studio.html">Studio Art</a>
-        <a href="tattoo.html">Tattoo</a>
-        <a href="dimensional.html" id="nav-dimensional-art">Dimensional Art</a>
-        <a href="spaces.html" id="nav-intentional-spaces">Intentional Spaces</a>
-    </nav>
+  <nav aria-label="Portfolio navigation">
+    <a class="active" href="index.html" aria-current="page">Home</a>
+    <a href="resonance.html">Resonance &amp; Sound</a>
+    <a href="techspressionism.html">Techspression</a>
+    <a href="studio.html">Studio Art</a>
+    <a href="tattoo.html">Tattoo</a>
+    <a href="dimensional.html">Dimensional Art</a>
+    <a href="spaces.html">Intentional Spaces</a>
+  </nav>
 
-    <div class="container">
-        <!-- HOME PAGE -->
-        <section id="home" class="page active">
-            <h1>Casey Marie Studio</h1>
-            <div class="page-intro">
-                <p>Welcome. This is the official digital ecosystem and visual archive of Casey Marie. We will write your comprehensive narrative here soon.</p>
-            </div>
-        </section>
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-media" aria-hidden="true">
+        <video class="ambient-video" data-speed="0.75" autoplay muted loop playsinline preload="metadata">
+          <source src="portfolio-media/home/home4.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow">aesthetics+design &gt;&gt; meeting &lt;&lt; the mind</p>
+        <h1 id="page-title">Casey Marie <span>Studio</span></h1>
+        <p class="hero-declaration">A multidisciplinary practice moving between sound, image, object, body, and space—guided by curiosity, emotional honesty, and the conviction that every medium has something different to reveal.</p>
+      </div>
+    </section>
 
-        <!-- 1. RESONANCE & SOUND -->
-        <section id="resonance-sound" class="page">
-            <h1>Resonance & Sound</h1>
-            <div class="page-intro">
-                <p><em>The primary fuel for the entire creative spectrum. Audio soundscapes, tracks, and sonic explorations that direct the movement of physical and digital mediums.</em></p>
-            </div>
-            
-            <div class="sound-layout">
-                <!-- BANNER VISUALIZER CANVAS (250px Height) -->
-                <canvas id="visualizer" width="960" height="250" style="width:100%; background:#000000; border-radius:8px; border: 1px solid #1a1a24; display:block; cursor: crosshair;"></canvas>
-                
-                <div class="audio-interface">
-                    <div class="now-playing">SYSTEM STATUS: <span id="current-track-title">Awaiting data injection...</span></div>
-                    <audio id="main-player" controls></audio>
-                    <div class="playlist" id="playlist-container"></div>
-                </div>
-            </div>
-        </section>
+    <section id="profile" class="profile" aria-labelledby="profile-title">
+      <div class="profile-heading">
+        <p class="section-kicker">About Casey</p>
+        <h2 id="profile-title">Welcome.</h2>
+        <img src="portfolio-media/home/home2.jpg" alt="Close view of instruments and a woven guitar strap in Casey Marie Roy’s studio" loading="lazy">
+        <img src="portfolio-media/home/home1.jpg" alt="Casey Marie Roy concentrating while creating a tattoo" loading="lazy">
+      </div>
+      <div class="profile-copy">
+        <p>I’m <strong>Casey Marie</strong>—a multidisciplinary artist and researcher exploring the space where art, science, and human experience intersect.</p>
+        <p>I’ve never been comfortable staying inside a single discipline. To me, art, music, design, architecture, technology, and science have always been different expressions of the same curiosity. I’m endlessly fascinated by patterns, by the relationships between seemingly unrelated ideas, and by the possibility that creativity can reveal something we’ve overlooked.</p>
+        <p>Life has changed my direction more than once. Living with multiple sclerosis has challenged nearly every assumption I had about what a “normal” life would look like. But it has also taught me something unexpected: <strong>curiosity is remarkably resilient.</strong></p>
+        <p>Repeatedly pushed off course by the unpredictable nature of the disease, learning to carve my own path became part of the job of living with MS. I’ve learned skills I might never otherwise have considered. I built this website. I practice prompt engineering and stress-test AI systems. I’ve learned to embrace the discomfort of not knowing, trust in myself, and recognize that every new skill may eventually connect to something larger.</p>
+        <p>Whether you’re here to explore, collaborate, or simply satisfy your own curiosity, I’m grateful you stopped by.</p>
+      </div>
+    </section>
 
-        <!-- 2. TECHSPRESSIONISM -->
-        <section id="techspressionism" class="page">
-            <h1>Techspressionism</h1>
-            <div class="page-intro">
-                <p><em>An exploration of the digital realm as a raw extension of human emotion. Intersecting digital paintings via Procreate and collaborative expressions with generative AI.</em></p>
-            </div>
-            <div class="gallery-grid" id="tech-grid"></div>
-        </section>
+    <section class="contact-stage" aria-label="Contact and moving studio studies">
+      <div class="motion-pair" aria-hidden="true">
+      <div class="motion-frame">
+        <video class="ambient-video" data-speed="0.75" autoplay muted loop playsinline preload="none">
+          <source src="portfolio-media/home/home3.mp4" type="video/mp4">
+        </video>
+        <span class="motion-label">Process / Observation</span>
+      </div>
+      <div class="motion-frame">
+        <video class="ambient-video" data-speed="1" autoplay muted loop playsinline preload="none">
+          <source src="portfolio-media/home/home5.mp4" type="video/mp4">
+        </video>
+        <span class="motion-label">Pattern / Motion</span>
+      </div>
+      </div>
 
-        <!-- 3. STUDIO & TATTOO -->
-        <section id="studio-tattoo" class="page">
-            <h1>Studio & Tattoo</h1>
-            <div class="page-intro">
-                <p><em>Traditional applications on canvas, paper, and skin. Showcasing fine-art paintings, foundational drawings, and custom, intentional tattoo artistry.</em></p>
-            </div>
-            <h2>Fine Art & Studio Works</h2>
-            <div class="gallery-grid" id="studio-grid"></div>
-        </section>
+      <div class="connect" aria-labelledby="connect-title">
+      <div class="connect-intro">
+        <p class="section-kicker">Contact / Follow / Collaborate</p>
+        <h2 id="connect-title">Continue the conversation.</h2>
+        <p>For collaborations, commissions, professional inquiries, or a closer look at the work, connect directly through the channels here.</p>
+      </div>
+      <div class="link-list">
+        <a href="mailto:spacecase135@outlook.com"><span>Email</span><span>Write ↗</span></a>
+        <a href="https://orcid.org/0009-0002-5804-8915" target="_blank" rel="me noopener"><span>ORCID</span><span>Research ↗</span></a>
+        <a href="https://github.com/spacecase135" target="_blank" rel="me noopener"><span>GitHub</span><span>Code ↗</span></a>
+        <a href="https://youtube.com/@spacecase135" target="_blank" rel="me noopener"><span>YouTube</span><span>Watch ↗</span></a>
+        <a href="https://www.linkedin.com/in/caseymarieroy" target="_blank" rel="me noopener"><span>LinkedIn</span><span>Connect ↗</span></a>
+        <a href="https://x.com/SpaceCase135" target="_blank" rel="me noopener"><span>X</span><span>Follow ↗</span></a>
+        <a href="https://www.instagram.com/spacecase135" target="_blank" rel="me noopener"><span>Instagram</span><span>Follow ↗</span></a>
+      </div>
+      </div>
+    </section>
+  </main>
 
-        <!-- 4. DIMENSIONAL ART -->
-        <section id="dimensional-art" class="page">
-            <h1>Dimensional Art</h1>
-            <div class="page-intro">
-                <p><em>Tactile, multi-dimensional physical manifestations. Housing ceramics, hand-sculpted runes, concept-driven shadow boxes, and precise miniatures like the Cemetarium.</em></p>
-            </div>
-            <div class="gallery-grid" id="dimensional-grid"></div>
-        </section>
-
-        <!-- 5. INTENTIONAL SPACES -->
-        <section id="intentional-spaces" class="page">
-            <h1>Intentional Spaces</h1>
-            <div class="page-intro">
-                <p><em>Applied arts and environmental curation. Master craftsmanship including wood-burned custom furnishings, custom musical instruments, and the realization of mindful interior atmospheres.</em></p>
-            </div>
-            <div class="gallery-grid" id="spaces-grid"></div>
-        </section>
-    </div>
-
-    <!-- UTILITY CONTROL ENGINE & HYPER-DENSE IRIDESCENT FABRIC RENDERER -->
-    <script>
-        /* --- 1. SINGLE PAGE ROUTER --- */
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-            
-            const targetPage = document.getElementById(pageId);
-            const targetLink = document.getElementById(`nav-${pageId}`);
-            if (targetPage) targetPage.classList.add('active');
-            if (targetLink) targetLink.classList.add('active');
-            window.scrollTo(0,0);
-        }
-
-        /* --- 2. AUTOMATED PLAYLIST ENGINE --- */
-        const trackList = [
-            { name: "Ancestral Awakening", file: "Ancestral Awakening" },
-            { name: "Bildungsroman (Coming-of-age)", file: "Bildungsroman (Coming-of-age)" },
-            { name: "Butterfly Effect", file: "Butterfly Effect" },
-            { name: "Dance of the Binary", file: "Dance of the Bionary" }, 
-            { name: "Drunk Words", file: "Drunk Words" },
-            { name: "Holy Water", file: "Holy Water" },
-            { name: "Home", file: "Home" },
-            { name: "Matrix of Our Sins", file: "Matrix of Our Sins" },
-            { name: "Miroir Noir", file: "Miroir Noir" },
-            { name: "New Horizon", file: "New Horizon" },
-            { name: "Remember", file: "Remember" },
-            { name: "Sleeping Sober", file: "Sleeping Sober" },
-            { name: "Wunderkind (Wonder Child)", file: "Wunderkind (Wonder Child)" }
-        ];
-
-        const audio = document.getElementById('main-player');
-        const playlistContainer = document.getElementById('playlist-container');
-        const trackTitleDisplay = document.getElementById('current-track-title');
-        let currentTrackIdx = 0;
-        let isAudioPlaying = false;
-
-        function buildPlaylist() {
-            playlistContainer.innerHTML = '';
-            trackList.forEach((track, index) => {
-                const item = document.createElement('div');
-                item.className = `track-item ${index === currentTrackIdx ? 'playing' : ''}`;
-                item.innerHTML = `<span>${index + 1}. ${track.name}</span> <span>MP3</span>`;
-                item.onclick = () => loadTrack(index);
-                playlistContainer.appendChild(item);
-            });
-        }
-
-        function loadTrack(index) {
-            currentTrackIdx = index;
-            audio.src = `portfolio-media/sound/${trackList[index].file}.mp3`;
-            trackTitleDisplay.textContent = trackList[index].name;
-            buildPlaylist();
-            audio.play().catch(err => console.log("Awaiting user gesture: ", err));
-        }
-
-        audio.src = `portfolio-media/sound/${trackList[0].file}.mp3`;
-        trackTitleDisplay.textContent = trackList[0].name;
-        buildPlaylist();
-
-        audio.addEventListener('play', () => { isAudioPlaying = true; });
-        audio.addEventListener('pause', () => { isAudioPlaying = false; });
-        audio.addEventListener('ended', () => {
-            isAudioPlaying = false;
-            if (currentTrackIdx + 1 < trackList.length) loadTrack(currentTrackIdx + 1);
-        });
-
-        /* --- 3. HIGH-VISIBILITY HYPER-DENSE 3D FABRIC WAVE SYSTEM --- */
-        const canvas = document.getElementById('visualizer');
-        const ctx = canvas.getContext('2d');
-        let globalTime = 0;
-
-        const mouse = { x: -1000, y: -1000, active: false };
-
-        // Hyper-Dense Grid Configurations (150 x 150 = 22,500 continuous mesh points)
-        const FOV = 190;          
-        const CAMERA_Y = -15;     // Lower camera plane angle to sit perfectly centered
-        const particles = [];
-        const columns3D = 150;     
-        const rows3D = 150;        
-
-        class HighVisNode3D {
-            constructor(x3d, z3d, origXIdx, origZIdx) {
-                this.x3d = x3d; 
-                this.z3d = z3d; 
-                this.origY3d = 0; // Set to 0 baseline for perfect middle horizon orientation
-                this.y3d = this.origY3d;
-                this.origXIdx = origXIdx; 
-                this.origZIdx = origZIdx;
-
-                this.screenX = 0;
-                this.screenY = 0;
-                this.size = 0;
-                this.colorStr = '';
-            }
-
-            update(audioIntensity) {
-                // Natural base ripple calculation
-                let baseWave = Math.sin(this.x3d * 0.005 + globalTime * 1.4) * Math.cos(this.z3d * 0.003 + globalTime * 1.0) * 6;
-                
-                // MULTI-FREQUENCY SEQUENTIAL MUSIC ENGINE
-                let musicWave = 0;
-                if (audioIntensity > 0) {
-                    // Sweeping directional sound wave fronts
-                    let frequencySweep = Math.sin(this.origXIdx * 0.06 - globalTime * 4.0) * Math.cos(this.origZIdx * 0.08 + globalTime * 2.5);
-                    let subBassThump = Math.sin(globalTime * 5.0) * 0.3 + 0.7;
-                    
-                    musicWave = frequencySweep * subBassThump * (audioIntensity * 70);
-                    
-                    // Amplified spatial center swells
-                    let centerFactor = 1 - (Math.abs(this.origXIdx - columns3D / 2) / (columns3D / 2));
-                    musicWave += centerFactor * Math.cos(this.origZIdx * 0.04 - globalTime * 3.0) * (audioIntensity * 30);
-                }
-
-                let targetY = this.origY3d - baseWave - musicWave;
-
-                // Capture local vector layout context for pointer offsets
-                const relativeZ = this.z3d;
-                const relativeX = this.x3d;
-                const tempRelativeY = targetY - CAMERA_Y;
-
-                const checkX = (relativeX * FOV) / relativeZ + (canvas.width / 2);
-                const checkY = (tempRelativeY * FOV) / relativeZ + (canvas.height / 2);
-
-                // PERSPECTIVE MOUSE CAPTURE INTERACTION
-                if (mouse.active) {
-                    const dx = checkX - mouse.x;
-                    const dy = checkY - mouse.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    const forceRadius = 150; 
-
-                    if (distance < forceRadius) {
-                        const force = (forceRadius - distance) / forceRadius;
-                        targetY += force * 65; 
-                    }
-                }
-
-                this.y3d += (targetY - this.y3d) * 0.20;
-
-                const finalRelativeY = this.y3d - CAMERA_Y;
-                this.screenX = (relativeX * FOV) / relativeZ + (canvas.width / 2);
-                this.screenY = (finalRelativeY * FOV) / relativeZ + (canvas.height / 2);
-
-                // Scale mesh thickness relative to coordinate depth mapping
-                this.size = (FOV / relativeZ) * 1.8; 
-                if (this.size < 0.4) this.size = 0.4; 
-                if (this.size > 4.5) this.size = 4.5; 
-
-                // VARIEGATED DYNAMIC COLOR GRADIENT (Dark Teal -> Bright Neon Teal -> Light Purplish-Teal)
-                // Normalize the height offset into a factor range between 0.0 and 1.0
-                let heightOffset = (this.origY3d - this.y3d); 
-                let normHeight = (heightOffset + 45) / 110; 
-                if (normHeight < 0) normHeight = 0;
-                if (normHeight > 1) normHeight = 1;
-
-                let r, g, b;
-                if (normHeight < 0.5) {
-                    // Mix from Dark Teal [0, 95, 115] to Electric Teal [0, 245, 212]
-                    let t = normHeight * 2; 
-                    r = Math.floor(0);
-                    g = Math.floor(95 + (245 - 95) * t);
-                    b = Math.floor(115 + (212 - 115) * t);
-                } else {
-                    // Mix from Electric Teal [0, 245, 212] to Pale Light Purple [216, 187, 255]
-                    let t = (normHeight - 0.5) * 2;
-                    r = Math.floor(0 + (216 - 0) * t);
-                    g = Math.floor(245 + (187 - 245) * t);
-                    b = Math.floor(212 + (255 - 212) * t);
-                }
-
-                // Apply deep field atmosphere alpha fading toward the horizon
-                let alpha = 1.4 - (relativeZ / 760);
-                if (alpha < 0.0) alpha = 0.0;
-                if (alpha > 1.0) alpha = 1.0;
-
-                this.colorStr = `rgba(${r}, ${g}, ${b}, ${alpha})`;
-            }
-
-            draw() {
-                // Allows rendering space window visibility across the full banner panel context cleanly
-                if (this.screenX < 0 || this.screenX > canvas.width || this.screenY < 0 || this.screenY > canvas.height) return;
-
-                ctx.beginPath();
-                ctx.arc(this.screenX, this.screenY, this.size / 2, 0, Math.PI * 2);
-                ctx.fillStyle = this.colorStr;
-                ctx.fill();
-            }
-        }
-
-        function generateOceanMatrix() {
-            particles.length = 0;
-            for (let z = 0; z < rows3D; z++) {
-                // Flat scale steps space out rows evenly to keep centering uniform
-                const z3d = 25 + (z * 4.8); 
-                for (let x = 0; x < columns3D; x++) {
-                    const x3d = (x - columns3D / 2) * 5.6 * (z3d * 0.0035 + 0.5);
-                    particles.push(new HighVisNode3D(x3d, z3d, x, z));
-                }
-            }
-        }
-
-        function runRenderLoop() {
-            requestAnimationFrame(runRenderLoop);
-
-            ctx.fillStyle = '#000000';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            globalTime += 0.016;
-
-            let audioIntensity = 0;
-            if (isAudioPlaying) {
-                audioIntensity = 0.55 + Math.sin(globalTime * 2.2) * 0.25 + Math.cos(globalTime * 0.8) * 0.15;
-            }
-
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update(audioIntensity);
-                particles[i].draw();
-            }
-        }
-
-        // Interface cursor event handlers
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            mouse.x = (e.clientX - rect.left) * (canvas.width / rect.width);
-            mouse.y = (e.clientY - rect.top) * (canvas.height / rect.height);
-            mouse.active = true;
-        });
-
-        canvas.addEventListener('mouseleave', () => {
-            mouse.active = false;
-        });
-
-        window.addEventListener('resize', () => {
-            generateOceanMatrix();
-        });
-
-        generateOceanMatrix();
-        runRenderLoop();
-
-        /* --- 4. DYNAMIC ART MEDIA GRID INJECTION --- */
-        const counts = { tech: 5, studio: 8, dimensional: 6, spaces: 4 };
-
-        function loadGalleryGrid(folderKey, elementId) {
-            const grid = document.getElementById(elementId);
-            if (!grid) return;
-            grid.innerHTML = '';
-            
-            for (let i = 1; i <= counts[folderKey]; i++) {
-                const card = document.createElement('div');
-                card.className = 'art-card';
-                card.innerHTML = `
-                    <img src="portfolio-media/${folderKey}/${folderKey}${i}.jpg" alt="Artwork ${i}" onerror="this.parentElement.style.display='none'">
-                    <div class="art-info">
-                        <h3 class="art-title">Project Item #${i}</h3>
-                        <div class="art-meta">System Asset</div>
-                        <p class="art-desc">Physical-to-digital process archive entry.</p>
-                    </div>
-                `;
-                grid.appendChild(card);
-            }
-        }
-
-        function loadSpacesGrid() {
-            const grid = document.getElementById('spaces-grid');
-            if (!grid) return;
-            grid.innerHTML = '';
-            
-            const videoCard = document.createElement('div');
-            videoCard.className = 'art-card';
-            videoCard.innerHTML = `
-                <video src="portfolio-media/spaces/spaces1.mp4" controls muted loop></video>
-                <div class="art-info">
-                    <h3 class="art-title">Studio Showcase Video</h3>
-                    <div class="art-meta">Instrument Finishing</div>
-                    <p class="art-desc">Active environment layout optimization footage.</p>
-                </div>
-            `;
-            videoCard.style.display = 'block';
-            grid.appendChild(videoCard);
-
-            for (let i = 2; i <= counts.spaces; i++) {
-                const card = document.createElement('div');
-                card.className = 'art-card';
-                card.innerHTML = `
-                    <img src="portfolio-media/spaces/spaces${i}.jpg" alt="Space Layout ${i}">
-                    <div class="art-info">
-                        <h3 class="art-title">Spatial Activation Design #${i}</h3>
-                        <div class="art-meta">Curation Module</div>
-                        <p class="art-desc">Atmospheric placement grid.</p>
-                    </div>
-                `;
-                grid.appendChild(card);
-            }
-        }
-
-        loadGalleryGrid('tech', 'tech-grid');
-        loadGalleryGrid('studio', 'studio-grid');
-        loadGalleryGrid('dimensional', 'dimensional-grid');
-        loadSpacesGrid();
-    </script>
+  <footer>
+    <span>CASEY MARIE ROY</span>
+    <span>@SPACECASE135</span>
+    <span>© 2026 ALL RIGHTS RESERVED.</span>
+  </footer>
+  <script>
+    document.querySelectorAll(".ambient-video").forEach(video => {
+      video.defaultMuted = true;
+      video.muted = true;
+      video.addEventListener("loadedmetadata", () => {
+        video.playbackRate = Number(video.dataset.speed || 0.5);
+      });
+    });
+  </script>
 </body>
 </html>

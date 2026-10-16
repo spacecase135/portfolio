@@ -988,19 +988,17 @@ God Bless.
             .copyright-mark {
                 left: 8px;
                 right: 8px;
-                bottom: calc(8px + env(safe-area-inset-bottom));
+                /* Keep credits above Android gesture controls as well as any reported safe area. */
+                bottom: calc(32px + env(safe-area-inset-bottom));
                 transform: none;
-                flex-wrap: wrap;
-                gap: 4px 12px;
-                color: rgba(220, 237, 244, 0.78);
-                font-size: 10px;
+                flex-wrap: nowrap;
+                gap: clamp(5px, 1.8vw, 10px);
+                padding-inline: 8px;
+                color: rgba(220, 237, 244, 0.58);
+                font-size: clamp(.31rem, 1.25vw, .46rem);
                 line-height: 1.4;
-                letter-spacing: 0.035em;
+                letter-spacing: .06em;
                 text-align: center;
-            }
-
-            .copyright-mark span:last-child {
-                flex-basis: 100%;
             }
         }
 

@@ -472,7 +472,7 @@
 
     .work-caption {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 16px;
       padding: 11px 7px 0;
@@ -485,7 +485,40 @@
       text-transform: uppercase;
     }
 
+    .work-label {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .work-details,
+    .lb-details {
+      color: rgba(238, 242, 237, 0.64);
+      font-size: 0.67rem;
+      line-height: 1.5;
+      letter-spacing: 0.025em;
+    }
+
+    .hero-work-caption {
+      display: block;
+      padding: 12px 7px 0;
+      text-align: left;
+    }
+
+    .hero-work-caption .work-name,
+    .hero-work-caption .work-details {
+      display: block;
+      margin-top: 5px;
+    }
+
+    .lb-details {
+      margin: 8px 0;
+    }
+
     .work-number {
+      flex-shrink: 0;
       color: var(--emerald-pale);
       font-size: 0.52rem;
       letter-spacing: 0.12em;
@@ -821,6 +854,7 @@
     </div>
     <div class="lb-info">
       <p id="lb-title" class="lb-title"></p>
+      <p id="lb-details" class="lb-details"></p>
       <span id="lb-count" class="lb-count"></span>
     </div>
   </div>
@@ -835,23 +869,23 @@
       The remaining still images form the archive below.
     */
     const works = [
-      ["studio3.jpg", "Betta Study", "Large blue and rose betta fish painting"],
-      ["studio1.jpg", "Studio Archive / 01", "Original artwork from the Casey Marie studio archive"],
-      ["studio2.jpg", "Studio Archive / 02", "Original artwork from the Casey Marie studio archive"],
-      ["studio4.jpg", "Dreamcatcher Study", "Painted dreamcatcher with feathers on a gold and white ground"],
-      ["studio5.jpg", "Botanical Detail", "Lavender flower painted against layered emerald foliage"],
-      ["studio6.jpg", "Garden in Motion", "Abstract botanical painting in jewel-toned brushstrokes"],
-      ["studio7.jpg", "Altered String Instrument", "String instrument painted with a dark green celestial atmosphere"],
-      ["studio8.jpg", "Black and Grey Roses", "Black-and-grey roses created on synthetic practice skin"],
-      ["studio9.jpg", "Winter Cosmos", "Snow-covered trees beneath a blue and violet galactic sky"],
-      ["studio10.jpg", "I Will Not Surrender", "Mixed-symbol illustration with feather and handwritten declaration"],
-      ["studio11.jpg", "Wolf Study", "Monochrome hand-drawn wolf portrait"],
-      ["studio12.jpg", "Koi and Lotus", "Two orange koi circling magenta lotus flowers and blue water"],
-      ["studio13.jpg", "Dragonfly Design", "Emerald dragonfly design with ornamental chains"],
-      ["studio14.jpg", "Studio Archive / 14", "Original artwork from the Casey Marie studio archive"],
-      ["studio15.jpg", "Studio Archive / 15", "Original artwork from the Casey Marie studio archive"],
-      ["studio16.jpg", "Fox Study", "Graphite drawing of a fox standing in profile"],
-      ["studio17.jpg", "Studio Archive / 17", "Original artwork from the Casey Marie studio archive"]
+      ["studio3.jpg", "Betta Fish", "Large blue and rose betta fish painting", "Acrylic on canvas", "16 × 20 inches"],
+      ["studio1.jpg", "The Eyes Have It", "The Eyes Have It, pencil drawing on paper", "Pencil on paper", "11 × 14 inches"],
+      ["studio2.jpg", "Feathered Friends", "Feathered Friends, colored pencil drawing on paper", "Colored pencil on paper", "11 × 14 inches"],
+      ["studio4.jpg", "Catching Dreams", "Painted dreamcatcher with feathers on a gold and white ground", "Acrylic on canvas", "10 × 20 inches"],
+      ["studio5.jpg", "Brachyscome iberidifolia (Swan River Daisy)", "Lavender flower painted against layered emerald foliage", "Oil on canvas", "6 × 6 inches"],
+      ["studio6.jpg", "Delicate", "Abstract botanical painting in jewel-toned brushstrokes", "Acrylic on canvas", "16 × 20 inches"],
+      ["studio7.jpg", "Galaxy Violin", "Violin painted with a dark green celestial atmosphere", "Acrylic", ""],
+      ["studio8.jpg", "Black and Gray Roses", "Black-and-gray rose tattoo practice on silicone skin", "Tattoo on silicone practice skin", ""],
+      ["studio9.jpg", "Da Cosmos", "Snow-covered trees beneath a blue and violet galactic sky", "Acrylic on canvas", "16 × 20 inches"],
+      ["studio10.jpg", "Blink-182 Inspired Tattoo Practice", "Blink-182-inspired tattoo practice on silicone skin", "Tattoo on silicone practice skin", ""],
+      ["studio11.jpg", "Lone Wolf Practice", "Black-and-gray wolf tattoo practice on silicone skin", "Black-and-gray tattoo on silicone practice skin", ""],
+      ["studio12.jpg", "Koi and Lotus", "Two orange koi circling magenta lotus flowers and blue water", "Tattoo on silicone practice skin", ""],
+      ["studio13.jpg", "Custom Dragonfly Design", "Emerald dragonfly design with ornamental chains", "Tattoo on silicone practice skin", ""],
+      ["studio14.jpg", "Happy Trio", "Happy Trio, colored pencil and marker illustration on paper", "Colored pencil and marker on paper", "11 × 14 inches"],
+      ["studio15.jpg", "Koi and Lotus Practice", "Koi and Lotus Practice, watercolor and permanent marker drawing on paper", "Watercolor markers and permanent marker on paper", "11 × 14 inches"],
+      ["studio16.jpg", "Inquisitive Fox", "Pencil drawing of a fox looking back over its shoulder", "Pencil on paper", "7 × 11 inches"],
+      ["studio17.jpg", "A Royal Family", "A Royal Family, pencil drawing on paper", "Pencil on paper", "5 × 7 inches"]
     ];
 
     const gallery = document.getElementById("gallery");
@@ -861,6 +895,7 @@
     const lightboxStage = document.getElementById("lightbox-stage");
     const lightboxImage = document.getElementById("lb-image");
     const lightboxTitle = document.getElementById("lb-title");
+    const lightboxDetails = document.getElementById("lb-details");
     const lightboxCount = document.getElementById("lb-count");
     const lightboxClose = document.getElementById("lb-close");
     const lightboxPrevious = document.getElementById("lb-prev");
@@ -870,8 +905,22 @@
     let lastFocus = null;
     let touchStartX = 0;
 
+    function workDetails(work) {
+      return [work[3], work[4]].filter(Boolean).join(" · ");
+    }
+
     function buildGallery() {
       const fragment = document.createDocumentFragment();
+      const heroCaption = document.createElement("span");
+      const heroName = document.createElement("span");
+      const heroDetails = document.createElement("span");
+      heroCaption.className = "hero-work-caption";
+      heroName.className = "work-name";
+      heroDetails.className = "work-details";
+      heroName.textContent = works[0][1];
+      heroDetails.textContent = workDetails(works[0]);
+      heroCaption.append(heroName, heroDetails);
+      document.querySelector(".hero-image-button").appendChild(heroCaption);
 
       works.slice(1).forEach(function(work, galleryIndex) {
         const workIndex = galleryIndex + 1;
@@ -881,6 +930,8 @@
         const image = document.createElement("img");
         const caption = document.createElement("span");
         const name = document.createElement("span");
+        const details = document.createElement("span");
+        const label = document.createElement("span");
         const number = document.createElement("span");
 
         article.className = "work";
@@ -897,6 +948,9 @@
 
         caption.className = "work-caption";
         name.className = "work-name";
+        details.className = "work-details";
+        label.className = "work-label";
+        details.textContent = workDetails(work);
         number.className = "work-number";
         name.textContent = work[1];
         number.textContent = String(workIndex + 1).padStart(2, "0");
@@ -906,7 +960,8 @@
         });
 
         frame.appendChild(image);
-        caption.append(name, number);
+        label.append(name, details);
+        caption.append(label, number);
         button.append(frame, caption);
         article.appendChild(button);
         fragment.appendChild(article);
@@ -936,6 +991,7 @@
       lightboxImage.src = imagePath + work[0];
       lightboxImage.alt = work[2];
       lightboxTitle.textContent = work[1];
+      lightboxDetails.textContent = workDetails(work);
       lightboxCount.textContent =
         String(currentIndex + 1).padStart(2, "0") +
         " / " +

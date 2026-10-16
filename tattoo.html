@@ -97,8 +97,7 @@
     main { display: block; }
     .intro { width: var(--page); margin: 0 auto; padding: clamp(68px, 11vw, 145px) 0 clamp(45px, 7vw, 90px); }
     .intro p { width: min(640px, 100%); margin: 0; font-size: clamp(1.05rem, 2.1vw, 1.55rem); line-height: 1.65; letter-spacing: .025em; }
-    .intro p::first-letter { color: var(--magenta); }
-    .intro small { display: block; margin-top: 1.4rem; color: var(--muted); font-size: .67rem; text-transform: uppercase; letter-spacing: .18em; }
+    .accent-period { color: var(--magenta); }
     .gallery { width: var(--page); margin: 0 auto; padding-bottom: clamp(90px, 13vw, 180px); }
     .gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(24px, 5vw, 76px) clamp(16px, 3vw, 42px); }
     .piece { grid-column: span 5; margin: 0; }
@@ -111,8 +110,6 @@
     .piece img { display: block; width: 100%; height: auto; transition: transform .55s cubic-bezier(.2,.7,.2,1), opacity .3s; }
     .piece-button:hover img, .piece-button:focus-visible img { transform: scale(1.018); }
     .piece-button:focus-visible { outline: 1px solid var(--blue); outline-offset: 7px; }
-    .piece figcaption { display: flex; gap: .7rem; margin-top: .65rem; color: #756d72; font-size: .59rem; letter-spacing: .16em; text-transform: uppercase; }
-    .piece figcaption::before { content: attr(data-number); color: var(--red); }
     .inquiry { position: relative; width: var(--page); margin: 0 auto; padding: 0 0 clamp(100px, 14vw, 180px); }
     .inquiry::before { content: ""; display: block; width: 100%; height: 1px; margin-bottom: clamp(45px, 7vw, 85px); background: linear-gradient(90deg, var(--red), transparent 68%); }
     .inquiry h2 { margin: 0 0 1rem; color: var(--magenta); font-size: clamp(2.3rem, 7vw, 6rem); font-weight: 400; line-height: .94; letter-spacing: -.06em; text-transform: uppercase; }
@@ -174,13 +171,12 @@
       <div class="hero-copy">
         <p class="eyebrow">Living art / custom work</p>
         <h1 id="page-title">Tattoo</h1>
-        <div class="hero-line">Hand-drawn. Body-bound. Singular.</div>
+        <div class="hero-line"><span>Hand-drawn<span class="accent-period">.</span> Body-bound<span class="accent-period">.</span> Singular<span class="accent-period">.</span></span></div>
       </div>
     </section>
 
     <section class="intro" aria-label="About the work">
       <p>Marks made in collaboration—each piece shaped by the person, the placement, and the story it carries.</p>
-      <small>Selected work · 01—21</small>
     </section>
 
     <section id="gallery" class="gallery" aria-label="Selected tattoo work">
@@ -205,7 +201,7 @@
     <button class="lightbox-control lightbox-prev" type="button" aria-label="Previous image">‹</button>
     <div class="lightbox-stage"><img id="lightbox-image" src="" alt=""></div>
     <button class="lightbox-control lightbox-next" type="button" aria-label="Next image">›</button>
-    <div class="lightbox-meta"><span>Selected work</span><span class="lightbox-count"></span></div>
+    <div class="lightbox-meta"><span class="lightbox-count"></span></div>
   </div>
 
   <script>
@@ -215,12 +211,12 @@
     const items = galleryOrder.map((number, index) => ({
       number,
       src: `portfolio-media/tattoo/tattoo${number}.jpg`,
-      alt: `Tattoo artwork by Casey Marie Singer, selected work ${String(index + 2).padStart(2, "0")}`
+      alt: `Tattoo artwork by Casey Marie Singer, image ${index + 1} of ${galleryOrder.length}`
     }));
     items.forEach((item, index) => {
       const figure = document.createElement("figure");
       figure.className = "piece";
-      figure.innerHTML = `<button class="piece-button" type="button" data-index="${index}" aria-label="Open selected tattoo ${index + 2} in full screen"><span class="image-wrap"><img src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async"></span></button><figcaption data-number="${String(index + 2).padStart(2, "0")}"><span>Selected work</span></figcaption>`;
+      figure.innerHTML = `<button class="piece-button" type="button" data-index="${index}" aria-label="Open tattoo image ${index + 1} in full screen"><span class="image-wrap"><img src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async"></span></button>`;
       gallery.appendChild(figure);
     });
 
@@ -243,7 +239,7 @@
       const item = items[currentIndex];
       lightboxImage.src = item.src;
       lightboxImage.alt = item.alt;
-      count.textContent = `${String(currentIndex + 2).padStart(2, "0")} / 21`;
+      count.textContent = `${currentIndex + 1} / ${items.length}`;
     }
     function openLightbox(index) {
       currentIndex = index; lastFocus = document.activeElement; renderLightbox();

@@ -928,18 +928,8 @@ God Bless.
                 letter-spacing: 0.2em;
             }
 
-            .copyright-mark {
-                bottom: 6px;
-                gap: clamp(5px, 1.8vw, 10px);
-                font-size: clamp(0.34rem, 1.35vw, 0.46rem);
-                letter-spacing: 0.035em;
-            }
-
             .player-wrap {
-                bottom: max(
-                    8px,
-                    env(safe-area-inset-bottom)
-                );
+                bottom: calc(56px + env(safe-area-inset-bottom));
 
                 width: calc(100vw - 16px);
             }
@@ -987,7 +977,7 @@ God Bless.
 
             .playlist-drawer {
                 right: 8px;
-                bottom: 142px;
+                bottom: calc(190px + env(safe-area-inset-bottom));
 
                 width: calc(100vw - 16px);
                 max-height: min(53vh, 440px);
@@ -996,10 +986,21 @@ God Bless.
             }
 
             .copyright-mark {
-                bottom: 137px;
-                max-width: none;
-                overflow: visible;
-                font-size: clamp(0.34rem, 1.35vw, 0.46rem);
+                left: 8px;
+                right: 8px;
+                bottom: calc(8px + env(safe-area-inset-bottom));
+                transform: none;
+                flex-wrap: wrap;
+                gap: 4px 12px;
+                color: rgba(220, 237, 244, 0.78);
+                font-size: 10px;
+                line-height: 1.4;
+                letter-spacing: 0.035em;
+                text-align: center;
+            }
+
+            .copyright-mark span:last-child {
+                flex-basis: 100%;
             }
         }
 
